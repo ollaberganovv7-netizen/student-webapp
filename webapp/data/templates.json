@@ -3,7 +3,7 @@
         "id": "general_education_bright",
         "name": "Education Bright",
         "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "preview": "static/previews/General/Education_Bright.png",
         "file_path": "templates/General/Education_Bright.pptx",
         "file_size": "29 KB"
     },
@@ -32,36 +32,12 @@
         "file_size": "318 KB"
     },
     {
-        "id": "general_elegant_emerald",
-        "name": "Elegant Emerald",
-        "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/General/Elegant_Emerald.pptx",
-        "file_size": "29 KB"
-    },
-    {
-        "id": "general_history_classic",
-        "name": "History Classic",
-        "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/General/History_Classic.pptx",
-        "file_size": "29 KB"
-    },
-    {
         "id": "general_3",
         "name": "3",
         "category": "General",
         "preview": "static/previews/General/3.png",
         "file_path": "templates/General/3.pptx",
         "file_size": "168 KB"
-    },
-    {
-        "id": "general_premium_purple",
-        "name": "Premium Purple",
-        "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/General/Premium_Purple.pptx",
-        "file_size": "29 KB"
     },
     {
         "id": "general_priroda",
@@ -91,7 +67,7 @@
         "id": "general_minimalist_light",
         "name": "Minimalist Light",
         "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "preview": "static/previews/General/Minimalist_Light.png",
         "file_path": "templates/General/Minimalist_Light.pptx",
         "file_size": "29 KB"
     },
@@ -102,22 +78,6 @@
         "preview": "static/previews/General/4.png",
         "file_path": "templates/General/4.pptx",
         "file_size": "31 KB"
-    },
-    {
-        "id": "general_law_justice",
-        "name": "Law Justice",
-        "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/General/Law_Justice.pptx",
-        "file_size": "29 KB"
-    },
-    {
-        "id": "general_corporate_dark",
-        "name": "Corporate Dark",
-        "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/General/Corporate_Dark.pptx",
-        "file_size": "29 KB"
     },
     {
         "id": "buxgalteriya_boshqaruv_hisobi",
@@ -157,22 +117,14 @@
         "category": "modern",
         "preview": "static/previews/modern/1.png",
         "file_path": "templates/modern/1.pptx",
-        "file_size": "11749 KB"
+        "file_size": "7274 KB"
     },
     {
-        "id": "modern_3",
-        "name": "3",
+        "id": "modern_data_migration_project_proposal_by_slidesgo",
+        "name": "Data Migration Project Proposal By Slidesgo",
         "category": "modern",
-        "preview": "static/previews/modern/3.png",
-        "file_path": "templates/modern/3.pptx",
-        "file_size": "1432 KB"
-    },
-    {
-        "id": "modern_2",
-        "name": "2",
-        "category": "modern",
-        "preview": "static/previews/modern/2.png",
-        "file_path": "templates/modern/2.pptx",
-        "file_size": "28859 KB"
+        "preview": "static/previews/modern/Data Migration Project Proposal by Slidesgo.png",
+        "file_path": "templates/modern/Data Migration Project Proposal by Slidesgo.pptx",
+        "file_size": "7699 KB"
     }
 ]
