@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tezis Sozlamalari</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-dark: #1e293b;
+            --input-bg: #0f172a;
+            --accent: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .input-group {
+            background: var(--input-bg);
+            border-radius: 12px;
+            padding: 10px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 16px;
+            outline: none;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .input-group input::placeholder {
+            color: #475569;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        input[type=range] {
+            width: 100%;
+            accent-color: var(--accent);
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: #93c5fd;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .price-display {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #10b981;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>🎓 Tezis (Ilmiy Maqola)</h2>
+
+    <div class="input-group">
+        <label>Mavzu (Topic)</label>
+        <input type="text" id="topic" placeholder="Masalan: Sun'iy intellektning ta'limdagi o'rni">
+    </div>
+
+    <div class="input-group">
+        <label>Muallif ism-sharifi</label>
+        <input type="text" id="author" placeholder="Masalan: Alisherov Anvar">
+    </div>
+
+    <div class="input-group">
+        <label>Universitet / Muassasa nomi</label>
+        <input type="text" id="university" placeholder="Masalan: Toshkent Davlat Texnika Universiteti">
+    </div>
+
+    <div class="input-group">
+        <label>Tuzilma (Structure)</label>
+        <select id="structure">
+            <option value="Standart">Standart (Kirish - Asosiy qism - Xulosa)</option>
+            <option value="IMRAD">IMRAD (Ilmiy: Adabiyot, Metodologiya...)</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Til</label>
+        <select id="language">
+            <option value="uz">O'zbekcha 🇺🇿</option>
+            <option value="ru">Русский 🇷🇺</option>
+            <option value="en">English 🇬🇧</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <div class="slider-header">
+            <span style="color: var(--text-muted);">Hajmi (Sahifalar soni):</span>
+            <span id="page-count" style="font-weight: bold; color: var(--accent);">5 sahifa</span>
+        </div>
+        <input type="range" id="pages" min="5" max="20" step="5" value="5">
+        <div style="display:flex; justify-content: space-between; font-size:10px; color:#64748b; margin-top:5px;">
+            <span>5</span>
+            <span>10</span>
+            <span>15</span>
+            <span>20</span>
+        </div>
+    </div>
+
+    <div class="info-box" id="words-info">
+        Hajmi: ~1000 ta so'z
+    </div>
+
+    <div class="price-display" id="price-display">
+        4 000 so'm
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.MainButton.text = "SAQLASH VA YARATISH";
+        tg.MainButton.show();
+
+        const PRICES = {
+            5: 4000,
+            10: 5000,
+            15: 6000,
+            20: 7000
+        };
+
+        const WORDS = {
+            5: 1000,
+            10: 2000,
+            15: 3000,
+            20: 4000
+        };
+
+        const pagesInput = document.getElementById('pages');
+        const pageCountDisp = document.getElementById('page-count');
+        const priceDisp = document.getElementById('price-display');
+        const wordsInfo = document.getElementById('words-info');
+
+        function updateUI() {
+            const val = parseInt(pagesInput.value);
+            pageCountDisp.innerText = val + ' sahifa';
+            priceDisp.innerText = PRICES[val].toLocaleString() + " so'm";
+            wordsInfo.innerText = "Hajmi: ~" + WORDS[val] + " ta so'z";
+        }
+
+        pagesInput.addEventListener('input', updateUI);
+
+        tg.MainButton.onClick(() => {
+            const topic = document.getElementById('topic').value.trim();
+            const author = document.getElementById('author').value.trim();
+
+            if (topic.length < 5) {
+                tg.showAlert("Iltimos, mavzuni to'liqroq kiriting.");
+                return;
+            }
+            if (author.length < 3) {
+                tg.showAlert("Iltimos, muallif ismini kiriting.");
+                return;
+            }
+
+            const data = {
+                type: "tezis_settings",
+                topic: topic,
+                author: author,
+                university: document.getElementById('university').value.trim(),
+                structure: document.getElementById('structure').value,
+                language: document.getElementById('language').value,
+                pages: parseInt(pagesInput.value)
+            };
+
+            tg.sendData(JSON.stringify(data));
+        });
+
+        // Initialize
+        updateUI();
+    </script>
+</body>
+
+</html>

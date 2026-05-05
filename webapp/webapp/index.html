@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Design Catalog</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            --accent-color: #3b82f6;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin: 8px 0 0 0;
+        }
+
+        /* Accordion Styles */
+        .category-btn {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 16px 20px;
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .category-btn::after {
+            content: '→';
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .category-btn.active::after {
+            transform: rotate(90deg);
+        }
+
+        .panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 16px;
+        }
+
+        /* Grid */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 8px 4px;
+        }
+
+        /* Card Styles */
+        .template-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .template-card:active {
+            transform: scale(0.95);
+        }
+
+        .preview-box {
+            width: 100%;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .card-info {
+            padding: 12px;
+        }
+
+        .card-name {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .card-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #templates-container {
+            margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>DESIGN CATALOG</h1>
+        <p>Premium presentation templates</p>
+    </div>
+
+    <div id="templates-container">
+        <!-- Categories will be loaded here dynamically -->
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.backgroundColor = "#0f172a";
+        tg.headerColor = "#0f172a";
+
+        async function loadTemplates() {
+            try {
+                const response = await fetch('data/templates.json');
+                const templates = await response.json();
+                
+                const container = document.getElementById('templates-container');
+                const categories = [...new Set(templates.map(t => t.category))];
+
+                categories.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = 'category-btn';
+                    btn.innerHTML = `<span>${cat}</span>`;
+                    btn.onclick = () => {
+                        btn.classList.toggle('active');
+                        const panel = btn.nextElementSibling;
+                        panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+                    };
+
+                    const panel = document.createElement('div');
+                    panel.className = 'panel';
+                    
+                    const grid = document.createElement('div');
+                    grid.className = 'template-grid';
+
+                    templates.filter(t => t.category === cat).forEach(t => {
+                        const card = document.createElement('div');
+                        card.className = 'template-card';
+                        card.onclick = () => selectTemplate(t);
+                        
+                        card.innerHTML = `
+                            <div class="preview-box">
+                                ${t.preview.includes('placeholder') ? '🎨' : `<img src="${t.preview}" style="width:100%;height:100%;object-fit:cover;">`}
+                            </div>
+                            <div class="card-info">
+                                <span class="card-name">${t.name}</span>
+                                <span class="card-meta">${t.file_size}</span>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    panel.appendChild(grid);
+                    container.appendChild(btn);
+                    container.appendChild(panel);
+                });
+            } catch (e) {
+                console.error("Error loading templates:", e);
+            }
+        }
+
+        function selectTemplate(template) {
+            tg.HapticFeedback.impactOccurred("medium");
+            tg.sendData(JSON.stringify({
+                template_id: template.id,
+                template_name: template.name
+            }));
+        }
+
+        loadTemplates();
+    </script>
+</body>
+</html>
