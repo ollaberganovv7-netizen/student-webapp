@@ -308,17 +308,6 @@
         <input type="range" id="slides" min="6" max="30" value="10">
     </div>
 
-    <!-- AI Image Generation Toggle -->
-    <div class="toggle-row" id="aiImagesRow">
-        <div class="label-group">
-            <span class="title">🎨 AI rasm yaratishi</span>
-            <span class="sub">3 ta rasm avtomatik qo'shiladi (+2 000 so'm)</span>
-        </div>
-        <label class="switch">
-            <input type="checkbox" id="aiImages">
-            <span class="slider-sw"></span>
-        </label>
-    </div>
 
     <div class="info-box">
         <div class="info-item">
@@ -394,7 +383,6 @@
                 else if (count <= 20) base = PRICES.standard_mid;
                 else base = PRICES.standard_high;
             }
-            if (document.getElementById('aiImages').checked) base += 2000;
             return base;
         }
 
@@ -416,7 +404,6 @@
         }
 
         slidesInput.oninput = updateUI;
-        document.getElementById('aiImages').onchange = updateUI;
         updateUI();
 
         function saveSettings() {
@@ -431,7 +418,7 @@
                 language: document.getElementById('language').value,
                 slides: slidesInput.value,
                 premium: isPremium,
-                ai_images: document.getElementById('aiImages').checked,
+                ai_images: false,
                 topic: topicVal
             };
             tg.sendData(JSON.stringify(data));
