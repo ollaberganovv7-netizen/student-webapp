@@ -46,7 +46,7 @@
             margin-bottom: 20px;
         }
 
-        /* Accordion Style from Screenshot */
+        /* Accordion Style */
         .category-item {
             margin-bottom: 8px;
         }
@@ -80,6 +80,14 @@
             gap: 8px;
         }
 
+        .category-count {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.15);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
         .chevron {
             transition: transform 0.3s;
         }
@@ -108,7 +116,11 @@
             border-radius: 8px;
             overflow: hidden;
             border: 2px solid transparent;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+
+        .template-card:active {
+            transform: scale(0.97);
         }
 
         .template-card.selected {
@@ -137,10 +149,28 @@
             color: var(--text-dim);
         }
 
+        .template-name {
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+
         .size-tag {
             background: rgba(255, 255, 255, 0.1);
             padding: 2px 6px;
             border-radius: 4px;
+        }
+
+        .empty-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 14px;
+            padding: 20px;
         }
 
         /* Fixed Footer */
@@ -191,6 +221,24 @@
         let selectedId = null;
         let templates = [];
 
+        // Category icons for known folders
+        const CATEGORY_ICONS = {
+            'General': '📁',
+            'modern': '✨',
+            'Biology': '🧬',
+            'IT': '💻',
+            'Buxgalteriya': '📊',
+            'Medicine': '⚕️',
+            'History': '📜',
+            'Science': '🔬',
+            'Education': '🎓',
+            'Business': '💼',
+            'Art': '🎨',
+            'Sport': '⚽',
+            'Music': '🎵',
+            'Law': '⚖️',
+        };
+
         async function loadData() {
             try {
                 const res = await fetch('data/templates.json');
@@ -203,27 +251,33 @@
             const list = document.getElementById('catalog-list');
             const categories = [...new Set(templates.map(t => t.category))];
 
-            list.innerHTML = categories.map(cat => `
+            list.innerHTML = categories.map(cat => {
+                const catTemplates = templates.filter(t => t.category === cat);
+                const icon = CATEGORY_ICONS[cat] || '📂';
+                return `
                 <div class="category-item" id="cat-${cat}">
                     <div class="category-header" onclick="toggle('${cat}')">
-                        <div class="category-title">${cat} ${cat === 'Biology' ? '★' : ''}</div>
+                        <div class="category-title">
+                            ${icon} ${cat}
+                            <span class="category-count">${catTemplates.length}</span>
+                        </div>
                         <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                     </div>
                     <div class="templates-content">
-                        ${templates.filter(t => t.category === cat).map(t => `
+                        ${catTemplates.length > 0 ? catTemplates.map(t => `
                             <div class="template-card ${selectedId === t.id ? 'selected' : ''}" onclick="select('${t.id}')">
                                 <div class="preview-container">
                                     <img src="${t.preview}" class="preview-img" onerror="this.src='https://via.placeholder.com/200x120/1c1c1e/fff?text=Design'">
                                 </div>
                                 <div class="card-footer">
+                                    <span class="template-name">${t.name}</span>
                                     <span class="size-tag">~ ${t.file_size}</span>
-                                    <span>🖼️</span>
                                 </div>
                             </div>
-                        `).join('')}
+                        `).join('') : '<div class="empty-msg">Hozircha shablonlar yo\'q</div>'}
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function toggle(cat) {

@@ -1,51 +1,11 @@
 [
     {
-        "id": "general_education_bright",
-        "name": "Education Bright",
-        "category": "General",
-        "preview": "static/previews/General/Education_Bright.png",
-        "file_path": "templates/General/Education_Bright.pptx",
-        "file_size": "29 KB"
-    },
-    {
-        "id": "general_6",
-        "name": "6",
-        "category": "General",
-        "preview": "static/previews/General/6.png",
-        "file_path": "templates/General/6.pptx",
-        "file_size": "606 KB"
-    },
-    {
-        "id": "general_classic",
-        "name": "Classic",
-        "category": "General",
-        "preview": "static/previews/General/classic.png",
-        "file_path": "templates/General/classic.pptx",
-        "file_size": "32 KB"
-    },
-    {
         "id": "general_1",
         "name": "1",
         "category": "General",
         "preview": "static/previews/General/1.png",
         "file_path": "templates/General/1.pptx",
         "file_size": "318 KB"
-    },
-    {
-        "id": "general_3",
-        "name": "3",
-        "category": "General",
-        "preview": "static/previews/General/3.png",
-        "file_path": "templates/General/3.pptx",
-        "file_size": "168 KB"
-    },
-    {
-        "id": "general_priroda",
-        "name": "Priroda",
-        "category": "General",
-        "preview": "static/previews/General/priroda.png",
-        "file_path": "templates/General/priroda.pptx",
-        "file_size": "1030 KB"
     },
     {
         "id": "general_2",
@@ -56,12 +16,44 @@
         "file_size": "55 KB"
     },
     {
+        "id": "general_3",
+        "name": "3",
+        "category": "General",
+        "preview": "static/previews/General/3.png",
+        "file_path": "templates/General/3.pptx",
+        "file_size": "168 KB"
+    },
+    {
+        "id": "general_4",
+        "name": "4",
+        "category": "General",
+        "preview": "static/previews/General/4.png",
+        "file_path": "templates/General/4.pptx",
+        "file_size": "31 KB"
+    },
+    {
         "id": "general_5",
         "name": "5",
         "category": "General",
         "preview": "static/previews/General/5.png",
         "file_path": "templates/General/5.pptx",
         "file_size": "338 KB"
+    },
+    {
+        "id": "general_6",
+        "name": "6",
+        "category": "General",
+        "preview": "static/previews/General/6.png",
+        "file_path": "templates/General/6.pptx",
+        "file_size": "606 KB"
+    },
+    {
+        "id": "general_education_bright",
+        "name": "Education Bright",
+        "category": "General",
+        "preview": "static/previews/General/Education_Bright.png",
+        "file_path": "templates/General/Education_Bright.pptx",
+        "file_size": "29 KB"
     },
     {
         "id": "general_minimalist_light",
@@ -72,11 +64,19 @@
         "file_size": "29 KB"
     },
     {
-        "id": "general_4",
-        "name": "4",
+        "id": "general_classic",
+        "name": "Classic",
         "category": "General",
-        "preview": "static/previews/General/4.png",
-        "file_path": "templates/General/4.pptx",
-        "file_size": "31 KB"
+        "preview": "static/previews/General/classic.png",
+        "file_path": "templates/General/classic.pptx",
+        "file_size": "32 KB"
+    },
+    {
+        "id": "general_priroda",
+        "name": "Priroda",
+        "category": "General",
+        "preview": "static/previews/General/priroda.png",
+        "file_path": "templates/General/priroda.pptx",
+        "file_size": "1.0 MB"
     }
 ]
