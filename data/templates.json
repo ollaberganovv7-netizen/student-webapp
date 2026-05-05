@@ -134,12 +134,11 @@
         "is_empty": true
     },
     {
-        "id": "dummy_modern",
-        "name": "Tez orada...",
-        "category": "modern",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=modern",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
+        "id": "akademik_9",
+        "name": "9",
+        "category": "akademik",
+        "preview": "static/previews/akademik/9.png",
+        "file_path": "templates/akademik/9.pptx",
+        "file_size": "4933 KB"
     }
 ]
