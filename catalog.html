@@ -264,7 +264,7 @@
                         <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                     </div>
                     <div class="templates-content">
-                        ${catTemplates.length > 0 ? catTemplates.map(t => `
+                        ${catTemplates.length > 0 && !catTemplates[0].is_empty ? catTemplates.map(t => `
                             <div class="template-card ${selectedId === t.id ? 'selected' : ''}" onclick="select('${t.id}')">
                                 <div class="preview-container">
                                     <img src="${t.preview}" class="preview-img" onerror="this.src='https://via.placeholder.com/200x120/1c1c1e/fff?text=Design'">

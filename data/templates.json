@@ -1,5 +1,32 @@
 [
     {
+        "id": "dummy_biology",
+        "name": "Tez orada...",
+        "category": "Biology",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Biology",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_business",
+        "name": "Tez orada...",
+        "category": "Business",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Business",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_buxgalteriya",
+        "name": "Tez orada...",
+        "category": "Buxgalteriya",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Buxgalteriya",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
         "id": "general_1",
         "name": "1",
         "category": "General",
@@ -78,5 +105,41 @@
         "preview": "static/previews/General/priroda.png",
         "file_path": "templates/General/priroda.pptx",
         "file_size": "1.0 MB"
+    },
+    {
+        "id": "dummy_history",
+        "name": "Tez orada...",
+        "category": "History",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=History",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_it",
+        "name": "Tez orada...",
+        "category": "IT",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=IT",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_medicine",
+        "name": "Tez orada...",
+        "category": "Medicine",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Medicine",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_modern",
+        "name": "Tez orada...",
+        "category": "modern",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=modern",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
     }
 ]
