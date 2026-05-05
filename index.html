@@ -159,7 +159,7 @@
 
         async function loadTemplates() {
             try {
-                const response = await fetch('data/templates.json');
+                const response = await fetch(`data/templates.json?v=${new Date().getTime()}`);
                 const templates = await response.json();
                 
                 const container = document.getElementById('templates-container');

@@ -241,7 +241,7 @@
 
         async function loadData() {
             try {
-                const res = await fetch('data/templates.json');
+                const res = await fetch(`data/templates.json?v=${new Date().getTime()}`);
                 templates = await res.json();
                 render();
             } catch (e) { console.error(e); }
