@@ -78,53 +78,5 @@
         "preview": "static/previews/General/4.png",
         "file_path": "templates/General/4.pptx",
         "file_size": "31 KB"
-    },
-    {
-        "id": "buxgalteriya_boshqaruv_hisobi",
-        "name": "Boshqaruv Hisobi",
-        "category": "Buxgalteriya",
-        "preview": "static/previews/Buxgalteriya/Boshqaruv hisobi.jpg",
-        "file_path": "templates/Buxgalteriya/Boshqaruv hisobi.pptx",
-        "file_size": "28 KB"
-    },
-    {
-        "id": "buxgalteriya_biznes",
-        "name": "Biznes",
-        "category": "Buxgalteriya",
-        "preview": "static/previews/Buxgalteriya/biznes.png",
-        "file_path": "templates/Buxgalteriya/biznes.pptx",
-        "file_size": "94 KB"
-    },
-    {
-        "id": "it_engineering_pro",
-        "name": "Engineering Pro",
-        "category": "IT",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/IT/Engineering_Pro.pptx",
-        "file_size": "29 KB"
-    },
-    {
-        "id": "medicine_medical_clean",
-        "name": "Medical Clean",
-        "category": "Medicine",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/Medicine/Medical_Clean.pptx",
-        "file_size": "29 KB"
-    },
-    {
-        "id": "modern_1",
-        "name": "1",
-        "category": "modern",
-        "preview": "static/previews/modern/1.png",
-        "file_path": "templates/modern/1.pptx",
-        "file_size": "7274 KB"
-    },
-    {
-        "id": "modern_data_migration_project_proposal_by_slidesgo",
-        "name": "Data Migration Project Proposal By Slidesgo",
-        "category": "modern",
-        "preview": "static/previews/modern/Data Migration Project Proposal by Slidesgo.png",
-        "file_path": "templates/modern/Data Migration Project Proposal by Slidesgo.pptx",
-        "file_size": "7699 KB"
     }
 ]
