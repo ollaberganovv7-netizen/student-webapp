@@ -1,0 +1,72 @@
+Maqolani rasmiylashtirish — IMRAD talabi asosida (Rasmiy nusxa)
+
+=== TITULЬНЫЙ ЛИСТ (МУНДАРИЖА ОЛДИДАГИ БЕТ) ===
+Namuna rasmiga QAT'IY rioya qiling:
+
+  [MAQOLANING NOMI]
+  (Times New Roman, 14pt, QALIN, KATTA HARFLAR, MARKAZDA)
+
+  Muallifning Familiya Ismi Sharifi
+  (Times New Roman, 14pt, qalin, markazda)
+
+  Universitet / muassasa nomi va lavozimi
+  (Times New Roman, 14pt, kursiv, markazda)
+
+  Elektron manzil (gipersiz, markazda)
+
+=== BO'LIMLAR TARTIBI (QAT'IY) ===
+
+1. ANNOTATSIYA
+   - Hajm: 100–150 so'z (5–7 qator)
+   - Mazmun: ko'tarilgan muammo, dolzarblik, metodologiya, natija, ilmiy hissa
+   - Shrift: Times New Roman, 14pt, kursiv, kenglik bo'yicha tekislash
+   - O'ZBEK TILIDA yozing, keyin RUS TILIDA (АННОТАЦИЯ), keyin INGLIZ TILIDA (ABSTRACT)
+
+2. KALIT SO'ZLAR
+   - Kamida 7 ta so'z — har uchala tilda
+   - Format: Kalit so'zlar: ...; Ключевые слова: ...; Keywords: ...
+   - Shrift: Times New Roman, 14pt, kursiv
+
+3. KIRISH
+   - Ko'tarilgan muammo va uning tavsifi
+   - Mavzu tanlanish sababi va dolzarbligi
+   - Ilmiy yangilik
+   - Shrift: Times New Roman, 14pt, kenglik bo'yicha tekislash
+
+4. ADABIYOTLAR TAHLILI (IMRAD da)
+   - Tahlil etilgan asosiy manbalar
+   - Mavjud nazariya va yondashuvlar tanqidi
+
+5. METODOLOGIYA (IMRAD da)
+   - Tadqiqot usuli, namuna, vositalar
+
+6. MUHOKAMA VA NATIJALAR
+   - Asosiy topilmalar (raqamlar, foizlar, taqqoslash)
+   - Jadvallar, grafiklar (agar kerak)
+   - Adabiyot bilan solishtirish
+
+7. XULOSA VA TAKLIFLAR
+   - Tugallangan xulosa
+   - Amaliy va ilmiy tavsiyalar
+   - Cheklovlar
+
+8. FOYDALANILGAN ADABIYOTLAR RO'YXATI
+   - Format: Muallif F.I.Sh. Sarlavha. Jurnal/Nashriyot, Yil. - №. - B. XX-XX.
+   - Kamida 8–12 manba
+   - Misol: Axmedov B.I. Raqamlashtirish davrida elektron tijorat. "Raqamli iqtisodiyot", 2023. - №2. - B. 7-9.
+
+=== UMUMIY FORMATLASH TALABLARI ===
+- Varaq: A4, kitob yo'nalishi (portrait)
+- Maydonlar: yuqori/past — 2 sm; chap — 3 sm; o'ng — 1.5 sm
+- Shrift: Times New Roman, 14pt
+- Qator intervali: 1.15
+- Xatboshi: 1.25 sm
+- Tekislash: kenglik bo'yicha (justify)
+
+=== AI UCHUN QAT'IY QOIDALAR ===
+- Titulьный bet NAMUNA RASMIDAGIDEK formatlansin
+- MARKDOWN (**, #, ```) ISHLATILMASIN
+- Faqat to'liq akademik paragraflar — ro'yxat EMAS
+- Sahifalar soni foydalanuvchi tanlagan hajmga QAT'IY moslashtirilsin
+- 1 sahifa = 250–280 so'z
+- Har bo'lim KATTA HARFLAR bilan boshlansin

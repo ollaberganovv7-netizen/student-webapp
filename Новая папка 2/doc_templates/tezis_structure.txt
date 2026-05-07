@@ -1,0 +1,63 @@
+Tezis rasmiylashtirish — Akademik Konferensiya Talablari (AI uchun qo'llanma)
+
+=== TITULЬНЫЙ ЛИСТ (SARLAVHA QISMI) ===
+Titulьный лист quyidagi tartibda formatlansin:
+
+  [TEZIS MAVZUSI]
+  (Times New Roman, 14pt, QALIN, KATTA HARFLAR, MARKAZDA)
+
+  Muallifning Familiya Ismi Sharifi
+  (Times New Roman, 14pt, qalin, markazda)
+
+  Universitet / muassasa nomi
+  (Times New Roman, 14pt, kursiv, markazda)
+
+=== BO'LIMLAR TARTIBI (QAT'IY) ===
+
+1. KIRISH
+   - Mavzuning dolzarbligi va global ahamiyati
+   - Tadqiqot muammosi, maqsadi va vazifalari
+   - Ilmiy yangilik va amaliy ahamiyat
+   - Hajm: ~150–200 so'z
+   - Shrift: Times New Roman 14pt, kenglik bo'yicha tekislash
+
+2. ANNOTATSIYA
+   - Hajm: 100–150 so'z
+   - Mazmun: muammo, metodologiya, asosiy natijalar, xulosa
+   - Shrift: Times New Roman 14pt, kursiv
+
+3. KALIT SO'ZLAR
+   - 7 ta asosiy atama
+   - Format: Kalit so'zlar: atama1, atama2, atama3, ...
+   - Shrift: Times New Roman 14pt, kursiv
+
+4. ASOSIY QISM (Standart) / ADABIYOTLAR TAHLILI + METODOLOGIYA + NATIJALAR (IMRAD)
+   - Har bir bo'lim: aniq dalillar, statistika, tarixiy faktlar
+   - Kenglik bo'yicha tekislash, 1.25 sm xatboshi
+
+5. XULOSA VA TAVSIYALAR
+   - Asosiy topilmalarning xulosasi
+   - 3–5 aniq tavsiya
+   - Cheklovlar va keyingi tadqiqot yo'nalishlari
+
+6. FOYDALANILGAN ADABIYOTLAR RO'YXATI
+   - Format: Muallif F.I. Sarlavha. Jurnal, Yil. Jild(Raqam). B. XX–XX.
+   - Kamida 8–12 manba
+
+=== UMUMIY FORMATLASH TALABLARI ===
+- Varaq: A4, kitob yo'nalishi
+- Maydonlar: yuqori/past — 2 sm; chap — 3 sm; o'ng — 1.5 sm
+- Shrift: Times New Roman, 14pt
+- Qator intervali: 1.5
+- Xatboshi: 1.25 sm
+- Tekislash: kenglik bo'yicha (justify)
+- Sahifalar soni: foydalanuvchi tanlagan hajmga QAT'IY rioya qilish
+- 1 sahifa = 250–280 so'z
+
+=== AI UCHUN QAT'IY QOIDALAR ===
+- MARKDOWN (**, #, ```) ISHLATILMASIN
+- Faqat to'liq akademik paragraflar (ro'yxat EMAS)
+- Har bir bo'lim KATTA HARFLAR bilan boshlansin
+- "Mavzu:", "Muallif:", "Universiteti:" kabi yorliqlarni HECH QACHON matn ichiga yozmang
+- Tezis sarlavhasini matn ichida qaytarmang — titulьный лист alohida formatlanadi
+- Har bir bo'limda: da'vo → dalil → tahlil ketma-ketligi

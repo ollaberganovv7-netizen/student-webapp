@@ -1,0 +1,174 @@
+# Uslubiy Ishlanma Strukturasi
+
+Uslubiy ishlanma quyidagi MAJBURIY bo'limlardan iborat bo'lishi kerak.
+MUHIM: Har bir bo'limni AYNAN shu ketma-ketlikda, shu sarlavhalar bilan yozing!
+Har bir o'quv materiallari bo'limida rasmlar uchun [ 🖼️ SHU YERGA RASM JOYLANG: ... ] pleysholderlarini qo'ying.
+
+## TITULNI SAHIFA (bot tomonidan avtomatik yaratiladi — yozish SHART EMAS)
+
+## 1. MAVZU VA O'QUV MAQSADLAR
+- Mavzu nomi KATTA HARFLARDA
+- O'QUV MAQSADLAR: (aniq 3 ta maqsad)
+  1. Tinglovchilarga ... haqida tushunchalar berish va o'rgatish.
+  2. Tinglovchilarning ... fanidan nazariy va amaliy bilimlarini oshirish.
+  3. Tinglovchilarga ... bo'yicha bilimlarini oshirish.
+
+## 2. MAVZUNI O'RGANISH UCHUN TASHKILIY-USLUBIY KO'RSATMALAR
+- Mashg'ulot mavzusining umumiy tavsifi (3-4 xat boshi matn)
+- Mashg'ulotni boshlashdan avvalgi tayyorgarlik (1-2 xat boshi matn)
+- Qo'llaniladigan metodlarni BATAFSIL tushuntirish:
+  * Bumerang metodi: tinglovchilarga savollar beriladi va ular o'zaro fikr almashadi...
+  * Klaster metodi: asosiy tushunchalar diagramma yordamida guruhlashtiriladi...
+  * Blis-so'rov metodi: qisqa va tezkor savollar berilib, bilim darajasi aniqlanadi...
+  * Baliq skeleti (Fishbone) metodi: sabab-oqibat bog'lanishida tahlil qilinadi...
+  * Idrok xaritasi metodi: grafik tarzda ko'rsatiladi va tizimlashtiriladi...
+
+## 3. MASHG'ULOTLARGA AJRATILGAN O'QUV SOATLARI
+- Jadval shaklida:
+  T/r | Mashg'ulot nomi | Mashg'ulot turi | Soati | O'tkazish joyi
+  1.  | ... | Guruh mashg'ulot | ... | O'quv sinf
+  2.  | ... | Seminar mashg'ulot | ... | O'quv sinf
+  Jami | | | ... |
+
+## 4. 1-MASHG'ULOT: [mashg'ulot nomi KATTA HARFLARDA]
+### 4.1. O'QUV MAQSADLAR (3 ta — xuddi 1-bo'limdagi kabi)
+### 4.2. Mashg'ulot pasporti:
+- Mashg'ulot o'tkazish vaqti: ... o'quv soati (... daqiqa).
+- Mashg'ulot o'tkazish joyi: O'quv sinfi.
+- Mashg'ulot o'tkazishning asosiy uslubi: Guruh mashg'uloti.
+- Mashg'ulotda qo'llaniladigan asosiy usullar: Bumerang va klaster.
+- O'quv-uslubiy vositalar bilan ta'minlanishi: Elektron doska, rangli ruchkalar, rangli markerlar, doska o'chirgich, magnitlar, lazerli ko'rsatgich, butlangan komandirlik sumkasi, mavzu bo'yicha uslubiy ishlanmalar va plakatlar.
+### 4.3. Foydalanilgan adabiyotlar:
+- a) asosiylari (kamida 4-6 ta)
+- b) qo'shimcha (kamida 3-4 ta)
+
+## 5. O'QUV SAVOLLARINING KETMA-KETLIGI (jadval)
+- T/r | Mashg'ulotning borishi | Vaqt(daq)
+  1. Kirish qismi: yo'qlama, tayyorgarlikni tekshirish, mavzuni e'lon qilish | 5
+  2. Asosiy qism — o'quv savollar ro'yxati bilan (vaqt ko'rsatilgan) | ...
+  3. Yakuniy qism: xulosa, vazifa berish | 5
+
+## 6. MASHG'ULOT O'TKAZISHNING ASOSIY USLUBLARI
+- Batafsil matn (kamida 6-7 xat boshi): mashg'ulotni qanday tayyorlash, qanday o'tkazish, qanday usullarni qo'llash
+- Mashg'ulot boshlanishidan 2-3 kun oldin tayyorgarlik
+- Konsultatsiya mashg'uloti
+- O'quv-moddiy baza tayyorligi
+- Ma'ruza va namoyish usullari
+- Tinglovchilarning faolligi va savollar berish
+
+## 7. O'QUV SAVOLLARINI O'RGANIB CHIQISH BO'YICHA USLUBIY KO'RSATMALAR
+### BIRINCHI O'QUV SAVOLINI O'RGANIB CHIQISH BO'YICHA USLUBIY KO'RSATMALAR
+- Savol nomi
+- Nimalar tushuntiriladi (3-5 punkt)
+- Mashg'ulot metodi: Bumerang, Klaster (batafsil tushuntirish)
+
+### IKKINCHI O'QUV SAVOLINI O'RGANIB CHIQISH BO'YICHA USLUBIY KO'RSATMALAR
+- Savol nomi
+- Nimalar tushuntiriladi (3-5 punkt)
+- Mashg'ulot metodi: Bumerang, Klaster (batafsil tushuntirish)
+
+## 8. O'QUV TEXNIK VOSITALARI, KO'RGAZMALI QO'LLANMALAR
+- O'QUV TEXNIK VOSITALARI: Elektron doska, Smart TV tach paneli va lazerli ko'rsatgich.
+- KO'RGAZMALI QO'LLANMALAR: Slaydlar va videolar.
+- QUROL ASLAHA VA HARBIY TEXNIKALAR: ... (agar tegishli bo'lsa)
+
+## 9. MASHG'ULOT YAKUNI (TAHLILI)
+- Yakunlash tartibi (2-3 xat boshi matn)
+- Bilim tekshirish usullari
+- Baholarni e'lon qilish
+
+## 10. MUSTAQIL TAYYORGARLIK UCHUN VAZIFALAR
+- Keyingi mashg'ulot mavzusi va vaqti e'lon qilinadi
+- Qo'shimcha adabiyotlar va tavsiyalar
+- Mustaqil o'rganish uchun savollar ro'yxati:
+  1. ... (asosiy savol)
+    1.1. ... (kichik savol)
+    1.2. ... (kichik savol)
+  2. ... (asosiy savol)
+    2.1. ... (kichik savol)
+    2.2. ... (kichik savol)
+    ... (kamida 15-17 ta kichik savol)
+
+## 11. O'QUV MATERIALLARI
+MUHIM: Bu eng katta bo'lim! Har bir o'quv savoli uchun BATAFSIL akademik matn yozing (kamida 5-7 sahifa).
+### 1-o'quv savoli. [savol nomi]
+- Batafsil nazariy matn (kamida 3-4 sahifa hajmda)
+- [ 🖼️ SHU YERGA RASM JOYLANG: (mavzuga oid qurolning/ob'yektning umumiy ko'rinishi) ]
+- Taktik-texnik tasnif jadvali
+- Har bir tushunchani batafsil tushuntirish
+
+### 2-o'quv savoli. [savol nomi]
+- Har bir qism va mexanizm uchun ALOHIDA bo'lim:
+  * Qismning nomi va vazifasi
+  * [ 🖼️ SHU YERGA RASM JOYLANG: (qismning tuzulishi) ]
+  * Qism tarkibiy elementlari ro'yxati
+  * Batafsil tushuntirish (2-3 xat boshi)
+- Kamida 15-18 ta qism va mexanizm tushuntirilishi kerak
+- Har 2-3 ta qism uchun 1 ta rasm pleysholderini qo'ying
+
+## 12. 2-MASHG'ULOT: [mashg'ulot nomi KATTA HARFLARDA] (SEMINAR)
+### 12.1. O'QUV MAQSADLAR (3 ta)
+### 12.2. Mashg'ulot pasporti:
+- Mashg'ulot o'tkazish vaqti: 2 o'quv soati (80 daqiqa).
+- Mashg'ulot o'tkazish joyi: O'quv sinfi.
+- Mashg'ulot o'tkazishning asosiy uslubi: Seminar.
+- Mashg'ulotda qo'llaniladigan usullar: Bumerang, Blis-so'rov, Baliq skeliti, Idrok xaritasi va savol-javob.
+- O'quv-uslubiy vositalar bilan ta'minlanishi: ...
+### 12.3. Foydalanilgan adabiyotlar:
+- a) asosiylari (kamida 4-6 ta)
+- b) qo'shimcha (kamida 3-4 ta)
+
+## 13. O'QUV SAVOLLARINING KETMA-KETLIGI (jadval — seminar uchun)
+
+## 14. MASHG'ULOT O'TKAZISHNING ASOSIY USLUBLARI (seminar uchun)
+- Seminar mashg'ulotining batafsil tavsifi (kamida 8-10 xat boshi)
+- Har bir interaktiv metod batafsil tushuntiriladi:
+  * Bumerang metodi
+  * Blis-so'rov metodi
+  * Baliq skeleti (Fishbone) metodi
+  * Idrok xaritasi metodi
+  * Savol-javob usuli
+
+## 15. BAHOLASH BO'YICHA USLUBIY KO'RSATMALAR
+- "5" (a'lo) baho — ... (3-4 qator tavsif)
+- "4" (yaxshi) baho — ... (3-4 qator tavsif)
+- "3" (qoniqarli) baho — ... (3-4 qator tavsif)
+- "2" (qoniqarsiz) baho — ... (3-4 qator tavsif)
+
+## 16. O'QUV SAVOLLARINI O'RGANIB CHIQISH BO'YICHA USLUBIY KO'RSATMALAR (seminar uchun)
+### BIRINCHI O'QUV SAVOLINI O'RGANIB CHIQISH BO'YICHA USLUBIY KO'RSATMALAR
+- Batafsil tushuntirish (kamida 5-6 xat boshi)
+- Interaktiv metodlar qo'llanilishi
+
+### IKKINCHI O'QUV SAVOLINI O'RGANIB CHIQISH BO'YICHA USLUBIY KO'RSATMALAR
+- Batafsil tushuntirish (kamida 5-6 xat boshi)
+- Interaktiv metodlar qo'llanilishi
+
+## 17. O'QUV TEXNIK VOSITALARI, KO'RGAZMALI QO'LLANMALAR (seminar uchun)
+
+## 18. MASHG'ULOT YAKUNI (TAHLILI) (seminar uchun)
+- Batafsil tavsif (kamida 4-5 xat boshi)
+
+## 19. MUSTAQIL TAYYORGARLIK VAZIFALARI (seminar uchun)
+
+## 20. SEMINAR REJASI (alohida sahifa)
+- Tashkilot nomi
+- Fan nomi va turi
+- Mavzu va mashg'ulot nomi
+- VAQT: ... o'quv soati (... daq)
+- I. O'QUV SAVOLLAR:
+  1. ... (asosiy savol)
+    1.1. ... (kichik savol)
+    1.2. ... (kichik savol)
+  2. ... (asosiy savol)
+    2.1-2.17. ... (kichik savollar)
+- II. REFERAT (DOKLAD, HABAR, YANGILIK)
+  Mavzu: _______________________________________________.
+  Tinglovchi: ____________________________________________.
+- III. ADABIYOTLAR:
+  a) asosiylari (kamida 4-6 ta)
+  b) qo'shimcha (kamida 3-4 ta)
+- IV. TINGLOVCHILAR SEMINAR MASHG'ULOTIGA TAYYORGARLIK KO'RISH UCHUN USLUBIY KO'RSATMALAR:
+  - mustaqil tayyorgarlik soatlarida adabiyotlarni o'qib o'rganish
+  - og'zaki va yozma javobga tayyor bo'lish
+  - referat tayyorlash va ustozga taqdim qilish
