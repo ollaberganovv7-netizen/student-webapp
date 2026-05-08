@@ -1,13 +1,5 @@
 [
     {
-        "id": "general_1234",
-        "name": "1234",
-        "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/1234.pptx",
-        "file_size": "73 KB"
-    },
-    {
         "id": "dummy_biology",
         "name": "Tez orada...",
         "category": "Biology",
@@ -35,52 +27,12 @@
         "is_empty": true
     },
     {
-        "id": "general_education_bright",
-        "name": "Education Bright",
-        "category": "General",
-        "preview": "static/previews/General/Education_Bright.png",
-        "file_path": "templates/General/Education_Bright.pptx",
-        "file_size": "53 KB"
-    },
-    {
-        "id": "general_6",
-        "name": "6",
-        "category": "General",
-        "preview": "static/previews/General/6.png",
-        "file_path": "templates/General/6.pptx",
-        "file_size": "608 KB"
-    },
-    {
-        "id": "general_classic",
-        "name": "Classic",
-        "category": "General",
-        "preview": "static/previews/General/classic.png",
-        "file_path": "templates/General/classic.pptx",
-        "file_size": "35 KB"
-    },
-    {
         "id": "general_1",
         "name": "1",
         "category": "General",
         "preview": "static/previews/General/1.png",
         "file_path": "templates/General/1.pptx",
         "file_size": "322 KB"
-    },
-    {
-        "id": "general_3",
-        "name": "3",
-        "category": "General",
-        "preview": "static/previews/General/3.png",
-        "file_path": "templates/General/3.pptx",
-        "file_size": "170 KB"
-    },
-    {
-        "id": "general_priroda",
-        "name": "Priroda",
-        "category": "General",
-        "preview": "static/previews/General/priroda.png",
-        "file_path": "templates/General/priroda.pptx",
-        "file_size": "1034 KB"
     },
     {
         "id": "general_2",
@@ -91,6 +43,22 @@
         "file_size": "58 KB"
     },
     {
+        "id": "general_3",
+        "name": "3",
+        "category": "General",
+        "preview": "static/previews/General/3.png",
+        "file_path": "templates/General/3.pptx",
+        "file_size": "170 KB"
+    },
+    {
+        "id": "general_4",
+        "name": "4",
+        "category": "General",
+        "preview": "static/previews/General/4.png",
+        "file_path": "templates/General/4.pptx",
+        "file_size": "34 KB"
+    },
+    {
         "id": "general_5",
         "name": "5",
         "category": "General",
@@ -99,12 +67,20 @@
         "file_size": "341 KB"
     },
     {
-        "id": "general_dark_premium",
-        "name": "Dark Premium",
+        "id": "general_6",
+        "name": "6",
         "category": "General",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/General/dark_premium.pptx",
-        "file_size": "31 KB"
+        "preview": "static/previews/General/6.png",
+        "file_path": "templates/General/6.pptx",
+        "file_size": "608 KB"
+    },
+    {
+        "id": "general_education_bright",
+        "name": "Education Bright",
+        "category": "General",
+        "preview": "static/previews/General/Education_Bright.png",
+        "file_path": "templates/General/Education_Bright.pptx",
+        "file_size": "53 KB"
     },
     {
         "id": "general_minimalist_light",
@@ -115,12 +91,28 @@
         "file_size": "29 KB"
     },
     {
-        "id": "general_4",
-        "name": "4",
+        "id": "general_classic",
+        "name": "Classic",
         "category": "General",
-        "preview": "static/previews/General/4.png",
-        "file_path": "templates/General/4.pptx",
-        "file_size": "34 KB"
+        "preview": "static/previews/General/classic.png",
+        "file_path": "templates/General/classic.pptx",
+        "file_size": "35 KB"
+    },
+    {
+        "id": "general_dark_premium",
+        "name": "Dark Premium",
+        "category": "General",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=dark_premium",
+        "file_path": "templates/General/dark_premium.pptx",
+        "file_size": "31 KB"
+    },
+    {
+        "id": "general_priroda",
+        "name": "Priroda",
+        "category": "General",
+        "preview": "static/previews/General/priroda.png",
+        "file_path": "templates/General/priroda.pptx",
+        "file_size": "1.0 MB"
     },
     {
         "id": "dummy_history",
@@ -150,19 +142,27 @@
         "is_empty": true
     },
     {
-        "id": "akademik_1",
+        "id": "modern_1",
         "name": "1",
-        "category": "akademik",
-        "preview": "static/previews/akademik/1.png",
-        "file_path": "templates/akademik/1.pptx",
-        "file_size": "7274 KB"
+        "category": "modern",
+        "preview": "static/previews/modern/1.png",
+        "file_path": "templates/modern/1.pptx",
+        "file_size": "7.1 MB"
     },
     {
-        "id": "akademik_9",
+        "id": "modern_9",
         "name": "9",
-        "category": "akademik",
-        "preview": "static/previews/akademik/9.png",
-        "file_path": "templates/akademik/9.pptx",
-        "file_size": "4933 KB"
+        "category": "modern",
+        "preview": "static/previews/modern/9.png",
+        "file_path": "templates/modern/9.pptx",
+        "file_size": "4.8 MB"
+    },
+    {
+        "id": "modern_myataya-bumaga-wide",
+        "name": "Myataya-Bumaga-Wide",
+        "category": "modern",
+        "preview": "static/previews/modern/myataya-bumaga-wide.png",
+        "file_path": "templates/modern/myataya-bumaga-wide.pptx",
+        "file_size": "978 KB"
     }
 ]
