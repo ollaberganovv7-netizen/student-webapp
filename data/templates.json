@@ -27,94 +27,6 @@
         "is_empty": true
     },
     {
-        "id": "general_1",
-        "name": "1",
-        "category": "General",
-        "preview": "static/previews/General/1.png",
-        "file_path": "templates/General/1.pptx",
-        "file_size": "322 KB"
-    },
-    {
-        "id": "general_2",
-        "name": "2",
-        "category": "General",
-        "preview": "static/previews/General/2.png",
-        "file_path": "templates/General/2.pptx",
-        "file_size": "58 KB"
-    },
-    {
-        "id": "general_3",
-        "name": "3",
-        "category": "General",
-        "preview": "static/previews/General/3.png",
-        "file_path": "templates/General/3.pptx",
-        "file_size": "170 KB"
-    },
-    {
-        "id": "general_4",
-        "name": "4",
-        "category": "General",
-        "preview": "static/previews/General/4.png",
-        "file_path": "templates/General/4.pptx",
-        "file_size": "34 KB"
-    },
-    {
-        "id": "general_5",
-        "name": "5",
-        "category": "General",
-        "preview": "static/previews/General/5.png",
-        "file_path": "templates/General/5.pptx",
-        "file_size": "341 KB"
-    },
-    {
-        "id": "general_6",
-        "name": "6",
-        "category": "General",
-        "preview": "static/previews/General/6.png",
-        "file_path": "templates/General/6.pptx",
-        "file_size": "608 KB"
-    },
-    {
-        "id": "general_education_bright",
-        "name": "Education Bright",
-        "category": "General",
-        "preview": "static/previews/General/Education_Bright.png",
-        "file_path": "templates/General/Education_Bright.pptx",
-        "file_size": "53 KB"
-    },
-    {
-        "id": "general_minimalist_light",
-        "name": "Minimalist Light",
-        "category": "General",
-        "preview": "static/previews/General/Minimalist_Light.png",
-        "file_path": "templates/General/Minimalist_Light.pptx",
-        "file_size": "29 KB"
-    },
-    {
-        "id": "general_classic",
-        "name": "Classic",
-        "category": "General",
-        "preview": "static/previews/General/classic.png",
-        "file_path": "templates/General/classic.pptx",
-        "file_size": "35 KB"
-    },
-    {
-        "id": "general_dark_premium",
-        "name": "Dark Premium",
-        "category": "General",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=dark_premium",
-        "file_path": "templates/General/dark_premium.pptx",
-        "file_size": "31 KB"
-    },
-    {
-        "id": "general_priroda",
-        "name": "Priroda",
-        "category": "General",
-        "preview": "static/previews/General/priroda.png",
-        "file_path": "templates/General/priroda.pptx",
-        "file_size": "1.0 MB"
-    },
-    {
         "id": "dummy_history",
         "name": "Tez orada...",
         "category": "History",
@@ -142,12 +54,100 @@
         "is_empty": true
     },
     {
-        "id": "modern_1",
-        "name": "1",
-        "category": "modern",
-        "preview": "static/previews/modern/1.png",
-        "file_path": "templates/modern/1.pptx",
-        "file_size": "7.1 MB"
+        "id": "general_accounting_clean",
+        "name": "Accounting Clean",
+        "category": "general",
+        "preview": "static/previews/general/accounting_clean.png",
+        "file_path": "templates/general/accounting_clean.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_business_minimal",
+        "name": "Business Minimal",
+        "category": "general",
+        "preview": "static/previews/general/business_minimal.png",
+        "file_path": "templates/general/business_minimal.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_cell_light",
+        "name": "Cell Light",
+        "category": "general",
+        "preview": "static/previews/general/cell_light.png",
+        "file_path": "templates/general/cell_light.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_code_dark",
+        "name": "Code Dark",
+        "category": "general",
+        "preview": "static/previews/general/code_dark.png",
+        "file_path": "templates/general/code_dark.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_corporate_dark",
+        "name": "Corporate Dark",
+        "category": "general",
+        "preview": "static/previews/general/corporate_dark.png",
+        "file_path": "templates/general/corporate_dark.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_finance_teal",
+        "name": "Finance Teal",
+        "category": "general",
+        "preview": "static/previews/general/finance_teal.png",
+        "file_path": "templates/general/finance_teal.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_health_clean",
+        "name": "Health Clean",
+        "category": "general",
+        "preview": "static/previews/general/health_clean.png",
+        "file_path": "templates/general/health_clean.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_history_classic",
+        "name": "History Classic",
+        "category": "general",
+        "preview": "static/previews/general/history_classic.png",
+        "file_path": "templates/general/history_classic.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_medical_blue",
+        "name": "Medical Blue",
+        "category": "general",
+        "preview": "static/previews/general/medical_blue.png",
+        "file_path": "templates/general/medical_blue.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_nature_green",
+        "name": "Nature Green",
+        "category": "general",
+        "preview": "static/previews/general/nature_green.png",
+        "file_path": "templates/general/nature_green.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_tech_purple",
+        "name": "Tech Purple",
+        "category": "general",
+        "preview": "static/previews/general/tech_purple.png",
+        "file_path": "templates/general/tech_purple.pptx",
+        "file_size": "40 KB"
+    },
+    {
+        "id": "general_vintage_warm",
+        "name": "Vintage Warm",
+        "category": "general",
+        "preview": "static/previews/general/vintage_warm.png",
+        "file_path": "templates/general/vintage_warm.pptx",
+        "file_size": "40 KB"
     },
     {
         "id": "modern_9",
@@ -164,5 +164,93 @@
         "preview": "static/previews/modern/myataya-bumaga-wide.png",
         "file_path": "templates/modern/myataya-bumaga-wide.pptx",
         "file_size": "978 KB"
+    },
+    {
+        "id": "power point_1",
+        "name": "1",
+        "category": "power point",
+        "preview": "static/previews/power point/1.png",
+        "file_path": "templates/power point/1.pptx",
+        "file_size": "322 KB"
+    },
+    {
+        "id": "power point_2",
+        "name": "2",
+        "category": "power point",
+        "preview": "static/previews/power point/2.png",
+        "file_path": "templates/power point/2.pptx",
+        "file_size": "58 KB"
+    },
+    {
+        "id": "power point_3",
+        "name": "3",
+        "category": "power point",
+        "preview": "static/previews/power point/3.png",
+        "file_path": "templates/power point/3.pptx",
+        "file_size": "170 KB"
+    },
+    {
+        "id": "power point_4",
+        "name": "4",
+        "category": "power point",
+        "preview": "static/previews/power point/4.png",
+        "file_path": "templates/power point/4.pptx",
+        "file_size": "34 KB"
+    },
+    {
+        "id": "power point_5",
+        "name": "5",
+        "category": "power point",
+        "preview": "static/previews/power point/5.png",
+        "file_path": "templates/power point/5.pptx",
+        "file_size": "341 KB"
+    },
+    {
+        "id": "power point_6",
+        "name": "6",
+        "category": "power point",
+        "preview": "static/previews/power point/6.png",
+        "file_path": "templates/power point/6.pptx",
+        "file_size": "608 KB"
+    },
+    {
+        "id": "power point_education_bright",
+        "name": "Education Bright",
+        "category": "power point",
+        "preview": "static/previews/power point/Education_Bright.png",
+        "file_path": "templates/power point/Education_Bright.pptx",
+        "file_size": "53 KB"
+    },
+    {
+        "id": "power point_minimalist_light",
+        "name": "Minimalist Light",
+        "category": "power point",
+        "preview": "static/previews/power point/Minimalist_Light.png",
+        "file_path": "templates/power point/Minimalist_Light.pptx",
+        "file_size": "29 KB"
+    },
+    {
+        "id": "power point_classic",
+        "name": "Classic",
+        "category": "power point",
+        "preview": "static/previews/power point/classic.png",
+        "file_path": "templates/power point/classic.pptx",
+        "file_size": "35 KB"
+    },
+    {
+        "id": "power point_dark_premium",
+        "name": "Dark Premium",
+        "category": "power point",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=dark_premium",
+        "file_path": "templates/power point/dark_premium.pptx",
+        "file_size": "31 KB"
+    },
+    {
+        "id": "power point_priroda",
+        "name": "Priroda",
+        "category": "power point",
+        "preview": "static/previews/power point/priroda.png",
+        "file_path": "templates/power point/priroda.pptx",
+        "file_size": "1.0 MB"
     }
 ]
