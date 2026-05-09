@@ -9,13 +9,12 @@
         "is_empty": true
     },
     {
-        "id": "dummy_business",
-        "name": "Tez orada...",
+        "id": "business_green_business_advanced_ppt_seminar_proposal_template",
+        "name": "Green Business Advanced Ppt Seminar Proposal Template",
         "category": "Business",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Business",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
+        "preview": "static/previews/Business/Green Business Advanced PPT Seminar Proposal Template.png",
+        "file_path": "templates/Business/Green Business Advanced PPT Seminar Proposal Template.pptx",
+        "file_size": "44862 KB"
     },
     {
         "id": "dummy_buxgalteriya",
@@ -54,100 +53,13 @@
         "is_empty": true
     },
     {
-        "id": "general_finance_teal",
-        "name": "Finance Teal",
+        "id": "dummy_general",
+        "name": "Tez orada...",
         "category": "general",
-        "preview": "static/previews/general/finance_teal.png",
-        "file_path": "templates/general/finance_teal.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_business_minimal",
-        "name": "Business Minimal",
-        "category": "general",
-        "preview": "static/previews/general/business_minimal.png",
-        "file_path": "templates/general/business_minimal.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_accounting_clean",
-        "name": "Accounting Clean",
-        "category": "general",
-        "preview": "static/previews/general/accounting_clean.png",
-        "file_path": "templates/general/accounting_clean.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_nature_green",
-        "name": "Nature Green",
-        "category": "general",
-        "preview": "static/previews/general/nature_green.png",
-        "file_path": "templates/general/nature_green.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_history_classic",
-        "name": "History Classic",
-        "category": "general",
-        "preview": "static/previews/general/history_classic.png",
-        "file_path": "templates/general/history_classic.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_health_clean",
-        "name": "Health Clean",
-        "category": "general",
-        "preview": "static/previews/general/health_clean.png",
-        "file_path": "templates/general/health_clean.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_tech_purple",
-        "name": "Tech Purple",
-        "category": "general",
-        "preview": "static/previews/general/tech_purple.png",
-        "file_path": "templates/general/tech_purple.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_cell_light",
-        "name": "Cell Light",
-        "category": "general",
-        "preview": "static/previews/general/cell_light.png",
-        "file_path": "templates/general/cell_light.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_code_dark",
-        "name": "Code Dark",
-        "category": "general",
-        "preview": "static/previews/general/code_dark.png",
-        "file_path": "templates/general/code_dark.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_vintage_warm",
-        "name": "Vintage Warm",
-        "category": "general",
-        "preview": "static/previews/general/vintage_warm.png",
-        "file_path": "templates/general/vintage_warm.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_medical_blue",
-        "name": "Medical Blue",
-        "category": "general",
-        "preview": "static/previews/general/medical_blue.png",
-        "file_path": "templates/general/medical_blue.pptx",
-        "file_size": "41 KB"
-    },
-    {
-        "id": "general_corporate_dark",
-        "name": "Corporate Dark",
-        "category": "general",
-        "preview": "static/previews/general/corporate_dark.png",
-        "file_path": "templates/general/corporate_dark.pptx",
-        "file_size": "41 KB"
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=general",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
     },
     {
         "id": "modern_myataya-bumaga-wide",
