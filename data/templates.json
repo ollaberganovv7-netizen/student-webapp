@@ -102,20 +102,20 @@
         "file_size": "35 KB"
     },
     {
+        "id": "power_point_test_backup",
+        "name": "Test Backup",
+        "category": "power point",
+        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "file_path": "templates/power point/test_backup.pptx",
+        "file_size": "85 KB"
+    },
+    {
         "id": "power_point_1",
         "name": "1",
         "category": "power point",
         "preview": "static/previews/power point/1.png",
         "file_path": "templates/power point/1.pptx",
         "file_size": "322 KB"
-    },
-    {
-        "id": "power_point_test",
-        "name": "Test",
-        "category": "power point",
-        "preview": "static/previews/power point/test.png",
-        "file_path": "templates/power point/test.pptx",
-        "file_size": "85 KB"
     },
     {
         "id": "power_point_3",
@@ -156,6 +156,14 @@
         "preview": "https://via.placeholder.com/280x180?text=No+Preview",
         "file_path": "templates/power point/dark_premium.pptx",
         "file_size": "31 KB"
+    },
+    {
+        "id": "modern_vena_shablon",
+        "name": "Vena Shablon",
+        "category": "modern",
+        "preview": "static/previews/modern/vena_shablon.png",
+        "file_path": "templates/modern/vena_shablon.pptx",
+        "file_size": "59 KB"
     },
     {
         "id": "power_point_minimalist_light",
