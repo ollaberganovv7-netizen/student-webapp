@@ -110,6 +110,14 @@
         "file_size": "322 KB"
     },
     {
+        "id": "power_point_test",
+        "name": "Test",
+        "category": "power point",
+        "preview": "static/previews/power point/test.png",
+        "file_path": "templates/power point/test.pptx",
+        "file_size": "85 KB"
+    },
+    {
         "id": "power_point_3",
         "name": "3",
         "category": "power point",
