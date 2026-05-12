@@ -1,0 +1,199 @@
+[
+    {
+        "id": "biology_medicinskiy_stol",
+        "name": "Medicinskiy Stol",
+        "category": "Biology",
+        "preview": "static/previews/Biology/medicinskiy_stol.png",
+        "file_path": "templates/Biology/medicinskiy_stol.pptx",
+        "file_size": "319 KB"
+    },
+    {
+        "id": "biology_medicinskiy_centr",
+        "name": "Medicinskiy Centr",
+        "category": "Biology",
+        "preview": "static/previews/Biology/medicinskiy_centr.png",
+        "file_path": "templates/Biology/medicinskiy_centr.pptx",
+        "file_size": "681 KB"
+    },
+    {
+        "id": "business_green_business_advanced_ppt_seminar_proposal_template",
+        "name": "Green Business Advanced Ppt Seminar Proposal Template",
+        "category": "Business",
+        "preview": "static/previews/Business/Green Business Advanced PPT Seminar Proposal Template.png",
+        "file_path": "templates/Business/Green Business Advanced PPT Seminar Proposal Template.pptx",
+        "file_size": "44862 KB"
+    },
+    {
+        "id": "dummy_buxgalteriya",
+        "name": "Tez orada...",
+        "category": "Buxgalteriya",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Buxgalteriya",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_history",
+        "name": "Tez orada...",
+        "category": "History",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=History",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_it",
+        "name": "Tez orada...",
+        "category": "IT",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=IT",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_medicine",
+        "name": "Tez orada...",
+        "category": "Medicine",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Medicine",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "dummy_general",
+        "name": "Tez orada...",
+        "category": "general",
+        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=general",
+        "file_path": "",
+        "file_size": "0 KB",
+        "is_empty": true
+    },
+    {
+        "id": "modern_green-minimalism",
+        "name": "Green-Minimalism",
+        "category": "modern",
+        "preview": "static/previews/modern/green-minimalism.png",
+        "file_path": "templates/modern/green-minimalism.pptx",
+        "file_size": "73 KB"
+    },
+    {
+        "id": "modern_9",
+        "name": "9",
+        "category": "modern",
+        "preview": "static/previews/modern/9.png",
+        "file_path": "templates/modern/9.pptx",
+        "file_size": "4933 KB"
+    },
+    {
+        "id": "modern_interjer",
+        "name": "Interjer",
+        "category": "modern",
+        "preview": "static/previews/modern/interjer.png",
+        "file_path": "templates/modern/interjer.pptx",
+        "file_size": "477 KB"
+    },
+    {
+        "id": "modern_test_example",
+        "name": "Test Example",
+        "category": "modern",
+        "preview": "static/previews/modern/test_example.png",
+        "file_path": "templates/modern/test_example.pptx",
+        "file_size": "64 KB"
+    },
+    {
+        "id": "power_point_education_bright",
+        "name": "Education Bright",
+        "category": "power point",
+        "preview": "static/previews/power point/Education_Bright.png",
+        "file_path": "templates/power point/Education_Bright.pptx",
+        "file_size": "53 KB"
+    },
+    {
+        "id": "power_point_6",
+        "name": "6",
+        "category": "power point",
+        "preview": "static/previews/power point/6.png",
+        "file_path": "templates/power point/6.pptx",
+        "file_size": "608 KB"
+    },
+    {
+        "id": "power_point_classic",
+        "name": "Classic",
+        "category": "power point",
+        "preview": "static/previews/power point/classic.png",
+        "file_path": "templates/power point/classic.pptx",
+        "file_size": "35 KB"
+    },
+    {
+        "id": "power_point_test_backup",
+        "name": "Test Backup",
+        "category": "power point",
+        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "file_path": "templates/power point/test_backup.pptx",
+        "file_size": "85 KB"
+    },
+    {
+        "id": "power_point_1",
+        "name": "1",
+        "category": "power point",
+        "preview": "static/previews/power point/1.png",
+        "file_path": "templates/power point/1.pptx",
+        "file_size": "322 KB"
+    },
+    {
+        "id": "power_point_3",
+        "name": "3",
+        "category": "power point",
+        "preview": "static/previews/power point/3.png",
+        "file_path": "templates/power point/3.pptx",
+        "file_size": "170 KB"
+    },
+    {
+        "id": "power_point_priroda",
+        "name": "Priroda",
+        "category": "power point",
+        "preview": "static/previews/power point/priroda.png",
+        "file_path": "templates/power point/priroda.pptx",
+        "file_size": "1034 KB"
+    },
+    {
+        "id": "power_point_2",
+        "name": "2",
+        "category": "power point",
+        "preview": "static/previews/power point/2.png",
+        "file_path": "templates/power point/2.pptx",
+        "file_size": "58 KB"
+    },
+    {
+        "id": "power_point_5",
+        "name": "5",
+        "category": "power point",
+        "preview": "static/previews/power point/5.png",
+        "file_path": "templates/power point/5.pptx",
+        "file_size": "341 KB"
+    },
+    {
+        "id": "power_point_dark_premium",
+        "name": "Dark Premium",
+        "category": "power point",
+        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "file_path": "templates/power point/dark_premium.pptx",
+        "file_size": "31 KB"
+    },
+    {
+        "id": "power_point_minimalist_light",
+        "name": "Minimalist Light",
+        "category": "power point",
+        "preview": "static/previews/power point/Minimalist_Light.png",
+        "file_path": "templates/power point/Minimalist_Light.pptx",
+        "file_size": "29 KB"
+    },
+    {
+        "id": "power_point_4",
+        "name": "4",
+        "category": "power point",
+        "preview": "static/previews/power point/4.png",
+        "file_path": "templates/power point/4.pptx",
+        "file_size": "34 KB"
+    }
+]
