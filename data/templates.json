@@ -1,12 +1,19 @@
 [
     {
-        "id": "dummy_biology",
-        "name": "Tez orada...",
+        "id": "biology_medicinskiy_stol",
+        "name": "Medicinskiy Stol",
         "category": "Biology",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Biology",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
+        "preview": "static/previews/Biology/medicinskiy_stol.png",
+        "file_path": "templates/Biology/medicinskiy_stol.pptx",
+        "file_size": "319 KB"
+    },
+    {
+        "id": "biology_medicinskiy_centr",
+        "name": "Medicinskiy Centr",
+        "category": "Biology",
+        "preview": "static/previews/Biology/medicinskiy_centr.png",
+        "file_path": "templates/Biology/medicinskiy_centr.pptx",
+        "file_size": "681 KB"
     },
     {
         "id": "business_green_business_advanced_ppt_seminar_proposal_template",
@@ -62,12 +69,12 @@
         "is_empty": true
     },
     {
-        "id": "modern_myataya-bumaga-wide",
-        "name": "Myataya-Bumaga-Wide",
+        "id": "modern_green-minimalism",
+        "name": "Green-Minimalism",
         "category": "modern",
-        "preview": "static/previews/modern/myataya-bumaga-wide.png",
-        "file_path": "templates/modern/myataya-bumaga-wide.pptx",
-        "file_size": "978 KB"
+        "preview": "static/previews/modern/green-minimalism.png",
+        "file_path": "templates/modern/green-minimalism.pptx",
+        "file_size": "73 KB"
     },
     {
         "id": "modern_9",
@@ -76,6 +83,22 @@
         "preview": "static/previews/modern/9.png",
         "file_path": "templates/modern/9.pptx",
         "file_size": "4933 KB"
+    },
+    {
+        "id": "modern_interjer",
+        "name": "Interjer",
+        "category": "modern",
+        "preview": "static/previews/modern/interjer.png",
+        "file_path": "templates/modern/interjer.pptx",
+        "file_size": "477 KB"
+    },
+    {
+        "id": "modern_test_example",
+        "name": "Test Example",
+        "category": "modern",
+        "preview": "static/previews/modern/test_example.png",
+        "file_path": "templates/modern/test_example.pptx",
+        "file_size": "64 KB"
     },
     {
         "id": "power_point_education_bright",
@@ -156,14 +179,6 @@
         "preview": "https://via.placeholder.com/280x180?text=No+Preview",
         "file_path": "templates/power point/dark_premium.pptx",
         "file_size": "31 KB"
-    },
-    {
-        "id": "modern_vena_shablon",
-        "name": "Vena Shablon",
-        "category": "modern",
-        "preview": "static/previews/modern/vena_shablon.png",
-        "file_path": "templates/modern/vena_shablon.pptx",
-        "file_size": "59 KB"
     },
     {
         "id": "power_point_minimalist_light",
