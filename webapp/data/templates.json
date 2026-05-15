@@ -1,88 +1,11 @@
 [
     {
-        "id": "biology_medicinskiy_stol",
-        "name": "Medicinskiy Stol",
-        "category": "Biology",
-        "preview": "static/previews/Biology/medicinskiy_stol.png",
-        "file_path": "templates/Biology/medicinskiy_stol.pptx",
-        "file_size": "319 KB"
-    },
-    {
-        "id": "biology_medicinskiy_centr",
-        "name": "Medicinskiy Centr",
-        "category": "Biology",
-        "preview": "static/previews/Biology/medicinskiy_centr.png",
-        "file_path": "templates/Biology/medicinskiy_centr.pptx",
-        "file_size": "681 KB"
-    },
-    {
-        "id": "business_green_business_advanced_ppt_seminar_proposal_template",
-        "name": "Green Business Advanced Ppt Seminar Proposal Template",
-        "category": "Business",
-        "preview": "static/previews/Business/Green Business Advanced PPT Seminar Proposal Template.png",
-        "file_path": "templates/Business/Green Business Advanced PPT Seminar Proposal Template.pptx",
-        "file_size": "44862 KB"
-    },
-    {
-        "id": "dummy_buxgalteriya",
-        "name": "Tez orada...",
-        "category": "Buxgalteriya",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Buxgalteriya",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
-    },
-    {
-        "id": "dummy_history",
-        "name": "Tez orada...",
-        "category": "History",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=History",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
-    },
-    {
-        "id": "dummy_it",
-        "name": "Tez orada...",
-        "category": "IT",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=IT",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
-    },
-    {
-        "id": "dummy_medicine",
-        "name": "Tez orada...",
-        "category": "Medicine",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=Medicine",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
-    },
-    {
-        "id": "dummy_general",
-        "name": "Tez orada...",
-        "category": "general",
-        "preview": "https://via.placeholder.com/200x120/1c1c1e/fff?text=general",
-        "file_path": "",
-        "file_size": "0 KB",
-        "is_empty": true
-    },
-    {
         "id": "modern_green-minimalism",
         "name": "Green-Minimalism",
         "category": "modern",
         "preview": "static/previews/modern/green-minimalism.png",
         "file_path": "templates/modern/green-minimalism.pptx",
-        "file_size": "73 KB"
-    },
-    {
-        "id": "modern_9",
-        "name": "9",
-        "category": "modern",
-        "preview": "static/previews/modern/9.png",
-        "file_path": "templates/modern/9.pptx",
-        "file_size": "4933 KB"
+        "file_size": "72 KB"
     },
     {
         "id": "modern_interjer",
@@ -91,14 +14,6 @@
         "preview": "static/previews/modern/interjer.png",
         "file_path": "templates/modern/interjer.pptx",
         "file_size": "477 KB"
-    },
-    {
-        "id": "modern_test_example",
-        "name": "Test Example",
-        "category": "modern",
-        "preview": "static/previews/modern/test_example.png",
-        "file_path": "templates/modern/test_example.pptx",
-        "file_size": "64 KB"
     },
     {
         "id": "power_point_education_bright",
@@ -146,7 +61,7 @@
         "category": "power point",
         "preview": "static/previews/power point/3.png",
         "file_path": "templates/power point/3.pptx",
-        "file_size": "170 KB"
+        "file_size": "175 KB"
     },
     {
         "id": "power_point_priroda",

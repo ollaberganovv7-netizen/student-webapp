@@ -269,7 +269,7 @@
 
 <body>
 
-    <h2>Taqdimot Sozlamalari</h2>
+    <h2 id="pageTitle">Sozlamalar</h2>
 
     <!-- Topic editable input -->
     <div class="topic-card" id="topicCard">
@@ -277,7 +277,7 @@
         <textarea class="topic-input" id="topicInput" rows="2" placeholder="Mavzuni kiriting..."></textarea>
     </div>
 
-    <!-- Quality Badge (replaces the toggle) -->
+    <!-- Quality Badge -->
     <div class="quality-badge" id="qualityBadge">
         <span class="icon" id="qualityIcon">✨</span>
         <div>
@@ -327,68 +327,83 @@
         tg.expand();
 
         const urlParams = new URLSearchParams(window.location.search);
-        const isPremium = urlParams.get('quality') === 'premium';
+        const docType = urlParams.get('doc_type') || 'referat';
+        const isPremium = urlParams.get('quality') === 'premium' || urlParams.get('quality') === 'pro';
         const balance = parseInt(urlParams.get('balance') || '0');
-        const topic = urlParams.get('topic') || '';
+        const topic = decodeURIComponent(urlParams.get('topic') || '');
 
-        // Populate topic field
+        // ── Document type configurations ──
+        const DOC_CONFIG = {
+            referat: {
+                title: '📝 Referat Sozlamalari',
+                qualityStd: { icon: '✨', label: 'Standart', sub: 'Sifatli akademik referat' },
+                qualityPro: { icon: '💎', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
+                pageMin: 10, pageMax: 30, pageDefault: 15,
+                prices: { std_low: 3000, std_mid: 4000, std_high: 5000, pro_low: 9000, pro_mid: 12000, pro_high: 15000 },
+                priceTiers: [15, 20],
+            },
+            mustaqil: {
+                title: '📄 Mustaqil Ish Sozlamalari',
+                qualityStd: { icon: '✨', label: 'Standart', sub: 'Sifatli mustaqil ish' },
+                qualityPro: { icon: '💎', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
+                pageMin: 10, pageMax: 30, pageDefault: 15,
+                prices: { std_low: 3000, std_mid: 4000, std_high: 5000, pro_low: 9000, pro_mid: 12000, pro_high: 15000 },
+                priceTiers: [15, 20],
+            },
+            uslubiy: {
+                title: '📗 Uslubiy Ishlanma Sozlamalari',
+                qualityStd: { icon: '💎', label: 'Pro', sub: "To'liq akademik uslubiy ishlanma" },
+                qualityPro: { icon: '💎', label: 'Pro', sub: "To'liq akademik uslubiy ishlanma" },
+                pageMin: 20, pageMax: 50, pageDefault: 25,
+                prices: { std_low: 13000, std_mid: 16000, std_high: 19000, pro_low: 13000, pro_mid: 16000, pro_high: 19000 },
+                priceTiers: [30, 40],
+            }
+        };
+
+        const config = DOC_CONFIG[docType] || DOC_CONFIG.referat;
+
+        // Set page title
+        document.getElementById('pageTitle').innerText = config.title;
+
+        // Populate fields
         document.getElementById('topicInput').value = topic;
-
-        // Set author and language
         document.getElementById('author').value = urlParams.get('name') || '';
         document.getElementById('balance').innerText = balance.toLocaleString();
 
-        // Show quality badge
+        // Quality badge
         const badge = document.getElementById('qualityBadge');
-        const icon = document.getElementById('qualityIcon');
-        const label = document.getElementById('qualityLabel');
-        const sub = document.getElementById('qualitySub');
-        const saveBtn = document.getElementById('saveBtn');
+        const qInfo = isPremium ? config.qualityPro : config.qualityStd;
+        document.getElementById('qualityIcon').innerText = qInfo.icon;
+        document.getElementById('qualityLabel').innerText = qInfo.label;
+        document.getElementById('qualitySub').innerText = qInfo.sub;
+        badge.classList.add(isPremium ? 'premium' : 'standard');
+        if (isPremium) document.getElementById('saveBtn').classList.add('pro');
 
-        if (isPremium) {
-            badge.classList.add('premium');
-            icon.innerText = '💎';
-            label.innerText = 'Premium (Pro)';
-            sub.innerText = 'Chuqur ilmiy tahlil + manbalar [1][2]';
-            saveBtn.classList.add('pro');
-        } else {
-            badge.classList.add('standard');
-            icon.innerText = '✨';
-            label.innerText = 'Standart';
-            sub.innerText = 'Sifatli akademik taqdimot';
-        }
-
-        // Pricing
-        const PRICES = {
-            standard_low: 3000,
-            standard_mid: 5000,
-            standard_high: 7000,
-            premium_low: 6000,
-            premium_mid: 10000,
-            premium_high: 14000,
-        };
-
+        // Page slider
         const slidesInput = document.getElementById('slides');
         const slideCountDisp = document.getElementById('slide-count');
+        slidesInput.min = config.pageMin;
+        slidesInput.max = config.pageMax;
+        slidesInput.value = config.pageDefault;
+        slideCountDisp.innerText = config.pageDefault;
 
         function calcPrice(count) {
-            let base;
+            const p = config.prices;
+            const t = config.priceTiers;
             if (isPremium) {
-                if (count <= 12) base = PRICES.premium_low;
-                else if (count <= 20) base = PRICES.premium_mid;
-                else base = PRICES.premium_high;
+                if (count <= t[0]) return p.pro_low;
+                else if (count <= t[1]) return p.pro_mid;
+                else return p.pro_high;
             } else {
-                if (count <= 12) base = PRICES.standard_low;
-                else if (count <= 20) base = PRICES.standard_mid;
-                else base = PRICES.standard_high;
+                if (count <= t[0]) return p.std_low;
+                else if (count <= t[1]) return p.std_mid;
+                else return p.std_high;
             }
-            return base;
         }
 
         function updateUI() {
             const count = parseInt(slidesInput.value);
             slideCountDisp.innerText = count;
-
             const price = calcPrice(count);
             document.getElementById('price').innerText = price.toLocaleString();
 
@@ -409,7 +424,7 @@
             tg.HapticFeedback.impactOccurred("medium");
             const topicVal = document.getElementById('topicInput').value.trim();
             if (!topicVal) {
-                tg.showAlert('❗ Mavzu bo\'sh bo\'lishi mumkin emas!');
+                tg.showAlert("❗ Mavzu bo'sh bo'lishi mumkin emas!");
                 return;
             }
             const data = {
@@ -417,8 +432,8 @@
                 language: document.getElementById('language').value,
                 slides: slidesInput.value,
                 premium: isPremium,
-                ai_images: false,
-                topic: topicVal
+                topic: topicVal,
+                doc_type: docType
             };
             tg.sendData(JSON.stringify(data));
         }
