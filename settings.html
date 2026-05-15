@@ -181,7 +181,7 @@
     </div>
 
     <!-- Subject (Fan) -->
-    <div class="input-group">
+    <div class="input-group" id="subjectGroup">
         <label>📚 Fan nomi</label>
         <input type="text" id="subject" placeholder="Masalan: Iqtisodiyot nazariyasi">
     </div>
@@ -234,10 +234,10 @@
         <input type="range" id="mashgulot" min="1" max="8" value="2">
     </div>
 
-    <!-- Pages slider -->
+    <!-- Pages/Slides slider -->
     <div>
         <div class="slider-header">
-            <span>📄 Sahifa miqdori</span>
+            <span id="sliderLabel">📄 Sahifa miqdori</span>
             <span id="slide-count">15</span>
         </div>
         <input type="range" id="slides" min="10" max="30" value="15">
@@ -273,6 +273,21 @@
 
         // ── Document type configurations ──
         const DOC_CONFIG = {
+            presentation: {
+                title: '📊 Taqdimot Sozlamalari',
+                showSubject: false,
+                showUniversity: false,
+                showMashgulot: false,
+                showQuality: true,
+                sliderLabel: '🎞 Slaydlar soni',
+                pageMin: 10, pageMax: 30, pageDefault: 10,
+                prices: {
+                    standard: { low: 3000, mid: 7000, high: 9000 },
+                    pro:      { low: 8000, mid: 12000, high: 16000 }
+                },
+                priceTiers: [14, 22],
+                qualityLabels: { std: 'Standart', pro: 'Premium', stdSub: 'Sifatli taqdimot', proSub: 'Premium dizayn + tahlil' }
+            },
             referat: {
                 title: '📝 Referat Sozlamalari',
                 showUniversity: false,
@@ -320,12 +335,14 @@
         document.getElementById('balance').innerText = balance.toLocaleString();
 
         // Show/hide fields based on doc_type
+        if (config.showSubject === false) document.getElementById('subjectGroup').classList.add('hidden');
         if (!config.showUniversity) document.getElementById('universityGroup').classList.add('hidden');
         if (!config.showMashgulot) document.getElementById('mashgulotSection').classList.add('hidden');
         if (!config.showQuality) {
             document.getElementById('qualitySection').classList.add('hidden');
-            selectedQuality = 'pro'; // uslubiy is always pro
+            selectedQuality = 'pro';
         }
+        if (config.sliderLabel) document.getElementById('sliderLabel').innerText = config.sliderLabel;
 
         // Page slider
         const slidesInput = document.getElementById('slides');
@@ -390,7 +407,7 @@
                 return;
             }
             const subjectVal = document.getElementById('subject').value.trim();
-            if (!subjectVal) {
+            if (config.showSubject !== false && !subjectVal) {
                 tg.showAlert("❗ Fan nomini kiriting!");
                 return;
             }
