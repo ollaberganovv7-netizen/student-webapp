@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taqdimot Sozlamalari</title>
+    <title>Sozlamalar</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -21,51 +21,19 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 14px;
         }
 
         h2 {
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             margin: 0;
         }
 
-        /* Quality Badge */
-        .quality-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 15px;
-        }
-
-        .quality-badge.standard {
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            color: #60a5fa;
-        }
-
-        .quality-badge.premium {
-            background: rgba(139, 92, 246, 0.15);
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            color: #a78bfa;
-        }
-
-        .quality-badge .icon {
-            font-size: 22px;
-        }
-
-        .quality-badge .sub {
-            font-size: 11px;
-            font-weight: 400;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+        .hidden { display: none !important; }
 
         .input-group {
             background: var(--input-bg);
@@ -82,24 +50,73 @@
         }
 
         .input-group input,
-        .input-group select {
+        .input-group select,
+        .input-group textarea {
             width: 100%;
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             padding: 0;
             box-sizing: border-box;
+            font-family: inherit;
         }
 
-        .slider-container {}
+        .input-group textarea {
+            resize: none;
+            line-height: 1.4;
+        }
+
+        /* Quality selector */
+        .quality-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .quality-option {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .quality-option.std {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.2);
+            color: #94a3b8;
+        }
+
+        .quality-option.std.active {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            color: #60a5fa;
+        }
+
+        .quality-option.pro {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.2);
+            color: #94a3b8;
+        }
+
+        .quality-option.pro.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            color: #a78bfa;
+        }
+
+        .quality-option .q-icon { font-size: 20px; }
+        .quality-option .q-label { font-size: 13px; font-weight: 700; margin-top: 4px; }
+        .quality-option .q-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
         .slider-header {
             display: flex;
             justify-content: space-between;
             font-size: 14px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         input[type=range] {
@@ -110,10 +127,10 @@
         .info-box {
             background: rgba(15, 23, 42, 0.5);
             border-radius: 12px;
-            padding: 16px;
+            padding: 14px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .info-item span:first-child {
@@ -133,86 +150,14 @@
             grid-column: 1 / -1;
         }
 
-        .price-status.ok {
-            color: #10b981;
-        }
-
-        .price-status.warn {
-            color: #f59e0b;
-        }
-
-        .toggle-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--input-bg);
-            border-radius: 12px;
-            padding: 14px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .toggle-row .label-group {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .toggle-row .label-group .title {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .toggle-row .label-group .sub {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* iOS-style toggle */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 48px;
-            height: 28px;
-        }
-
-        .switch input {
-            display: none;
-        }
-
-        .slider-sw {
-            position: absolute;
-            inset: 0;
-            background: #334155;
-            border-radius: 28px;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .slider-sw:before {
-            content: "";
-            position: absolute;
-            width: 22px;
-            height: 22px;
-            left: 3px;
-            top: 3px;
-            background: white;
-            border-radius: 50%;
-            transition: .3s;
-        }
-
-        .switch input:checked+.slider-sw {
-            background: #10b981;
-        }
-
-        .switch input:checked+.slider-sw:before {
-            transform: translateX(20px);
-        }
+        .price-status.ok { color: #10b981; }
+        .price-status.warn { color: #f59e0b; }
 
         .btn-save {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 16px;
+            padding: 14px;
             border-radius: 12px;
             font-weight: 700;
             font-size: 16px;
@@ -220,79 +165,59 @@
             transition: opacity 0.2s;
         }
 
-        .btn-save:active {
-            opacity: 0.8;
-        }
-
-        .btn-save.pro {
-            background: var(--accent-pro);
-        }
-
-        .topic-card {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 12px;
-            padding: 12px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .topic-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .topic-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #93c5fd;
-            font-size: 15px;
-            font-weight: 600;
-            outline: none;
-            padding: 0;
-            box-sizing: border-box;
-            resize: none;
-            font-family: inherit;
-            line-height: 1.4;
-        }
-
-        .topic-input::placeholder {
-            color: #475569;
-            font-weight: 400;
-        }
+        .btn-save:active { opacity: 0.8; }
+        .btn-save.pro-btn { background: var(--accent-pro); }
     </style>
 </head>
 
 <body>
 
-    <h2>Taqdimot Sozlamalari</h2>
+    <h2 id="pageTitle">Sozlamalar</h2>
 
-    <!-- Topic editable input -->
-    <div class="topic-card" id="topicCard">
-        <span class="topic-label">✏️ Mavzu (tahrirlash mumkin)</span>
-        <textarea class="topic-input" id="topicInput" rows="2" placeholder="Mavzuni kiriting..."></textarea>
+    <!-- Topic -->
+    <div class="input-group">
+        <label>📝 Mavzu</label>
+        <textarea id="topicInput" rows="2" placeholder="Mavzuni kiriting..."></textarea>
     </div>
 
-    <!-- Quality Badge (replaces the toggle) -->
-    <div class="quality-badge" id="qualityBadge">
-        <span class="icon" id="qualityIcon">✨</span>
-        <div>
-            <div id="qualityLabel">Standart</div>
-            <div class="sub" id="qualitySub">Sifatli akademik taqdimot</div>
+    <!-- Subject (Fan) -->
+    <div class="input-group">
+        <label>📚 Fan nomi</label>
+        <input type="text" id="subject" placeholder="Masalan: Iqtisodiyot nazariyasi">
+    </div>
+
+    <!-- University (uslubiy only) -->
+    <div class="input-group" id="universityGroup">
+        <label>🏫 Universitet</label>
+        <input type="text" id="university" placeholder="Masalan: O'zMU">
+    </div>
+
+    <!-- Quality Selector (referat/mustaqil only) -->
+    <div id="qualitySection">
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:6px;">⚡ Sifat darajasi</div>
+        <div class="quality-selector">
+            <div class="quality-option std active" id="qStd" onclick="setQuality('standard')">
+                <div class="q-icon">✨</div>
+                <div class="q-label">Standart</div>
+                <div class="q-sub">Sifatli akademik</div>
+            </div>
+            <div class="quality-option pro" id="qPro" onclick="setQuality('pro')">
+                <div class="q-icon">💎</div>
+                <div class="q-label">Pro</div>
+                <div class="q-sub">Chuqur tahlil</div>
+            </div>
         </div>
     </div>
 
+    <!-- Author -->
     <div class="input-group">
-        <label>Muallif</label>
+        <label>👤 Muallif</label>
         <input type="text" id="author" placeholder="Ism Familiya">
     </div>
 
+    <!-- Language -->
     <div class="input-group">
-        <label>Til</label>
+        <label>🌐 Til</label>
         <select id="language">
             <option value="uz">O'zbekcha 🇺🇿</option>
             <option value="ru">Русский 🇷🇺</option>
@@ -300,14 +225,25 @@
         </select>
     </div>
 
-    <div class="slider-container">
+    <!-- Mashg'ulotlar (uslubiy only) -->
+    <div id="mashgulotSection">
         <div class="slider-header">
-            <span>Sahifa miqdori</span>
-            <span id="slide-count">10</span>
+            <span>📊 Mashg'ulotlar soni</span>
+            <span id="mash-count">2</span>
         </div>
-        <input type="range" id="slides" min="6" max="30" value="10">
+        <input type="range" id="mashgulot" min="1" max="8" value="2">
     </div>
 
+    <!-- Pages slider -->
+    <div>
+        <div class="slider-header">
+            <span>📄 Sahifa miqdori</span>
+            <span id="slide-count">15</span>
+        </div>
+        <input type="range" id="slides" min="10" max="30" value="15">
+    </div>
+
+    <!-- Price info -->
     <div class="info-box">
         <div class="info-item">
             <span>Balans:</span>
@@ -315,9 +251,9 @@
         </div>
         <div class="info-item">
             <span>Joriy narx:</span>
-            <span id="price">3000</span>
+            <span id="price">3 000</span>
         </div>
-        <div class="price-status ok" id="status">Balans yetarli</div>
+        <div class="price-status ok" id="status">✅ Balans yetarli</div>
     </div>
 
     <button class="btn-save" id="saveBtn" onclick="saveSettings()">Saqlash</button>
@@ -327,68 +263,109 @@
         tg.expand();
 
         const urlParams = new URLSearchParams(window.location.search);
-        const isPremium = urlParams.get('quality') === 'premium';
+        const docType = urlParams.get('doc_type') || 'referat';
         const balance = parseInt(urlParams.get('balance') || '0');
-        const topic = urlParams.get('topic') || '';
+        const topicParam = decodeURIComponent(urlParams.get('topic') || '');
+        const nameParam = urlParams.get('name') || '';
+        const qualityParam = urlParams.get('quality') || 'standard';
 
-        // Populate topic field
-        document.getElementById('topicInput').value = topic;
+        let selectedQuality = qualityParam === 'pro' ? 'pro' : 'standard';
 
-        // Set author and language
-        document.getElementById('author').value = urlParams.get('name') || '';
-        document.getElementById('balance').innerText = balance.toLocaleString();
-
-        // Show quality badge
-        const badge = document.getElementById('qualityBadge');
-        const icon = document.getElementById('qualityIcon');
-        const label = document.getElementById('qualityLabel');
-        const sub = document.getElementById('qualitySub');
-        const saveBtn = document.getElementById('saveBtn');
-
-        if (isPremium) {
-            badge.classList.add('premium');
-            icon.innerText = '💎';
-            label.innerText = 'Premium (Pro)';
-            sub.innerText = 'Chuqur ilmiy tahlil + manbalar [1][2]';
-            saveBtn.classList.add('pro');
-        } else {
-            badge.classList.add('standard');
-            icon.innerText = '✨';
-            label.innerText = 'Standart';
-            sub.innerText = 'Sifatli akademik taqdimot';
-        }
-
-        // Pricing
-        const PRICES = {
-            standard_low: 3000,
-            standard_mid: 5000,
-            standard_high: 7000,
-            premium_low: 6000,
-            premium_mid: 10000,
-            premium_high: 14000,
+        // ── Document type configurations ──
+        const DOC_CONFIG = {
+            referat: {
+                title: '📝 Referat Sozlamalari',
+                showUniversity: false,
+                showMashgulot: false,
+                showQuality: true,
+                pageMin: 10, pageMax: 30, pageDefault: 15,
+                prices: {
+                    standard: { low: 3000, mid: 4000, high: 5000 },
+                    pro:      { low: 9000, mid: 12000, high: 15000 }
+                },
+                priceTiers: [15, 20],
+            },
+            mustaqil: {
+                title: '📄 Mustaqil Ish Sozlamalari',
+                showUniversity: false,
+                showMashgulot: false,
+                showQuality: true,
+                pageMin: 10, pageMax: 30, pageDefault: 15,
+                prices: {
+                    standard: { low: 3000, mid: 4000, high: 5000 },
+                    pro:      { low: 9000, mid: 12000, high: 15000 }
+                },
+                priceTiers: [15, 20],
+            },
+            uslubiy: {
+                title: '📗 Uslubiy Ishlanma Sozlamalari',
+                showUniversity: true,
+                showMashgulot: true,
+                showQuality: false,
+                pageMin: 20, pageMax: 50, pageDefault: 25,
+                prices: {
+                    standard: { low: 13000, mid: 16000, high: 19000 },
+                    pro:      { low: 13000, mid: 16000, high: 19000 }
+                },
+                priceTiers: [30, 40],
+            }
         };
 
+        const config = DOC_CONFIG[docType] || DOC_CONFIG.referat;
+
+        // ── Init UI ──
+        document.getElementById('pageTitle').innerText = config.title;
+        document.getElementById('topicInput').value = topicParam;
+        document.getElementById('author').value = nameParam;
+        document.getElementById('balance').innerText = balance.toLocaleString();
+
+        // Show/hide fields based on doc_type
+        if (!config.showUniversity) document.getElementById('universityGroup').classList.add('hidden');
+        if (!config.showMashgulot) document.getElementById('mashgulotSection').classList.add('hidden');
+        if (!config.showQuality) {
+            document.getElementById('qualitySection').classList.add('hidden');
+            selectedQuality = 'pro'; // uslubiy is always pro
+        }
+
+        // Page slider
         const slidesInput = document.getElementById('slides');
         const slideCountDisp = document.getElementById('slide-count');
+        slidesInput.min = config.pageMin;
+        slidesInput.max = config.pageMax;
+        slidesInput.value = config.pageDefault;
+        slideCountDisp.innerText = config.pageDefault;
+
+        // Mashg'ulot slider
+        const mashInput = document.getElementById('mashgulot');
+        const mashDisp = document.getElementById('mash-count');
+        if (mashInput) {
+            mashInput.oninput = () => { mashDisp.innerText = mashInput.value; };
+        }
+
+        // Quality toggle
+        function setQuality(q) {
+            selectedQuality = q;
+            document.getElementById('qStd').classList.toggle('active', q === 'standard');
+            document.getElementById('qPro').classList.toggle('active', q === 'pro');
+            const btn = document.getElementById('saveBtn');
+            btn.classList.toggle('pro-btn', q === 'pro');
+            updateUI();
+        }
+
+        // Apply initial quality
+        if (selectedQuality === 'pro') setQuality('pro');
 
         function calcPrice(count) {
-            let base;
-            if (isPremium) {
-                if (count <= 12) base = PRICES.premium_low;
-                else if (count <= 20) base = PRICES.premium_mid;
-                else base = PRICES.premium_high;
-            } else {
-                if (count <= 12) base = PRICES.standard_low;
-                else if (count <= 20) base = PRICES.standard_mid;
-                else base = PRICES.standard_high;
-            }
-            return base;
+            const p = config.prices[selectedQuality] || config.prices.standard;
+            const t = config.priceTiers;
+            if (count <= t[0]) return p.low;
+            else if (count <= t[1]) return p.mid;
+            else return p.high;
         }
 
         function updateUI() {
             const count = parseInt(slidesInput.value);
             slideCountDisp.innerText = count;
-
             const price = calcPrice(count);
             document.getElementById('price').innerText = price.toLocaleString();
 
@@ -397,7 +374,7 @@
                 statusEl.innerText = '✅ Balans yetarli';
                 statusEl.className = 'price-status ok';
             } else {
-                statusEl.innerText = `⚠️ Yetishmaydi: ${(price - balance).toLocaleString()} so'm`;
+                statusEl.innerText = '⚠️ Yetishmaydi: ' + (price - balance).toLocaleString() + " so'm";
                 statusEl.className = 'price-status warn';
             }
         }
@@ -409,17 +386,38 @@
             tg.HapticFeedback.impactOccurred("medium");
             const topicVal = document.getElementById('topicInput').value.trim();
             if (!topicVal) {
-                tg.showAlert('❗ Mavzu bo\'sh bo\'lishi mumkin emas!');
+                tg.showAlert("❗ Mavzu bo'sh bo'lishi mumkin emas!");
                 return;
             }
+            const subjectVal = document.getElementById('subject').value.trim();
+            if (!subjectVal) {
+                tg.showAlert("❗ Fan nomini kiriting!");
+                return;
+            }
+
+            const pages = parseInt(slidesInput.value);
+            const price = calcPrice(pages);
+
             const data = {
-                author: document.getElementById('author').value,
+                action: 'full_settings',
+                topic: topicVal,
+                subject: subjectVal,
+                author: document.getElementById('author').value.trim() || nameParam,
                 language: document.getElementById('language').value,
-                slides: slidesInput.value,
-                premium: isPremium,
-                ai_images: false,
-                topic: topicVal
+                quality: selectedQuality,
+                num_pages: pages,
+                price: price,
+                doc_type: docType
             };
+
+            // Uslubiy-specific
+            if (config.showUniversity) {
+                data.university = document.getElementById('university').value.trim();
+            }
+            if (config.showMashgulot) {
+                data.num_mashgulot = parseInt(mashInput.value);
+            }
+
             tg.sendData(JSON.stringify(data));
         }
     </script>
