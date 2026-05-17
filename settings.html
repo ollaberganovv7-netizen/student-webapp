@@ -228,6 +228,7 @@
                 showUniversity: true,
                 showMashgulot: false,
                 showQuality: true,
+                showAiImages: true,
                 sliderLabel: '🎞 Slaydlar soni',
                 pageMin: 10, pageMax: 30, pageDefault: 10,
                 priceSteps: {
@@ -241,6 +242,7 @@
                 showUniversity: false,
                 showMashgulot: false,
                 showQuality: true,
+                showAiImages: false,
                 pageMin: 10, pageMax: 30, pageDefault: 15,
                 prices: {
                     standard: { low: 3000, mid: 4000, high: 5000 },
@@ -253,6 +255,7 @@
                 showUniversity: false,
                 showMashgulot: false,
                 showQuality: true,
+                showAiImages: false,
                 pageMin: 10, pageMax: 30, pageDefault: 15,
                 prices: {
                     standard: { low: 3000, mid: 4000, high: 5000 },
@@ -265,6 +268,7 @@
                 showUniversity: true,
                 showMashgulot: true,
                 showQuality: false,
+                showAiImages: false,
                 pageMin: 20, pageMax: 50, pageDefault: 25,
                 prices: {
                     standard: { low: 13000, mid: 16000, high: 19000 },
@@ -303,7 +307,7 @@
         if (config.showSubject === false) document.getElementById('subjectGroup').classList.add('hidden');
         if (!config.showUniversity) document.getElementById('universityGroup').classList.add('hidden');
         if (config.showMashgulot) document.getElementById('mashgulotSection').classList.remove('hidden');
-        if (config.showAiImages !== false) {
+        if (config.showAiImages === true) {
             document.getElementById('aiImageSection').classList.remove('hidden');
             document.getElementById('aiImageLabel').innerText = T.aiImageLabel;
             document.getElementById('aiImageFreeNote').innerText = T.aiFreeNote;
