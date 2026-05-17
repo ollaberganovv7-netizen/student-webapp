@@ -182,42 +182,42 @@
 
     <!-- Subject (Fan) -->
     <div class="input-group" id="subjectGroup">
-        <label>📚 Fan nomi</label>
+        <label id="subjectLabel">📚 Fan nomi</label>
         <input type="text" id="subject" placeholder="Masalan: Iqtisodiyot nazariyasi">
     </div>
 
     <!-- University (uslubiy only) -->
     <div class="input-group" id="universityGroup">
-        <label>🏫 Universitet</label>
+        <label id="universityLabel">🏫 Universitet</label>
         <input type="text" id="university" placeholder="Masalan: O'zMU">
     </div>
 
     <!-- Quality Selector (referat/mustaqil only) -->
     <div id="qualitySection">
-        <div style="font-size:12px; color:var(--text-muted); margin-bottom:6px;">⚡ Sifat darajasi</div>
+        <div id="qualityLabel" style="font-size:12px; color:var(--text-muted); margin-bottom:6px;">⚡ Sifat darajasi</div>
         <div class="quality-selector">
             <div class="quality-option std active" id="qStd" onclick="setQuality('standard')">
                 <div class="q-icon">✨</div>
-                <div class="q-label">Standart</div>
-                <div class="q-sub">Sifatli akademik</div>
+                <div class="q-label" id="qStdLabel">Standart</div>
+                <div class="q-sub" id="qStdSub">Sifatli akademik</div>
             </div>
             <div class="quality-option pro" id="qPro" onclick="setQuality('pro')">
                 <div class="q-icon">💎</div>
-                <div class="q-label">Pro</div>
-                <div class="q-sub">Chuqur tahlil</div>
+                <div class="q-label" id="qProLabel">Pro</div>
+                <div class="q-sub" id="qProSub">Chuqur tahlil</div>
             </div>
         </div>
     </div>
 
     <!-- Author -->
     <div class="input-group">
-        <label>👤 Muallif</label>
+        <label id="authorLabel">👤 Muallif</label>
         <input type="text" id="author" placeholder="Ism Familiya">
     </div>
 
     <!-- Language -->
     <div class="input-group">
-        <label>🌐 Til</label>
+        <label id="langLabel">🌐 Til</label>
         <select id="language">
             <option value="uz">O'zbekcha 🇺🇿</option>
             <option value="ru">Русский 🇷🇺</option>
@@ -228,7 +228,7 @@
     <!-- Mashg'ulotlar (uslubiy only) -->
     <div id="mashgulotSection" class="hidden">
         <div class="slider-header">
-            <span>📊 Mashg'ulotlar soni</span>
+            <span id="mashgulotLabel">📊 Mashg'ulotlar soni</span>
             <span id="mash-count">2</span>
         </div>
         <input type="range" id="mashgulot" min="1" max="8" value="2">
@@ -265,11 +265,11 @@
     <!-- Price info -->
     <div class="info-box">
         <div class="info-item">
-            <span>Balans:</span>
+            <span id="balanceLabel">Balans:</span>
             <span id="balance">0</span>
         </div>
         <div class="info-item">
-            <span>Joriy narx:</span>
+            <span id="priceLabel">Joriy narx:</span>
             <span id="price">3 000</span>
         </div>
         <div class="price-status ok" id="status">✅ Balans yetarli</div>
@@ -435,22 +435,22 @@
         document.getElementById('pageTitle').innerText = T.titles[docType] || config.title;
         document.getElementById('topicInput').value = topicParam;
         document.getElementById('topicInput').placeholder = T.topicPh;
-        document.querySelector('#subjectGroup label').innerText = T.subject;
+        document.getElementById('subjectLabel').innerText = T.subject;
         document.getElementById('subject').placeholder = T.subjectPh;
-        document.querySelector('#universityGroup label').innerText = T.university;
+        document.getElementById('universityLabel').innerText = T.university;
         document.getElementById('university').placeholder = T.universityPh;
-        document.querySelector('#qualitySection > div:first-child').innerText = T.quality;
-        document.querySelector('#qStd .q-label').innerText = T.qStd;
-        document.querySelector('#qStd .q-sub').innerText = T.qStdSub;
-        document.querySelector('#qPro .q-label').innerText = T.qPro;
-        document.querySelector('#qPro .q-sub').innerText = T.qProSub;
-        document.querySelector('[for="author"], .input-group:has(#author) label').innerText = T.author;
+        document.getElementById('qualityLabel').innerText = T.quality;
+        document.getElementById('qStdLabel').innerText = T.qStd;
+        document.getElementById('qStdSub').innerText = T.qStdSub;
+        document.getElementById('qProLabel').innerText = T.qPro;
+        document.getElementById('qProSub').innerText = T.qProSub;
+        document.getElementById('authorLabel').innerText = T.author;
         document.getElementById('author').placeholder = T.authorPh;
         document.getElementById('author').value = nameParam;
-        document.querySelector('.input-group:has(#language) label').innerText = T.langLabel;
-        document.querySelector('#mashgulotSection .slider-header span:first-child').innerText = T.mashgulot;
-        document.querySelector('.info-box .info-item:first-child span:first-child').innerText = T.balanceLabel;
-        document.querySelector('.info-box .info-item:last-child span:first-child').innerText = T.priceLabel;
+        document.getElementById('langLabel').innerText = T.langLabel;
+        document.getElementById('mashgulotLabel').innerText = T.mashgulot;
+        document.getElementById('balanceLabel').innerText = T.balanceLabel;
+        document.getElementById('priceLabel').innerText = T.priceLabel;
         document.getElementById('balance').innerText = balance.toLocaleString();
         document.getElementById('saveBtn').innerText = T.save;
 
