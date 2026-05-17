@@ -5,133 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mustaqil Ish Tahrirlash</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="static/styles.css">
     <style>
-        :root {
-            --bg-color: var(--tg-theme-bg-color, #ffffff);
-            --text-color: var(--tg-theme-text-color, #000000);
-            --hint-color: var(--tg-theme-hint-color, #999999);
-            --link-color: var(--tg-theme-link-color, #2481cc);
-            --button-color: var(--tg-theme-button-color, #2481cc);
-            --button-text-color: var(--tg-theme-button-text-color, #ffffff);
-            --secondary-bg-color: var(--tg-theme-secondary-bg-color, #f4f4f5);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        h1 {
-            font-size: 20px;
-            margin: 0 0 10px 0;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .input-group {
-            position: relative;
-            background-color: var(--secondary-bg-color);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 10px 14px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--hint-color);
-            margin-bottom: 4px;
-        }
-
-        input, textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            font-size: 16px;
-            outline: none;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: none;
-        }
-
-        #save-btn {
-            background-color: var(--button-color);
-            color: var(--button-text-color);
-            border: none;
-            border-radius: 12px;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        #save-btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
-        }
-
-        .hidden {
-            display: none;
-        }
+        body { display: flex; flex-direction: column; gap: 12px; }
+        .container { display: flex; flex-direction: column; gap: 10px; }
     </style>
 </head>
 <body>
 
-    <h1 id="title">Mavzu nomi</h1>
+    <div class="page-header animate-in">
+        <h1 id="title">Mavzu nomi</h1>
+    </div>
 
     <div id="plan-container" class="container hidden">
-        <div class="input-group">
+        <div class="input-group animate-in">
             <label>Reja 1</label>
             <input type="text" class="plan-input" placeholder="Kirish...">
         </div>
-        <div class="input-group">
+        <div class="input-group animate-in">
             <label>Reja 2</label>
             <input type="text" class="plan-input" placeholder="Asosiy qism...">
         </div>
-        <div class="input-group">
+        <div class="input-group animate-in">
             <label>Reja 3</label>
             <input type="text" class="plan-input" placeholder="Tahlil...">
         </div>
-        <div class="input-group">
+        <div class="input-group animate-in">
             <label>Reja 4</label>
             <input type="text" class="plan-input" placeholder="Xulosa...">
         </div>
     </div>
 
     <div id="text-container" class="container">
-        <div class="input-group">
+        <div class="input-group animate-in">
             <label id="input-label">Ma'lumot</label>
-            <textarea id="main-input" placeholder="Batafsil yozing..."></textarea>
+            <textarea id="main-input" rows="6" placeholder="Batafsil yozing..."></textarea>
         </div>
     </div>
 
-    <button id="save-btn">Saqlash</button>
+    <button class="btn btn-primary animate-in" id="save-btn">Saqlash</button>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        tg.setBackgroundColor('#0f172a');
+        tg.setHeaderColor('#0f172a');
 
         const urlParams = new URLSearchParams(window.location.search);
         const action = urlParams.get('action');
@@ -152,7 +70,6 @@
             textContainer.classList.add('hidden');
             
             if (initialValue) {
-                // Try to parse numbered plan (e.g. "1. Intro\n2. Body")
                 const lines = initialValue.split('\n').map(l => l.replace(/^\d+\.\s*/, '').trim()).filter(l => l);
                 const inputs = document.querySelectorAll('.plan-input');
                 lines.forEach((line, idx) => {
@@ -191,13 +108,7 @@
             }
 
             tg.HapticFeedback.impactOccurred("medium");
-
-            const data = JSON.stringify({
-                action: action,
-                value: finalValue
-            });
-
-            tg.sendData(data);
+            tg.sendData(JSON.stringify({ action: action, value: finalValue }));
         });
 
         tg.ready();

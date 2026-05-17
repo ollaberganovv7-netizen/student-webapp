@@ -3,291 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Slayd Design Catalog</title>
+    <title>Dizayn Katalog</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
     <style>
-        :root {
-            --bg-color: #000000;
-            --secondary-bg: #1c1c1e;
-            --accent-blue: #3b82f6;
-            --text-main: #ffffff;
-            --text-dim: #a1a1aa;
-            --radius: 12px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            padding-bottom: 80px;
-        }
-
-        header {
-            padding: 20px 16px;
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .instruction {
-            color: var(--text-dim);
-            font-size: 15px;
-            margin-bottom: 20px;
-        }
-
-        /* Accordion Style */
-        .category-item {
-            margin-bottom: 8px;
-        }
-
-        .category-header {
-            background-color: var(--accent-blue);
-            padding: 14px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .category-header:active {
-            opacity: 0.8;
-        }
-
-        .category-header.open {
-            background-color: var(--secondary-bg);
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .category-title {
-            font-size: 17px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .category-count {
-            font-size: 12px;
-            color: rgba(255,255,255,0.6);
-            background: rgba(255,255,255,0.15);
-            padding: 2px 8px;
-            border-radius: 10px;
-        }
-
-        .chevron {
-            transition: transform 0.3s;
-        }
-
-        .category-header.open .chevron {
-            transform: rotate(180deg);
-        }
-
-        /* Templates Grid */
-        .templates-content {
-            display: none;
-            background-color: var(--secondary-bg);
-            padding: 16px;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-
-        .category-item.active .templates-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .template-card {
-            background: #2c2c2e;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid transparent;
-            transition: border-color 0.2s, transform 0.15s;
-        }
-
-        .template-card:active {
-            transform: scale(0.97);
-        }
-
-        .template-card.selected {
-            border-color: #10b981;
-        }
-
-        .preview-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            position: relative;
-        }
-
-        .preview-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card-footer {
-            padding: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: var(--text-dim);
-        }
-
-        .template-name {
-            font-weight: 500;
-            color: var(--text-main);
-            font-size: 13px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100px;
-        }
-
-        .size-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .empty-msg {
-            grid-column: 1 / -1;
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 14px;
-            padding: 20px;
-        }
-
-        /* Fixed Footer */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(to top, #000 80%, transparent);
-            display: none;
-        }
-
-        .footer.visible {
-            display: block;
-        }
-
-        .btn-confirm {
-            width: 100%;
-            background: var(--accent-blue);
+        body { padding-bottom: 90px; }
+        #catalog-list { display: flex; flex-direction: column; gap: 8px; }
+        .selected-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--success);
             color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 2px 6px rgba(16,185,129,0.4);
         }
+        .preview-container { position: relative; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Dizayn tanlash</h1>
-        <p class="instruction">Tanlash uchun rasm ustiga bosing</p>
-    </header>
 
-    <div id="catalog-list" style="padding: 0 16px;">
+    <div class="page-header animate-in">
+        <h1>Dizayn tanlash</h1>
+        <p>Taqdimot uchun shablon tanlang</p>
+    </div>
+
+    <div class="search-box animate-in">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Qidirish..." oninput="filterTemplates()">
+    </div>
+
+    <div id="catalog-list">
         <!-- Dynamic categories -->
     </div>
 
-    <div class="footer" id="footer">
-        <button class="btn-confirm" id="confirm-btn">Dizaynni tanlash</button>
+    <div class="fixed-footer" id="footer">
+        <button class="btn btn-primary" id="confirm-btn">✅ Dizaynni tanlash</button>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        tg.setBackgroundColor('#0f172a');
+        tg.setHeaderColor('#0f172a');
 
         let selectedId = null;
         let templates = [];
+        let searchQuery = '';
 
-        // Category icons for known folders
         const CATEGORY_ICONS = {
-            'General': '📁',
-            'modern': '✨',
-            'Biology': '🧬',
-            'IT': '💻',
-            'Buxgalteriya': '📊',
-            'Medicine': '⚕️',
-            'History': '📜',
-            'Science': '🔬',
-            'Education': '🎓',
-            'Business': '💼',
-            'Art': '🎨',
-            'Sport': '⚽',
-            'Music': '🎵',
-            'Law': '⚖️',
+            'General': '📁', 'modern': '✨', 'Biology': '🧬', 'IT': '💻',
+            'Buxgalteriya': '📊', 'Medicine': '⚕️', 'History': '📜', 'Science': '🔬',
+            'Education': '🎓', 'Business': '💼', 'Art': '🎨', 'Sport': '⚽',
+            'Music': '🎵', 'Law': '⚖️',
         };
 
         async function loadData() {
             try {
-                const res = await fetch(`data/templates.json?v=${new Date().getTime()}`);
+                const res = await fetch(`data/templates.json?v=${Date.now()}`);
                 templates = await res.json();
                 render();
             } catch (e) { console.error(e); }
         }
 
+        function filterTemplates() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            render();
+        }
+
+        function getFiltered() {
+            if (!searchQuery) return templates;
+            return templates.filter(t =>
+                t.name.toLowerCase().includes(searchQuery) ||
+                t.category.toLowerCase().includes(searchQuery)
+            );
+        }
+
         function render() {
             const list = document.getElementById('catalog-list');
-            const categories = [...new Set(templates.map(t => t.category))];
+            const filtered = getFiltered();
+            const categories = [...new Set(filtered.map(t => t.category))];
 
-            list.innerHTML = categories.map(cat => {
-                const catTemplates = templates.filter(t => t.category === cat);
+            list.innerHTML = categories.map((cat, idx) => {
+                const catTemplates = filtered.filter(t => t.category === cat);
                 const icon = CATEGORY_ICONS[cat] || '📂';
                 return `
-                <div class="category-item" id="cat-${cat}">
-                    <div class="category-header" onclick="toggle('${cat}')">
+                <div class="category-item animate-in" style="animation-delay:${idx * 0.04}s" id="cat-${CSS.escape(cat)}">
+                    <div class="category-header" onclick="toggle('${cat.replace(/'/g, "\\'")}')">
                         <div class="category-title">
                             ${icon} ${cat}
                             <span class="category-count">${catTemplates.length}</span>
                         </div>
-                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
                     </div>
                     <div class="templates-content">
                         ${catTemplates.length > 0 && !catTemplates[0].is_empty ? catTemplates.map(t => `
                             <div class="template-card ${selectedId === t.id ? 'selected' : ''}" onclick="select('${t.id}')">
                                 <div class="preview-container">
-                                    <img src="${t.preview}" class="preview-img" onerror="this.src='https://via.placeholder.com/200x120/1c1c1e/fff?text=Design'">
+                                    <img src="${t.preview}" class="preview-img" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:28px;background:var(--bg-card)\\'>🎨</div>'">
+                                    ${selectedId === t.id ? '<div class="selected-badge">✓</div>' : ''}
                                 </div>
                                 <div class="card-footer">
                                     <span class="template-name">${t.name}</span>
-                                    <span class="size-tag">~ ${t.file_size}</span>
+                                    <span class="size-tag">${t.file_size}</span>
                                 </div>
                             </div>
                         `).join('') : '<div class="empty-msg">Hozircha shablonlar yo\'q</div>'}
                     </div>
                 </div>
             `}).join('');
+
+            if (categories.length === 0 && searchQuery) {
+                list.innerHTML = '<div class="empty-msg" style="padding:40px 0;">Hech narsa topilmadi</div>';
+            }
         }
 
         function toggle(cat) {
-            const items = document.querySelectorAll('.category-item');
-            items.forEach(item => {
-                if(item.id === `cat-${cat}`) {
-                    item.classList.toggle('active');
-                    item.querySelector('.category-header').classList.toggle('open');
-                }
-            });
+            const item = document.getElementById(`cat-${CSS.escape(cat)}`);
+            if (item) {
+                item.classList.toggle('active');
+                item.querySelector('.category-header').classList.toggle('open');
+            }
         }
 
         function select(id) {
@@ -299,10 +141,10 @@
 
         document.getElementById('confirm-btn').onclick = () => {
             const t = templates.find(x => x.id === selectedId);
-            tg.sendData(JSON.stringify({
-                template_id: t.id,
-                template_name: t.name
-            }));
+            if (t) {
+                tg.HapticFeedback.impactOccurred('medium');
+                tg.sendData(JSON.stringify({ template_id: t.id, template_name: t.name }));
+            }
         };
 
         loadData();
