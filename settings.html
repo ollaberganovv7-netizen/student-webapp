@@ -268,8 +268,74 @@
         const topicParam = decodeURIComponent(urlParams.get('topic') || '');
         const nameParam = urlParams.get('name') || '';
         const qualityParam = urlParams.get('quality') || 'standard';
+        const lang = urlParams.get('lang') || 'uz';
 
         let selectedQuality = qualityParam === 'pro' ? 'pro' : 'standard';
+
+        // ── Translations ──
+        const i18n = {
+            uz: {
+                topic: '📝 Mavzu', topicPh: 'Mavzuni kiriting...',
+                subject: '📚 Fan nomi', subjectPh: 'Masalan: Iqtisodiyot nazariyasi',
+                university: '🏫 Universitet', universityPh: "Masalan: O'zMU",
+                quality: '⚡ Sifat darajasi',
+                qStd: 'Standart', qStdSub: 'Sifatli akademik',
+                qPro: 'Pro', qProSub: 'Chuqur tahlil',
+                author: '👤 Muallif', authorPh: 'Ism Familiya',
+                langLabel: '🌐 Til',
+                mashgulot: '📊 Mashg\'ulotlar soni',
+                pages: '📄 Sahifa miqdori',
+                slides: '🎞 Slaydlar soni',
+                balanceLabel: 'Balans:', priceLabel: 'Joriy narx:',
+                balanceOk: '✅ Balans yetarli',
+                balanceLow: "⚠️ Yetishmaydi: {amount} so'm",
+                save: 'Saqlash',
+                errTopic: '❗ Mavzu bo\'sh bo\'lishi mumkin emas!',
+                errSubject: '❗ Fan nomini kiriting!',
+                titles: { presentation: '📊 Taqdimot Sozlamalari', referat: '📝 Referat Sozlamalari', mustaqil: '📄 Mustaqil Ish Sozlamalari', uslubiy: '📗 Uslubiy Ishlanma Sozlamalari' }
+            },
+            ru: {
+                topic: '📝 Тема', topicPh: 'Введите тему...',
+                subject: '📚 Предмет', subjectPh: 'Например: Экономика',
+                university: '🏫 Университет', universityPh: 'Например: НУУз',
+                quality: '⚡ Качество',
+                qStd: 'Стандарт', qStdSub: 'Академическое',
+                qPro: 'Pro', qProSub: 'Глубокий анализ',
+                author: '👤 Автор', authorPh: 'Имя Фамилия',
+                langLabel: '🌐 Язык',
+                mashgulot: '📊 Кол-во занятий',
+                pages: '📄 Кол-во страниц',
+                slides: '🎞 Кол-во слайдов',
+                balanceLabel: 'Баланс:', priceLabel: 'Текущая цена:',
+                balanceOk: '✅ Баланс достаточен',
+                balanceLow: '⚠️ Не хватает: {amount} сум',
+                save: 'Сохранить',
+                errTopic: '❗ Тема не может быть пустой!',
+                errSubject: '❗ Введите название предмета!',
+                titles: { presentation: '📊 Настройки презентации', referat: '📝 Настройки реферата', mustaqil: '📄 Настройки сам. работы', uslubiy: '📗 Настройки метод. пособия' }
+            },
+            en: {
+                topic: '📝 Topic', topicPh: 'Enter topic...',
+                subject: '📚 Subject', subjectPh: 'e.g. Economics',
+                university: '🏫 University', universityPh: 'e.g. NUUz',
+                quality: '⚡ Quality level',
+                qStd: 'Standard', qStdSub: 'Academic quality',
+                qPro: 'Pro', qProSub: 'Deep analysis',
+                author: '👤 Author', authorPh: 'Full Name',
+                langLabel: '🌐 Language',
+                mashgulot: '📊 Number of lessons',
+                pages: '📄 Number of pages',
+                slides: '🎞 Number of slides',
+                balanceLabel: 'Balance:', priceLabel: 'Current price:',
+                balanceOk: '✅ Balance sufficient',
+                balanceLow: "⚠️ Not enough: {amount} so'm",
+                save: 'Save',
+                errTopic: '❗ Topic cannot be empty!',
+                errSubject: '❗ Please enter subject name!',
+                titles: { presentation: '📊 Presentation Settings', referat: '📝 Essay Settings', mustaqil: '📄 Independent Work Settings', uslubiy: '📗 Methodical Guide Settings' }
+            }
+        };
+        const T = i18n[lang] || i18n.uz;
 
         // ── Document type configurations ──
         const DOC_CONFIG = {
@@ -328,11 +394,28 @@
 
         const config = DOC_CONFIG[docType] || DOC_CONFIG.referat;
 
-        // ── Init UI ──
-        document.getElementById('pageTitle').innerText = config.title;
+        // ── Init UI with translations ──
+        document.getElementById('pageTitle').innerText = T.titles[docType] || config.title;
         document.getElementById('topicInput').value = topicParam;
+        document.getElementById('topicInput').placeholder = T.topicPh;
+        document.querySelector('#subjectGroup label').innerText = T.subject;
+        document.getElementById('subject').placeholder = T.subjectPh;
+        document.querySelector('#universityGroup label').innerText = T.university;
+        document.getElementById('university').placeholder = T.universityPh;
+        document.querySelector('#qualitySection > div:first-child').innerText = T.quality;
+        document.querySelector('#qStd .q-label').innerText = T.qStd;
+        document.querySelector('#qStd .q-sub').innerText = T.qStdSub;
+        document.querySelector('#qPro .q-label').innerText = T.qPro;
+        document.querySelector('#qPro .q-sub').innerText = T.qProSub;
+        document.querySelector('[for="author"], .input-group:has(#author) label').innerText = T.author;
+        document.getElementById('author').placeholder = T.authorPh;
         document.getElementById('author').value = nameParam;
+        document.querySelector('.input-group:has(#language) label').innerText = T.langLabel;
+        document.querySelector('#mashgulotSection .slider-header span:first-child').innerText = T.mashgulot;
+        document.querySelector('.info-box .info-item:first-child span:first-child').innerText = T.balanceLabel;
+        document.querySelector('.info-box .info-item:last-child span:first-child').innerText = T.priceLabel;
         document.getElementById('balance').innerText = balance.toLocaleString();
+        document.getElementById('saveBtn').innerText = T.save;
 
         // Show/hide fields based on doc_type
         if (config.showSubject === false) document.getElementById('subjectGroup').classList.add('hidden');
@@ -342,7 +425,12 @@
             document.getElementById('qualitySection').classList.add('hidden');
             selectedQuality = 'pro';
         }
-        if (config.sliderLabel) document.getElementById('sliderLabel').innerText = config.sliderLabel;
+        // Set slider label based on doc type + language
+        if (docType === 'presentation') {
+            document.getElementById('sliderLabel').innerText = T.slides;
+        } else {
+            document.getElementById('sliderLabel').innerText = T.pages;
+        }
 
         // Page slider
         const slidesInput = document.getElementById('slides');
@@ -388,10 +476,10 @@
 
             const statusEl = document.getElementById('status');
             if (balance >= price) {
-                statusEl.innerText = '✅ Balans yetarli';
+                statusEl.innerText = T.balanceOk;
                 statusEl.className = 'price-status ok';
             } else {
-                statusEl.innerText = '⚠️ Yetishmaydi: ' + (price - balance).toLocaleString() + " so'm";
+                statusEl.innerText = T.balanceLow.replace('{amount}', (price - balance).toLocaleString());
                 statusEl.className = 'price-status warn';
             }
         }
@@ -403,12 +491,12 @@
             tg.HapticFeedback.impactOccurred("medium");
             const topicVal = document.getElementById('topicInput').value.trim();
             if (!topicVal) {
-                tg.showAlert("❗ Mavzu bo'sh bo'lishi mumkin emas!");
+                tg.showAlert(T.errTopic);
                 return;
             }
             const subjectVal = document.getElementById('subject').value.trim();
             if (config.showSubject !== false && !subjectVal) {
-                tg.showAlert("❗ Fan nomini kiriting!");
+                tg.showAlert(T.errSubject);
                 return;
             }
 
