@@ -384,11 +384,10 @@
                 showQuality: true,
                 sliderLabel: '🎞 Slaydlar soni',
                 pageMin: 10, pageMax: 30, pageDefault: 10,
-                prices: {
-                    standard: { low: 3000, mid: 7000, high: 9000 },
-                    pro:      { low: 8000, mid: 12000, high: 16000 }
+                priceSteps: {
+                    standard: [[10, 3000], [15, 5000], [20, 7000], [25, 9000], [30, 11000]],
+                    pro:      [[10, 8000], [15, 10000], [20, 12000], [25, 14000], [30, 16000]]
                 },
-                priceTiers: [14, 22],
                 qualityLabels: { std: 'Standart', pro: 'Premium', stdSub: 'Sifatli taqdimot', proSub: 'Premium dizayn + tahlil' }
             },
             referat: {
@@ -504,6 +503,15 @@
         if (selectedQuality === 'pro') setQuality('pro');
 
         function calcPrice(count) {
+            // Step-based pricing (presentation)
+            if (config.priceSteps) {
+                const steps = config.priceSteps[selectedQuality] || config.priceSteps.standard;
+                for (let i = 0; i < steps.length; i++) {
+                    if (count <= steps[i][0]) return steps[i][1];
+                }
+                return steps[steps.length - 1][1];
+            }
+            // Tier-based pricing (referat, mustaqil, uslubiy)
             const p = config.prices[selectedQuality] || config.prices.standard;
             const t = config.priceTiers;
             if (count <= t[0]) return p.low;
