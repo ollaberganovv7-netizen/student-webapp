@@ -226,7 +226,7 @@
     </div>
 
     <!-- Mashg'ulotlar (uslubiy only) -->
-    <div id="mashgulotSection">
+    <div id="mashgulotSection" class="hidden">
         <div class="slider-header">
             <span>📊 Mashg'ulotlar soni</span>
             <span id="mash-count">2</span>
@@ -241,6 +241,25 @@
             <span id="slide-count">15</span>
         </div>
         <input type="range" id="slides" min="10" max="30" value="15">
+    </div>
+
+    <!-- AI Images -->
+    <div id="aiImageSection" class="hidden">
+        <div class="input-group" style="padding:12px 16px;">
+            <div style="font-size:13px; margin-bottom:8px;">
+                <span id="aiImageLabel">🖼 AI Rasmlar</span>
+            </div>
+            <div id="aiImageFreeNote" style="font-size:12px; color:#10b981; margin-bottom:8px;">✅ 3 ta bepul rasm avtomatik qo'shiladi</div>
+            <div class="slider-header">
+                <span id="aiExtraLabel">Qo'shimcha rasmlar</span>
+                <span><span id="ai-extra-count">0</span> <span style="font-size:11px; color:var(--text-muted);">× 1 000 so'm</span></span>
+            </div>
+            <input type="range" id="aiExtraSlider" min="0" max="10" value="0">
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-top:4px;">
+                <span id="aiTotalLabel">Jami rasmlar: <b style="color:var(--text-main);">3</b></span>
+                <span id="aiExtraCost"></span>
+            </div>
+        </div>
     </div>
 
     <!-- Price info -->
@@ -286,12 +305,18 @@
                 mashgulot: '📊 Mashg\'ulotlar soni',
                 pages: '📄 Sahifa miqdori',
                 slides: '🎞 Slaydlar soni',
+                aiImageLabel: '🖼 AI Rasmlar',
+                aiFreeNote: '✅ 3 ta bepul rasm avtomatik qo\'shiladi',
+                aiExtraLabel: 'Qo\'shimcha rasmlar',
+                aiTotalLabel: 'Jami rasmlar',
+                aiExtraCostLabel: "{cost} so'm",
                 balanceLabel: 'Balans:', priceLabel: 'Joriy narx:',
                 balanceOk: '✅ Balans yetarli',
                 balanceLow: "⚠️ Yetishmaydi: {amount} so'm",
                 save: 'Saqlash',
                 errTopic: '❗ Mavzu bo\'sh bo\'lishi mumkin emas!',
                 errSubject: '❗ Fan nomini kiriting!',
+                freeImages: 3,
                 titles: { presentation: '📊 Taqdimot Sozlamalari', referat: '📝 Referat Sozlamalari', mustaqil: '📄 Mustaqil Ish Sozlamalari', uslubiy: '📗 Uslubiy Ishlanma Sozlamalari' }
             },
             ru: {
@@ -306,12 +331,18 @@
                 mashgulot: '📊 Кол-во занятий',
                 pages: '📄 Кол-во страниц',
                 slides: '🎞 Кол-во слайдов',
+                aiImageLabel: '🖼 AI Изображения',
+                aiFreeNote: '✅ 3 бесплатных изображения добавляются автоматически',
+                aiExtraLabel: 'Доп. изображения',
+                aiTotalLabel: 'Всего изображений',
+                aiExtraCostLabel: '{cost} сум',
                 balanceLabel: 'Баланс:', priceLabel: 'Текущая цена:',
                 balanceOk: '✅ Баланс достаточен',
                 balanceLow: '⚠️ Не хватает: {amount} сум',
                 save: 'Сохранить',
                 errTopic: '❗ Тема не может быть пустой!',
                 errSubject: '❗ Введите название предмета!',
+                freeImages: 3,
                 titles: { presentation: '📊 Настройки презентации', referat: '📝 Настройки реферата', mustaqil: '📄 Настройки сам. работы', uslubiy: '📗 Настройки метод. пособия' }
             },
             en: {
@@ -326,12 +357,18 @@
                 mashgulot: '📊 Number of lessons',
                 pages: '📄 Number of pages',
                 slides: '🎞 Number of slides',
+                aiImageLabel: '🖼 AI Images',
+                aiFreeNote: '✅ 3 free images are added automatically',
+                aiExtraLabel: 'Extra images',
+                aiTotalLabel: 'Total images',
+                aiExtraCostLabel: "{cost} so'm",
                 balanceLabel: 'Balance:', priceLabel: 'Current price:',
                 balanceOk: '✅ Balance sufficient',
                 balanceLow: "⚠️ Not enough: {amount} so'm",
                 save: 'Save',
                 errTopic: '❗ Topic cannot be empty!',
                 errSubject: '❗ Please enter subject name!',
+                freeImages: 3,
                 titles: { presentation: '📊 Presentation Settings', referat: '📝 Essay Settings', mustaqil: '📄 Independent Work Settings', uslubiy: '📗 Methodical Guide Settings' }
             }
         };
@@ -420,7 +457,13 @@
         // Show/hide fields based on doc_type
         if (config.showSubject === false) document.getElementById('subjectGroup').classList.add('hidden');
         if (!config.showUniversity) document.getElementById('universityGroup').classList.add('hidden');
-        if (!config.showMashgulot) document.getElementById('mashgulotSection').classList.add('hidden');
+        if (config.showMashgulot) document.getElementById('mashgulotSection').classList.remove('hidden');
+        if (config.showAiImages !== false) {
+            document.getElementById('aiImageSection').classList.remove('hidden');
+            document.getElementById('aiImageLabel').innerText = T.aiImageLabel;
+            document.getElementById('aiImageFreeNote').innerText = T.aiFreeNote;
+            document.getElementById('aiExtraLabel').innerText = T.aiExtraLabel;
+        }
         if (!config.showQuality) {
             document.getElementById('qualitySection').classList.add('hidden');
             selectedQuality = 'pro';
@@ -471,7 +514,9 @@
         function updateUI() {
             const count = parseInt(slidesInput.value);
             slideCountDisp.innerText = count;
-            const price = calcPrice(count);
+            const basePrice = calcPrice(count);
+            const extraImages = parseInt(aiExtraSlider ? aiExtraSlider.value : 0);
+            const price = basePrice + (extraImages * IMAGE_PRICE);
             document.getElementById('price').innerText = price.toLocaleString();
 
             const statusEl = document.getElementById('status');
@@ -483,6 +528,28 @@
                 statusEl.className = 'price-status warn';
             }
         }
+
+        // AI images slider
+        const aiExtraSlider = document.getElementById('aiExtraSlider');
+        const aiExtraCount = document.getElementById('ai-extra-count');
+        const aiTotalLabel = document.getElementById('aiTotalLabel');
+        const aiExtraCost = document.getElementById('aiExtraCost');
+        const FREE_IMAGES = 3;
+        const IMAGE_PRICE = 1000;
+
+        function updateAiImages() {
+            const extra = parseInt(aiExtraSlider.value);
+            aiExtraCount.innerText = extra;
+            const total = FREE_IMAGES + extra;
+            aiTotalLabel.innerHTML = T.aiTotalLabel + ': <b style="color:var(--text-main);">' + total + '</b>';
+            if (extra > 0) {
+                aiExtraCost.innerText = T.aiExtraCostLabel.replace('{cost}', (extra * IMAGE_PRICE).toLocaleString());
+            } else {
+                aiExtraCost.innerText = '';
+            }
+            updateUI();
+        }
+        if (aiExtraSlider) aiExtraSlider.oninput = updateAiImages;
 
         slidesInput.oninput = updateUI;
         updateUI();
@@ -501,7 +568,9 @@
             }
 
             const pages = parseInt(slidesInput.value);
-            const price = calcPrice(pages);
+            const extraImages = parseInt(aiExtraSlider ? aiExtraSlider.value : 0);
+            const basePrice = calcPrice(pages);
+            const price = basePrice + (extraImages * IMAGE_PRICE);
 
             const data = {
                 action: 'full_settings',
@@ -511,6 +580,8 @@
                 language: document.getElementById('language').value,
                 quality: selectedQuality,
                 num_pages: pages,
+                ai_images: FREE_IMAGES + extraImages,
+                ai_images_extra: extraImages,
                 price: price,
                 doc_type: docType
             };
