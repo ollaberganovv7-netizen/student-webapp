@@ -1,173 +1,391 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Student(AI) Bot</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="static/styles.css">
-    <style>
-        body { display: flex; flex-direction: column; gap: 10px; padding-bottom: 30px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Student(AI) Bot</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="static/styles.css">
+<style>
+body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
+.v { display:none; flex-direction:column; gap:10px; }
+.v.active { display:flex; }
 
-        .logo-section { text-align: center; padding: 8px 0 4px; }
-        .logo-section h1 {
-            font-size: 22px; font-weight: 800; margin: 0;
-            background: linear-gradient(135deg, var(--accent), var(--accent-pro));
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .logo-section p { color: var(--text-secondary); font-size: 12px; margin: 4px 0 0; }
+/* ── Menu ── */
+.logo { text-align:center; padding:8px 0 4px; }
+.logo h1 { font-size:22px; font-weight:800; margin:0; background:linear-gradient(135deg,var(--accent),var(--accent-pro)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.logo p { color:var(--text-secondary); font-size:12px; margin:4px 0 0; }
+.bal { background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(139,92,246,.08)); border:1px solid rgba(59,130,246,.2); border-radius:var(--radius-lg); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
+.bal .lb { font-size:12px; color:var(--text-secondary); }
+.bal .am { font-size:20px; font-weight:800; color:var(--accent-light); }
+.bal .tb { background:var(--accent); color:#fff; border:none; border-radius:var(--radius-sm); padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; }
+.st { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin:6px 0 2px; padding-left:2px; }
+.sg { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.sc { background:var(--bg-card); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 14px; cursor:pointer; transition:all .25s; position:relative; overflow:hidden; }
+.sc::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--card-accent,var(--accent)); opacity:.7; }
+.sc:active { transform:scale(.96); }
+.sc .ic { font-size:28px; margin-bottom:8px; display:block; }
+.sc .nm { font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:4px; }
+.sc .pr { font-size:11px; color:var(--text-secondary); }
+.sc.fw { grid-column:1/-1; display:flex; align-items:center; gap:14px; padding:14px 16px; }
+.sc.fw .ic { font-size:32px; margin-bottom:0; }
+.sc.fw .inf { flex:1; }
+.cp { --card-accent:#3b82f6; } .cr { --card-accent:#10b981; } .cm { --card-accent:#f59e0b; }
+.ck { --card-accent:#8b5cf6; } .ct { --card-accent:#ec4899; } .cq { --card-accent:#06b6d4; } .cu { --card-accent:#f97316; }
+.bl { display:flex; gap:8px; margin-top:4px; }
+.bln { flex:1; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:12px; text-align:center; cursor:pointer; transition:all .2s; }
+.bln:active { transform:scale(.96); }
+.bln .bi { font-size:20px; display:block; margin-bottom:4px; }
+.bln .bt { font-size:11px; color:var(--text-secondary); }
 
-        .balance-card {
-            background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
-            border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius-lg);
-            padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .balance-card .label { font-size: 12px; color: var(--text-secondary); }
-        .balance-card .amount { font-size: 20px; font-weight: 800; color: var(--accent-light); }
-        .balance-card .topup-btn {
-            background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm);
-            padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
-        }
+/* ── Forms ── */
+.page-title { font-size:18px; font-weight:700; color:var(--text-primary); margin:0; }
+.page-sub { font-size:12px; color:var(--text-secondary); margin:2px 0 0; }
+.field { display:flex; flex-direction:column; gap:6px; }
+.field label { font-size:12px; font-weight:600; color:var(--text-secondary); }
+.field input, .field textarea, .field select {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:12px; font-size:14px; color:var(--text-primary); outline:none; font-family:inherit; resize:none;
+}
+.field input:focus, .field textarea:focus { border-color:var(--accent); }
+.opts { display:flex; gap:8px; flex-wrap:wrap; }
+.opt { padding:10px 16px; border-radius:var(--radius-md); background:var(--bg-card); border:2px solid var(--border); cursor:pointer; font-size:13px; font-weight:600; color:var(--text-primary); transition:all .2s; text-align:center; flex:1; min-width:80px; }
+.opt.sel { border-color:var(--accent); background:rgba(59,130,246,.15); color:var(--accent-light); }
+.opt:active { transform:scale(.96); }
+.opt .op { font-size:10px; color:var(--text-muted); margin-top:2px; }
+.slider-row { display:flex; align-items:center; gap:12px; }
+.slider-row input[type=range] { flex:1; accent-color:var(--accent); }
+.slider-val { font-size:18px; font-weight:800; color:var(--accent-light); min-width:30px; text-align:center; }
+.price-tag { background:linear-gradient(135deg,var(--accent),var(--accent-pro)); border-radius:var(--radius-md); padding:10px 14px; text-align:center; font-size:14px; font-weight:700; color:#fff; }
 
-        .section-title {
-            font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
-            color: var(--text-muted); margin: 6px 0 2px; padding-left: 2px;
-        }
+/* ── Templates ── */
+.tpl-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.tpl-card { background:var(--bg-card); border:2px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer; transition:all .2s; }
+.tpl-card.sel { border-color:var(--accent); box-shadow:0 0 12px rgba(59,130,246,.3); }
+.tpl-card:active { transform:scale(.97); }
+.tpl-card img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+.tpl-card .tn { padding:8px 10px; font-size:11px; font-weight:600; color:var(--text-primary); }
 
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+/* ── Summary ── */
+.sum-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); }
+.sum-row .sk { font-size:12px; color:var(--text-muted); }
+.sum-row .sv { font-size:13px; font-weight:600; color:var(--text-primary); text-align:right; max-width:60%; }
 
-        .service-card {
-            background: var(--bg-card); backdrop-filter: blur(12px);
-            border: 1px solid var(--border); border-radius: var(--radius-lg);
-            padding: 16px 14px; cursor: pointer; transition: all 0.25s ease;
-            position: relative; overflow: hidden;
-        }
-        .service-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: var(--card-accent, var(--accent)); opacity: 0.7;
-        }
-        .service-card:active { transform: scale(0.96); }
-        .service-card .icon { font-size: 28px; margin-bottom: 8px; display: block; }
-        .service-card .name { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-        .service-card .price { font-size: 11px; color: var(--text-secondary); }
-        .service-card.full-width {
-            grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 14px 16px;
-        }
-        .service-card.full-width .icon { font-size: 32px; margin-bottom: 0; }
-        .service-card.full-width .info { flex: 1; }
-
-        .card-pres { --card-accent: #3b82f6; }
-        .card-referat { --card-accent: #10b981; }
-        .card-mustaqil { --card-accent: #f59e0b; }
-        .card-kurs { --card-accent: #8b5cf6; }
-        .card-tezis { --card-accent: #ec4899; }
-        .card-maqola { --card-accent: #06b6d4; }
-        .card-uslubiy { --card-accent: #f97316; }
-
-        .bottom-links { display: flex; gap: 8px; margin-top: 4px; }
-        .bottom-link {
-            flex: 1; background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: 12px; text-align: center;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .bottom-link:active { transform: scale(0.96); }
-        .bottom-link .bl-icon { font-size: 20px; display: block; margin-bottom: 4px; }
-        .bottom-link .bl-text { font-size: 11px; color: var(--text-secondary); }
-
-    </style>
+/* ── Buttons ── */
+.btn-primary { width:100%; padding:14px; border:none; border-radius:var(--radius-md); background:linear-gradient(135deg,var(--accent),var(--accent-pro)); color:#fff; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; }
+.btn-primary:active { transform:scale(.97); opacity:.9; }
+.btn-primary:disabled { opacity:.4; pointer-events:none; }
+.btn-secondary { width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:var(--bg-card); color:var(--text-primary); font-size:13px; font-weight:600; cursor:pointer; }
+</style>
 </head>
 <body>
 
-
-    <div class="logo-section animate-in">
-        <h1>🎓 STUDENT(AI) BOT</h1>
-        <p>Akademik ishlar uchun AI yordamchi</p>
+<!-- ═══ VIEW: Main Menu ═══ -->
+<div class="v active" id="v-menu">
+    <div class="logo"><h1>🎓 STUDENT(AI) BOT</h1><p>Akademik ishlar uchun AI yordamchi</p></div>
+    <div class="bal"><div><div class="lb">💰 Balansingiz</div><div class="am" id="balAm">0 so'm</div></div><button class="tb" onclick="goBot('topup')">+ To'ldirish</button></div>
+    <div class="st">Xizmatlar</div>
+    <div class="sc fw cp" onclick="openService('presentation')"><span class="ic">📊</span><div class="inf"><div class="nm">Taqdimot (Slayd)</div><div class="pr">3 000 so'mdan</div></div><span style="color:var(--text-muted)">›</span></div>
+    <div class="sg">
+        <div class="sc cr" onclick="openService('referat')"><span class="ic">📝</span><div class="nm">Referat</div><div class="pr">6 000 so'mdan</div></div>
+        <div class="sc cm" onclick="openService('mustaqil')"><span class="ic">📄</span><div class="nm">Mustaqil ish</div><div class="pr">5 000 so'mdan</div></div>
+        <div class="sc ck" onclick="openService('kurs')"><span class="ic">📚</span><div class="nm">Kurs ishi</div><div class="pr">15 000 so'mdan</div></div>
+        <div class="sc ct" onclick="openService('tezis')"><span class="ic">🎓</span><div class="nm">Tezis</div><div class="pr">4 000 so'mdan</div></div>
+        <div class="sc cq" onclick="openService('maqola')"><span class="ic">📰</span><div class="nm">Maqola</div><div class="pr">4 000 so'mdan</div></div>
+        <div class="sc cu" onclick="openService('uslubiy')"><span class="ic">📗</span><div class="nm">Uslubiy ishlanma</div><div class="pr">15 000 so'mdan</div></div>
     </div>
-
-    <div class="balance-card animate-in" id="balanceCard">
-        <div>
-            <div class="label">💰 Balansingiz</div>
-            <div class="amount" id="balanceAmount">0 so'm</div>
-        </div>
-        <button class="topup-btn" onclick="goBot('topup')">+ To'ldirish</button>
+    <div class="st">Boshqa</div>
+    <div class="bl">
+        <div class="bln" onclick="goBot('account')"><span class="bi">👤</span><span class="bt">Hisobim</span></div>
+        <div class="bln" onclick="goBot('referral')"><span class="bi">🎁</span><span class="bt">Taklif</span></div>
+        <div class="bln" onclick="goBot('help')"><span class="bi">❓</span><span class="bt">Yordam</span></div>
     </div>
+</div>
 
-    <div class="section-title animate-in">Xizmatlar</div>
-
-    <div class="service-card full-width card-pres animate-in" onclick="goBot('presentation')">
-        <span class="icon">📊</span>
-        <div class="info">
-            <div class="name">Taqdimot (Slayd)</div>
-            <div class="price">3 000 so'mdan</div>
-        </div>
-        <span style="color:var(--text-muted)">›</span>
-    </div>
-
-    <div class="services-grid">
-        <div class="service-card card-referat animate-in" onclick="goBot('referat')">
-            <span class="icon">📝</span>
-            <div class="name">Referat</div>
-            <div class="price">6 000 so'mdan</div>
-        </div>
-        <div class="service-card card-mustaqil animate-in" onclick="goBot('mustaqil')">
-            <span class="icon">📄</span>
-            <div class="name">Mustaqil ish</div>
-            <div class="price">5 000 so'mdan</div>
-        </div>
-        <div class="service-card card-kurs animate-in" onclick="goBot('kurs')">
-            <span class="icon">📚</span>
-            <div class="name">Kurs ishi</div>
-            <div class="price">15 000 so'mdan</div>
-        </div>
-        <div class="service-card card-tezis animate-in" onclick="goBot('tezis')">
-            <span class="icon">🎓</span>
-            <div class="name">Tezis</div>
-            <div class="price">4 000 so'mdan</div>
-        </div>
-        <div class="service-card card-maqola animate-in" onclick="goBot('maqola')">
-            <span class="icon">📰</span>
-            <div class="name">Maqola</div>
-            <div class="price">4 000 so'mdan</div>
-        </div>
-        <div class="service-card card-uslubiy animate-in" onclick="goBot('uslubiy')">
-            <span class="icon">📗</span>
-            <div class="name">Uslubiy ishlanma</div>
-            <div class="price">15 000 so'mdan</div>
+<!-- ═══ VIEW: Presentation Settings ═══ -->
+<div class="v" id="v-pres-settings">
+    <div><div class="page-title">📊 Taqdimot yaratish</div><div class="page-sub">Mavzu va sozlamalarni kiriting</div></div>
+    <div class="field"><label>Mavzu</label><input id="pTopic" placeholder="Masalan: Sun'iy intellekt" maxlength="200"></div>
+    <div class="field"><label>Til</label>
+        <div class="opts" id="pLang">
+            <div class="opt sel" data-v="uz">🇺🇿 O'zbek</div>
+            <div class="opt" data-v="ru">🇷🇺 Rus</div>
+            <div class="opt" data-v="en">🇬🇧 English</div>
         </div>
     </div>
-
-    <div class="section-title animate-in">Boshqa</div>
-    <div class="bottom-links animate-in">
-        <div class="bottom-link" onclick="goBot('account')">
-            <span class="bl-icon">👤</span><span class="bl-text">Hisobim</span>
-        </div>
-        <div class="bottom-link" onclick="goBot('referral')">
-            <span class="bl-icon">🎁</span><span class="bl-text">Taklif qilish</span>
-        </div>
-        <div class="bottom-link" onclick="goBot('help')">
-            <span class="bl-icon">❓</span><span class="bl-text">Yordam</span>
+    <div class="field"><label>Sifat</label>
+        <div class="opts" id="pQuality">
+            <div class="opt sel" data-v="standard">⭐ Standard<div class="op">3 000+</div></div>
+            <div class="opt" data-v="premium">💎 Premium<div class="op">8 000+</div></div>
         </div>
     </div>
+    <div class="field"><label>Slaydlar soni</label>
+        <div class="slider-row"><input type="range" id="pSlides" min="8" max="30" value="10"><div class="slider-val" id="pSlidesVal">10</div></div>
+    </div>
+    <div class="price-tag" id="pPrice">💰 Narx: 3 000 so'm</div>
+    <button class="btn-primary" onclick="goPresDesign()">Dizayn tanlash →</button>
+</div>
+
+<!-- ═══ VIEW: Presentation Design ═══ -->
+<div class="v" id="v-pres-design">
+    <div><div class="page-title">🎨 Dizayn tanlang</div><div class="page-sub">Taqdimot uchun shablon</div></div>
+    <div class="opts" id="pDesignType">
+        <div class="opt sel" data-v="template">📦 Shablon</div>
+        <div class="opt" data-v="plain">📄 Oddiy (oq)</div>
+    </div>
+    <div class="tpl-grid" id="tplGrid"></div>
+    <button class="btn-primary" onclick="goPresSummary()">Davom etish →</button>
+</div>
+
+<!-- ═══ VIEW: Summary ═══ -->
+<div class="v" id="v-summary">
+    <div><div class="page-title">📋 Tekshirish</div><div class="page-sub">Ma'lumotlarni tekshiring va yarating</div></div>
+    <div id="sumRows"></div>
+    <div class="price-tag" id="sumPrice">💰 Narx: 3 000 so'm</div>
+    <button class="btn-primary" id="btnCreate" onclick="submitJob()">🚀 Yaratish</button>
+    <button class="btn-secondary" onclick="show('v-menu')">← Bosh menyu</button>
+</div>
+
+<!-- ═══ VIEW: Document Settings (referat, mustaqil, kurs, tezis, maqola, uslubiy) ═══ -->
+<div class="v" id="v-doc-settings">
+    <div><div class="page-title" id="dTitle">📝 Referat yaratish</div><div class="page-sub">Mavzu va sozlamalarni kiriting</div></div>
+    <div class="field"><label>Mavzu</label><input id="dTopic" placeholder="Masalan: Ekologiya muammolari" maxlength="200"></div>
+    <div class="field" id="dSubjectField"><label>Fan nomi</label><input id="dSubject" placeholder="Masalan: Biologiya"></div>
+    <div class="field"><label>Til</label>
+        <div class="opts" id="dLang">
+            <div class="opt sel" data-v="uz">🇺🇿 O'zbek</div>
+            <div class="opt" data-v="ru">🇷🇺 Rus</div>
+            <div class="opt" data-v="en">🇬🇧 English</div>
+        </div>
+    </div>
+    <div class="field" id="dQualityField"><label>Sifat</label>
+        <div class="opts" id="dQuality">
+            <div class="opt sel" data-v="standard">⭐ Standard</div>
+            <div class="opt" data-v="pro">💎 Pro</div>
+        </div>
+    </div>
+    <div class="field"><label id="dPagesLabel">Sahifalar soni</label>
+        <div class="slider-row"><input type="range" id="dPages" min="5" max="50" value="10"><div class="slider-val" id="dPagesVal">10</div></div>
+    </div>
+    <div class="price-tag" id="dPrice">💰 Narx: 6 000 so'm</div>
+    <button class="btn-primary" onclick="goDocSummary()">📋 Tekshirish →</button>
+</div>
 
 <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-    tg.setBackgroundColor('#0f172a');
-    tg.setHeaderColor('#0f172a');
+const tg = window.Telegram.WebApp;
+tg.expand();
+tg.setBackgroundColor('#0f172a');
+tg.setHeaderColor('#0f172a');
+const botUser = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
+const baseUrl = window.location.href.split('menu.html')[0];
 
-    const params = new URLSearchParams(window.location.search);
-    const balance = parseInt(params.get('balance') || '0');
-    document.getElementById('balanceAmount').textContent = balance.toLocaleString() + " so'm";
+// ── State ──
+let S = { service: '', topic: '', language: 'uz', quality: 'standard', slides: 10, template_id: 'plain', pages: 10, subject: '' };
+let templates = [];
+let viewStack = ['v-menu'];
 
-    const botUsername = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
+// ── PRICING ──
+const PRICING = {
+    presentation_std_low:3000, presentation_std_mid:7000, presentation_std_high:9000,
+    presentation_pre_low:8000, presentation_pre_mid:12000, presentation_pre_high:16000,
+    essay_std:6000, essay_pre:9000, mustaqil_std:5000, mustaqil_pre:8000,
+    coursework_low:15000, coursework_high:25000,
+    tezis_5:4000, tezis_10:6000, tezis_15:8000, tezis_20:10000,
+    maqola_5:4000, maqola_10:6000, maqola_15:8000, maqola_20:10000,
+    uslubiy_low:15000, uslubiy_high:25000,
+};
 
-    function goBot(type) {
-        tg.HapticFeedback.impactOccurred('medium');
-        tg.openTelegramLink('https://t.me/' + botUsername + '?start=menu_' + type);
-        tg.close();
+function calcPresPrice() {
+    const n = S.slides, q = S.quality;
+    if (q === 'premium') return n <= 14 ? PRICING.presentation_pre_low : n <= 22 ? PRICING.presentation_pre_mid : PRICING.presentation_pre_high;
+    return n <= 14 ? PRICING.presentation_std_low : n <= 22 ? PRICING.presentation_std_mid : PRICING.presentation_std_high;
+}
+
+function calcDocPrice() {
+    const t = S.service, p = S.pages, q = S.quality;
+    if (t === 'referat') return q === 'pro' ? PRICING.essay_pre : PRICING.essay_std;
+    if (t === 'mustaqil') return q === 'pro' ? PRICING.mustaqil_pre : PRICING.mustaqil_std;
+    if (t === 'kurs') return p <= 30 ? PRICING.coursework_low : PRICING.coursework_high;
+    if (t === 'uslubiy') return p <= 30 ? PRICING.uslubiy_low : PRICING.uslubiy_high;
+    if (t === 'tezis') return p <= 7 ? PRICING.tezis_5 : p <= 12 ? PRICING.tezis_10 : p <= 17 ? PRICING.tezis_15 : PRICING.tezis_20;
+    if (t === 'maqola') return p <= 7 ? PRICING.maqola_5 : p <= 12 ? PRICING.maqola_10 : p <= 17 ? PRICING.maqola_15 : PRICING.maqola_20;
+    return 5000;
+}
+
+function fmt(n) { return n.toLocaleString('uz') + " so'm"; }
+
+// ── Navigation ──
+function show(id) {
+    document.querySelectorAll('.v').forEach(v => v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (id === 'v-menu') { viewStack = ['v-menu']; tg.BackButton.hide(); }
+    else { if (viewStack[viewStack.length-1] !== id) viewStack.push(id); tg.BackButton.show(); }
+    window.scrollTo(0, 0);
+}
+tg.BackButton.onClick(() => {
+    tg.HapticFeedback.impactOccurred('light');
+    viewStack.pop();
+    show(viewStack[viewStack.length - 1] || 'v-menu');
+});
+
+// ── Option selectors ──
+document.querySelectorAll('.opts').forEach(group => {
+    group.querySelectorAll('.opt').forEach(opt => {
+        opt.addEventListener('click', () => {
+            tg.HapticFeedback.impactOccurred('light');
+            group.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+            opt.classList.add('sel');
+            updateState();
+        });
+    });
+});
+
+function getOpt(id) { return document.querySelector('#' + id + ' .opt.sel')?.dataset.v || ''; }
+
+function updateState() {
+    if (document.getElementById('v-pres-settings').classList.contains('active')) {
+        S.language = getOpt('pLang');
+        S.quality = getOpt('pQuality');
+        S.slides = parseInt(document.getElementById('pSlides').value);
+        document.getElementById('pSlidesVal').textContent = S.slides;
+        document.getElementById('pPrice').textContent = '💰 Narx: ' + fmt(calcPresPrice());
     }
+    if (document.getElementById('v-doc-settings').classList.contains('active')) {
+        S.language = getOpt('dLang');
+        S.quality = getOpt('dQuality');
+        S.pages = parseInt(document.getElementById('dPages').value);
+        document.getElementById('dPagesVal').textContent = S.pages;
+        document.getElementById('dPrice').textContent = '💰 Narx: ' + fmt(calcDocPrice());
+    }
+}
 
-    tg.ready();
+document.getElementById('pSlides').addEventListener('input', updateState);
+document.getElementById('dPages').addEventListener('input', updateState);
+
+// ── Service entry ──
+const DOC_CFG = {
+    referat:  { title:'📝 Referat yaratish', hasSubject:true, hasQuality:true, minP:8, maxP:25, defP:12 },
+    mustaqil: { title:'📄 Mustaqil ish yaratish', hasSubject:true, hasQuality:true, minP:8, maxP:25, defP:12 },
+    kurs:     { title:'📚 Kurs ishi yaratish', hasSubject:false, hasQuality:false, minP:20, maxP:50, defP:25 },
+    tezis:    { title:'🎓 Tezis yaratish', hasSubject:false, hasQuality:false, minP:5, maxP:20, defP:10 },
+    maqola:   { title:'📰 Maqola yaratish', hasSubject:false, hasQuality:false, minP:5, maxP:20, defP:10 },
+    uslubiy:  { title:'📗 Uslubiy ishlanma', hasSubject:false, hasQuality:false, minP:20, maxP:50, defP:25 },
+};
+
+function openService(type) {
+    tg.HapticFeedback.impactOccurred('light');
+    S.service = type;
+    if (type === 'presentation') {
+        show('v-pres-settings');
+        updateState();
+    } else {
+        const cfg = DOC_CFG[type];
+        document.getElementById('dTitle').textContent = cfg.title;
+        document.getElementById('dSubjectField').style.display = cfg.hasSubject ? '' : 'none';
+        document.getElementById('dQualityField').style.display = cfg.hasQuality ? '' : 'none';
+        const sl = document.getElementById('dPages');
+        sl.min = cfg.minP; sl.max = cfg.maxP; sl.value = cfg.defP;
+        S.pages = cfg.defP;
+        show('v-doc-settings');
+        updateState();
+    }
+}
+
+// ── Presentation: Design step ──
+async function goPresDesign() {
+    S.topic = document.getElementById('pTopic').value.trim();
+    if (!S.topic) { tg.showAlert('Mavzuni kiriting!'); return; }
+    show('v-pres-design');
+    if (!templates.length) {
+        try {
+            const r = await fetch(baseUrl + 'data/templates.json');
+            templates = await r.json();
+        } catch(e) { templates = []; }
+    }
+    renderTemplates();
+}
+
+function renderTemplates() {
+    const grid = document.getElementById('tplGrid');
+    const isPlain = getOpt('pDesignType') === 'plain';
+    grid.style.display = isPlain ? 'none' : 'grid';
+    if (isPlain) { S.template_id = 'plain'; return; }
+    grid.innerHTML = '';
+    templates.forEach(t => {
+        const d = document.createElement('div');
+        d.className = 'tpl-card' + (S.template_id === t.id ? ' sel' : '');
+        d.innerHTML = '<img src="' + baseUrl + t.preview + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="tn">' + t.name + '</div>';
+        d.onclick = () => { tg.HapticFeedback.impactOccurred('light'); S.template_id = t.id; renderTemplates(); };
+        grid.appendChild(d);
+    });
+}
+document.getElementById('pDesignType').addEventListener('click', () => setTimeout(renderTemplates, 50));
+
+// ── Summary ──
+function goPresSummary() {
+    const rows = [
+        ['Xizmat', '📊 Taqdimot'],
+        ['Mavzu', S.topic],
+        ['Til', {uz:"🇺🇿 O'zbek", ru:'🇷🇺 Rus', en:'🇬🇧 English'}[S.language]],
+        ['Sifat', S.quality === 'premium' ? '💎 Premium' : '⭐ Standard'],
+        ['Slaydlar', S.slides + ' ta'],
+        ['Dizayn', S.template_id === 'plain' ? 'Oddiy oq' : S.template_id],
+    ];
+    renderSummary(rows, calcPresPrice());
+}
+
+function goDocSummary() {
+    S.topic = document.getElementById('dTopic').value.trim();
+    S.subject = document.getElementById('dSubject')?.value.trim() || '';
+    if (!S.topic) { tg.showAlert('Mavzuni kiriting!'); return; }
+    const labels = { referat:'📝 Referat', mustaqil:'📄 Mustaqil ish', kurs:'📚 Kurs ishi', tezis:'🎓 Tezis', maqola:'📰 Maqola', uslubiy:'📗 Uslubiy' };
+    const rows = [
+        ['Xizmat', labels[S.service] || S.service],
+        ['Mavzu', S.topic],
+    ];
+    if (S.subject) rows.push(['Fan', S.subject]);
+    rows.push(['Til', {uz:"🇺🇿 O'zbek", ru:'🇷🇺 Rus', en:'🇬🇧 English'}[S.language]]);
+    if (DOC_CFG[S.service]?.hasQuality) rows.push(['Sifat', S.quality === 'pro' ? '💎 Pro' : '⭐ Standard']);
+    rows.push(['Sahifalar', S.pages + ' ta']);
+    renderSummary(rows, calcDocPrice());
+}
+
+function renderSummary(rows, price) {
+    const c = document.getElementById('sumRows');
+    c.innerHTML = rows.map(([k,v]) => '<div class="sum-row"><span class="sk">' + k + '</span><span class="sv">' + v + '</span></div>').join('');
+    document.getElementById('sumPrice').textContent = '💰 Narx: ' + fmt(price);
+    show('v-summary');
+}
+
+// ── Submit ──
+function submitJob() {
+    tg.HapticFeedback.notificationOccurred('success');
+    const job = {
+        action: 'generate',
+        service: S.service,
+        topic: S.topic,
+        language: S.language,
+        quality: S.quality,
+    };
+    if (S.service === 'presentation') {
+        job.num_slides = S.slides;
+        job.template_id = S.template_id;
+    } else {
+        job.pages = S.pages;
+        job.subject = S.subject;
+    }
+    localStorage.setItem('pending_job', JSON.stringify(job));
+    tg.openTelegramLink('https://t.me/' + botUser + '?start=gen_' + S.service);
+    tg.close();
+}
+
+function goBot(type) {
+    tg.HapticFeedback.impactOccurred('medium');
+    tg.openTelegramLink('https://t.me/' + botUser + '?start=menu_' + type);
+    tg.close();
+}
+
+tg.ready();
 </script>
 </body>
 </html>
