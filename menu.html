@@ -9,9 +9,6 @@
     <style>
         body { display: flex; flex-direction: column; gap: 10px; padding-bottom: 30px; }
 
-        .view { display: none; flex-direction: column; gap: 10px; }
-        .view.active { display: flex; }
-
         .logo-section { text-align: center; padding: 8px 0 4px; }
         .logo-section h1 {
             font-size: 22px; font-weight: 800; margin: 0;
@@ -77,45 +74,10 @@
         .bottom-link .bl-icon { font-size: 20px; display: block; margin-bottom: 4px; }
         .bottom-link .bl-text { font-size: 11px; color: var(--text-secondary); }
 
-        /* ── Sub-menu view ── */
-        .sub-header {
-            display: flex; align-items: center; gap: 12px; padding: 4px 0;
-        }
-        .back-btn {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius-sm); padding: 8px 12px; cursor: pointer;
-            color: var(--text-primary); font-size: 18px; transition: all 0.2s;
-        }
-        .back-btn:active { transform: scale(0.9); }
-        .sub-header h2 { font-size: 18px; font-weight: 700; margin: 0; color: var(--text-primary); }
-        .sub-header .sub-price { font-size: 12px; color: var(--text-secondary); }
-
-        .sub-item {
-            background: var(--bg-card); backdrop-filter: blur(12px);
-            border: 1px solid var(--border); border-radius: var(--radius-lg);
-            padding: 14px 16px; cursor: pointer; transition: all 0.2s;
-            display: flex; align-items: center; gap: 14px;
-        }
-        .sub-item:active { transform: scale(0.97); background: rgba(59,130,246,0.08); }
-        .sub-item .si-icon { font-size: 24px; width: 36px; text-align: center; }
-        .sub-item .si-info { flex: 1; }
-        .sub-item .si-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-        .sub-item .si-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-        .sub-item .si-arrow { color: var(--text-muted); font-size: 16px; }
-
-        .sub-item.create-btn {
-            background: linear-gradient(135deg, var(--accent), var(--accent-pro));
-            border: none; margin-top: 6px;
-        }
-        .sub-item.create-btn .si-name { color: #fff; }
-        .sub-item.create-btn .si-desc { color: rgba(255,255,255,0.7); }
-        .sub-item.create-btn .si-arrow { color: rgba(255,255,255,0.7); }
     </style>
 </head>
 <body>
 
-<!-- ═══ MAIN MENU VIEW ═══ -->
-<div class="view active" id="mainView">
 
     <div class="logo-section animate-in">
         <h1>🎓 STUDENT(AI) BOT</h1>
@@ -132,7 +94,7 @@
 
     <div class="section-title animate-in">Xizmatlar</div>
 
-    <div class="service-card full-width card-pres animate-in" onclick="openSub('presentation')">
+    <div class="service-card full-width card-pres animate-in" onclick="goBot('presentation')">
         <span class="icon">📊</span>
         <div class="info">
             <div class="name">Taqdimot (Slayd)</div>
@@ -142,32 +104,32 @@
     </div>
 
     <div class="services-grid">
-        <div class="service-card card-referat animate-in" onclick="openSub('referat')">
+        <div class="service-card card-referat animate-in" onclick="goBot('referat')">
             <span class="icon">📝</span>
             <div class="name">Referat</div>
             <div class="price">6 000 so'mdan</div>
         </div>
-        <div class="service-card card-mustaqil animate-in" onclick="openSub('mustaqil')">
+        <div class="service-card card-mustaqil animate-in" onclick="goBot('mustaqil')">
             <span class="icon">📄</span>
             <div class="name">Mustaqil ish</div>
             <div class="price">5 000 so'mdan</div>
         </div>
-        <div class="service-card card-kurs animate-in" onclick="openSub('kurs')">
+        <div class="service-card card-kurs animate-in" onclick="goBot('kurs')">
             <span class="icon">📚</span>
             <div class="name">Kurs ishi</div>
             <div class="price">15 000 so'mdan</div>
         </div>
-        <div class="service-card card-tezis animate-in" onclick="openSub('tezis')">
+        <div class="service-card card-tezis animate-in" onclick="goBot('tezis')">
             <span class="icon">🎓</span>
             <div class="name">Tezis</div>
             <div class="price">4 000 so'mdan</div>
         </div>
-        <div class="service-card card-maqola animate-in" onclick="openSub('maqola')">
+        <div class="service-card card-maqola animate-in" onclick="goBot('maqola')">
             <span class="icon">📰</span>
             <div class="name">Maqola</div>
             <div class="price">4 000 so'mdan</div>
         </div>
-        <div class="service-card card-uslubiy animate-in" onclick="openSub('uslubiy')">
+        <div class="service-card card-uslubiy animate-in" onclick="goBot('uslubiy')">
             <span class="icon">📗</span>
             <div class="name">Uslubiy ishlanma</div>
             <div class="price">15 000 so'mdan</div>
@@ -186,19 +148,6 @@
             <span class="bl-icon">❓</span><span class="bl-text">Yordam</span>
         </div>
     </div>
-</div>
-
-<!-- ═══ SUB-MENU VIEW ═══ -->
-<div class="view" id="subView">
-    <div class="sub-header">
-        <div class="back-btn" onclick="goBack()">‹</div>
-        <div>
-            <h2 id="subTitle">Taqdimot</h2>
-            <div class="sub-price" id="subPrice">3 000 so'mdan</div>
-        </div>
-    </div>
-    <div id="subItems"></div>
-</div>
 
 <script>
     const tg = window.Telegram.WebApp;
@@ -211,119 +160,6 @@
     document.getElementById('balanceAmount').textContent = balance.toLocaleString() + " so'm";
 
     const botUsername = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
-    const baseUrl = window.location.href.split('menu.html')[0];
-
-    // ── Service sub-menus ──
-    // All items use action → goBot() to close Mini App and trigger bot flow
-    const SERVICES = {
-        presentation: {
-            title: '📊 Taqdimot (Slayd)',
-            price: '3 000 so\'mdan',
-            items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', action: 'presentation' },
-                { icon: '🎨', name: 'Dizayn Tanlash', desc: 'Slayd dizaynini tanlang', action: 'presentation' },
-                { icon: '📝', name: 'Reja qo\'shish', desc: 'Avtomatik yoki qo\'lda reja', action: 'presentation' },
-                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot va ton', action: 'presentation' },
-                { icon: '🚀', name: 'Yaratish', desc: 'Taqdimotni yaratishni boshlash', action: 'presentation', isCreate: true },
-            ]
-        },
-        referat: {
-            title: '📝 Referat',
-            price: '6 000 so\'mdan',
-            items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', action: 'referat' },
-                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', action: 'referat' },
-                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', action: 'referat' },
-                { icon: '🚀', name: 'Yaratish', desc: 'Referatni yaratishni boshlash', action: 'referat', isCreate: true },
-            ]
-        },
-        mustaqil: {
-            title: '📄 Mustaqil Ish',
-            price: '5 000 so\'mdan',
-            items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', action: 'mustaqil' },
-                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', action: 'mustaqil' },
-                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', action: 'mustaqil' },
-                { icon: '🚀', name: 'Yaratish', desc: 'Mustaqil ishni yaratish', action: 'mustaqil', isCreate: true },
-            ]
-        },
-        kurs: {
-            title: '📚 Kurs Ishi',
-            price: '15 000 so\'mdan',
-            items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', action: 'kurs' },
-                { icon: '🚀', name: 'Yaratish', desc: 'Kurs ishini yaratish', action: 'kurs', isCreate: true },
-            ]
-        },
-        tezis: {
-            title: '🎓 Tezis',
-            price: '4 000 so\'mdan',
-            items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', action: 'tezis' },
-                { icon: '🚀', name: 'Yaratish', desc: 'Tezisni yaratish', action: 'tezis', isCreate: true },
-            ]
-        },
-        maqola: {
-            title: '📰 Maqola',
-            price: '4 000 so\'mdan',
-            items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', action: 'maqola' },
-                { icon: '🚀', name: 'Yaratish', desc: 'Maqolani yaratish', action: 'maqola', isCreate: true },
-            ]
-        },
-        uslubiy: {
-            title: '📗 Uslubiy Ishlanma',
-            price: '15 000 so\'mdan',
-            items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', action: 'uslubiy' },
-                { icon: '🚀', name: 'Yaratish', desc: 'Uslubiy ishlanmani yaratish', action: 'uslubiy', isCreate: true },
-            ]
-        },
-    };
-
-    function openSub(key) {
-        tg.HapticFeedback.impactOccurred('light');
-        const svc = SERVICES[key];
-        if (!svc) return;
-
-        document.getElementById('subTitle').textContent = svc.title;
-        document.getElementById('subPrice').textContent = svc.price;
-
-        const container = document.getElementById('subItems');
-        container.innerHTML = '';
-
-        svc.items.forEach((item, i) => {
-            const div = document.createElement('div');
-            div.className = 'sub-item' + (item.isCreate ? ' create-btn' : '');
-            div.style.animationDelay = (i * 0.05) + 's';
-            div.innerHTML = `
-                <span class="si-icon">${item.icon}</span>
-                <div class="si-info">
-                    <div class="si-name">${item.name}</div>
-                    <div class="si-desc">${item.desc}</div>
-                </div>
-                <span class="si-arrow">›</span>
-            `;
-            div.onclick = () => {
-                tg.HapticFeedback.impactOccurred('light');
-                goBot(item.action);
-            };
-            container.appendChild(div);
-        });
-
-        document.getElementById('mainView').classList.remove('active');
-        document.getElementById('subView').classList.add('active');
-
-        tg.BackButton.show();
-        tg.BackButton.onClick(goBack);
-    }
-
-    function goBack() {
-        tg.HapticFeedback.impactOccurred('light');
-        document.getElementById('subView').classList.remove('active');
-        document.getElementById('mainView').classList.add('active');
-        tg.BackButton.hide();
-    }
 
     function goBot(type) {
         tg.HapticFeedback.impactOccurred('medium');
