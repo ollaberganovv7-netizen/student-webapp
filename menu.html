@@ -248,9 +248,13 @@
         const balance = parseInt(params.get('balance') || '0');
         document.getElementById('balanceAmount').textContent = balance.toLocaleString() + " so'm";
 
+        // Get bot username from initData or fallback
+        const botUsername = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
+
         function action(type) {
             tg.HapticFeedback.impactOccurred('light');
-            tg.sendData(JSON.stringify({ action: 'menu_select', type: type }));
+            tg.openTelegramLink('https://t.me/' + botUsername + '?start=menu_' + type);
+            tg.close();
         }
 
         tg.ready();
