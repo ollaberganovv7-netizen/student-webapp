@@ -5,7 +5,15 @@
         "category": "modern",
         "preview": "static/previews/modern/mrarmor.png",
         "file_path": "templates/modern/mrarmor.pptx",
-        "file_size": "336 KB"
+        "file_size": "361 KB"
+    },
+    {
+        "id": "modern_staraya-bumaga",
+        "name": "Staraya-Bumaga",
+        "category": "modern",
+        "preview": "static/previews/modern/staraya-bumaga.png",
+        "file_path": "templates/modern/staraya-bumaga.pptx",
+        "file_size": "397 KB"
     },
     {
         "id": "modern_goluboy-abstraktniy",
