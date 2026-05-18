@@ -7,129 +7,58 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="static/styles.css">
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding-bottom: 80px;
-        }
+        body { display: flex; flex-direction: column; gap: 10px; padding-bottom: 30px; }
 
-        .logo-section {
-            text-align: center;
-            padding: 8px 0 4px;
-        }
+        .view { display: none; flex-direction: column; gap: 10px; }
+        .view.active { display: flex; }
+
+        .logo-section { text-align: center; padding: 8px 0 4px; }
         .logo-section h1 {
-            font-size: 22px;
-            font-weight: 800;
-            margin: 0;
+            font-size: 22px; font-weight: 800; margin: 0;
             background: linear-gradient(135deg, var(--accent), var(--accent-pro));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .logo-section p {
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin: 4px 0 0;
-        }
+        .logo-section p { color: var(--text-secondary); font-size: 12px; margin: 4px 0 0; }
 
         .balance-card {
             background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
-            border: 1px solid rgba(59,130,246,0.2);
-            border-radius: var(--radius-lg);
-            padding: 14px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius-lg);
+            padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;
         }
-        .balance-card .label {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        .balance-card .amount {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--accent-light);
-        }
+        .balance-card .label { font-size: 12px; color: var(--text-secondary); }
+        .balance-card .amount { font-size: 20px; font-weight: 800; color: var(--accent-light); }
         .balance-card .topup-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: var(--radius-sm);
-            padding: 8px 14px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
+            background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm);
+            padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
         }
 
         .section-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin: 6px 0 2px;
-            padding-left: 2px;
+            font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-muted); margin: 6px 0 2px; padding-left: 2px;
         }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         .service-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px 14px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            position: relative;
-            overflow: hidden;
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 16px 14px; cursor: pointer; transition: all 0.25s ease;
+            position: relative; overflow: hidden;
         }
         .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: var(--card-accent, var(--accent));
-            opacity: 0.7;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--card-accent, var(--accent)); opacity: 0.7;
         }
-        .service-card:active {
-            transform: scale(0.96);
-        }
-        .service-card .icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-            display: block;
-        }
-        .service-card .name {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        .service-card .price {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
+        .service-card:active { transform: scale(0.96); }
+        .service-card .icon { font-size: 28px; margin-bottom: 8px; display: block; }
+        .service-card .name { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+        .service-card .price { font-size: 11px; color: var(--text-secondary); }
         .service-card.full-width {
-            grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 16px;
+            grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 14px 16px;
         }
-        .service-card.full-width .icon {
-            font-size: 32px;
-            margin-bottom: 0;
-        }
-        .service-card.full-width .info {
-            flex: 1;
-        }
+        .service-card.full-width .icon { font-size: 32px; margin-bottom: 0; }
+        .service-card.full-width .info { flex: 1; }
 
-        /* Card accent colors */
         .card-pres { --card-accent: #3b82f6; }
         .card-referat { --card-accent: #10b981; }
         .card-mustaqil { --card-accent: #f59e0b; }
@@ -138,28 +67,55 @@
         .card-maqola { --card-accent: #06b6d4; }
         .card-uslubiy { --card-accent: #f97316; }
 
-        .bottom-links {
-            display: flex;
-            gap: 8px;
-            margin-top: 4px;
-        }
+        .bottom-links { display: flex; gap: 8px; margin-top: 4px; }
         .bottom-link {
-            flex: 1;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
+            flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 12px; text-align: center;
+            cursor: pointer; transition: all 0.2s;
         }
         .bottom-link:active { transform: scale(0.96); }
         .bottom-link .bl-icon { font-size: 20px; display: block; margin-bottom: 4px; }
         .bottom-link .bl-text { font-size: 11px; color: var(--text-secondary); }
+
+        /* ── Sub-menu view ── */
+        .sub-header {
+            display: flex; align-items: center; gap: 12px; padding: 4px 0;
+        }
+        .back-btn {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); padding: 8px 12px; cursor: pointer;
+            color: var(--text-primary); font-size: 18px; transition: all 0.2s;
+        }
+        .back-btn:active { transform: scale(0.9); }
+        .sub-header h2 { font-size: 18px; font-weight: 700; margin: 0; color: var(--text-primary); }
+        .sub-header .sub-price { font-size: 12px; color: var(--text-secondary); }
+
+        .sub-item {
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 14px 16px; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .sub-item:active { transform: scale(0.97); background: rgba(59,130,246,0.08); }
+        .sub-item .si-icon { font-size: 24px; width: 36px; text-align: center; }
+        .sub-item .si-info { flex: 1; }
+        .sub-item .si-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+        .sub-item .si-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .sub-item .si-arrow { color: var(--text-muted); font-size: 16px; }
+
+        .sub-item.create-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-pro));
+            border: none; margin-top: 6px;
+        }
+        .sub-item.create-btn .si-name { color: #fff; }
+        .sub-item.create-btn .si-desc { color: rgba(255,255,255,0.7); }
+        .sub-item.create-btn .si-arrow { color: rgba(255,255,255,0.7); }
     </style>
 </head>
 <body>
+
+<!-- ═══ MAIN MENU VIEW ═══ -->
+<div class="view active" id="mainView">
 
     <div class="logo-section animate-in">
         <h1>🎓 STUDENT(AI) BOT</h1>
@@ -171,49 +127,47 @@
             <div class="label">💰 Balansingiz</div>
             <div class="amount" id="balanceAmount">0 so'm</div>
         </div>
-        <button class="topup-btn" onclick="action('topup')">+ To'ldirish</button>
+        <button class="topup-btn" onclick="goBot('topup')">+ To'ldirish</button>
     </div>
 
     <div class="section-title animate-in">Xizmatlar</div>
 
-    <div class="service-card full-width card-pres animate-in" onclick="action('presentation')">
+    <div class="service-card full-width card-pres animate-in" onclick="openSub('presentation')">
         <span class="icon">📊</span>
         <div class="info">
             <div class="name">Taqdimot (Slayd)</div>
             <div class="price">3 000 so'mdan</div>
         </div>
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)">
-            <path d="M8 4l8 8-8 8"/>
-        </svg>
+        <span style="color:var(--text-muted)">›</span>
     </div>
 
     <div class="services-grid">
-        <div class="service-card card-referat animate-in" onclick="action('referat')">
+        <div class="service-card card-referat animate-in" onclick="openSub('referat')">
             <span class="icon">📝</span>
             <div class="name">Referat</div>
             <div class="price">6 000 so'mdan</div>
         </div>
-        <div class="service-card card-mustaqil animate-in" onclick="action('mustaqil')">
+        <div class="service-card card-mustaqil animate-in" onclick="openSub('mustaqil')">
             <span class="icon">📄</span>
             <div class="name">Mustaqil ish</div>
             <div class="price">5 000 so'mdan</div>
         </div>
-        <div class="service-card card-kurs animate-in" onclick="action('kurs')">
+        <div class="service-card card-kurs animate-in" onclick="openSub('kurs')">
             <span class="icon">📚</span>
             <div class="name">Kurs ishi</div>
             <div class="price">15 000 so'mdan</div>
         </div>
-        <div class="service-card card-tezis animate-in" onclick="action('tezis')">
+        <div class="service-card card-tezis animate-in" onclick="openSub('tezis')">
             <span class="icon">🎓</span>
             <div class="name">Tezis</div>
             <div class="price">4 000 so'mdan</div>
         </div>
-        <div class="service-card card-maqola animate-in" onclick="action('maqola')">
+        <div class="service-card card-maqola animate-in" onclick="openSub('maqola')">
             <span class="icon">📰</span>
             <div class="name">Maqola</div>
             <div class="price">4 000 so'mdan</div>
         </div>
-        <div class="service-card card-uslubiy animate-in" onclick="action('uslubiy')">
+        <div class="service-card card-uslubiy animate-in" onclick="openSub('uslubiy')">
             <span class="icon">📗</span>
             <div class="name">Uslubiy ishlanma</div>
             <div class="price">15 000 so'mdan</div>
@@ -221,43 +175,166 @@
     </div>
 
     <div class="section-title animate-in">Boshqa</div>
-
     <div class="bottom-links animate-in">
-        <div class="bottom-link" onclick="action('account')">
-            <span class="bl-icon">👤</span>
-            <span class="bl-text">Hisobim</span>
+        <div class="bottom-link" onclick="goBot('account')">
+            <span class="bl-icon">👤</span><span class="bl-text">Hisobim</span>
         </div>
-        <div class="bottom-link" onclick="action('referral')">
-            <span class="bl-icon">🎁</span>
-            <span class="bl-text">Taklif qilish</span>
+        <div class="bottom-link" onclick="goBot('referral')">
+            <span class="bl-icon">🎁</span><span class="bl-text">Taklif qilish</span>
         </div>
-        <div class="bottom-link" onclick="action('help')">
-            <span class="bl-icon">❓</span>
-            <span class="bl-text">Yordam</span>
+        <div class="bottom-link" onclick="goBot('help')">
+            <span class="bl-icon">❓</span><span class="bl-text">Yordam</span>
         </div>
     </div>
+</div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.setBackgroundColor('#0f172a');
-        tg.setHeaderColor('#0f172a');
+<!-- ═══ SUB-MENU VIEW ═══ -->
+<div class="view" id="subView">
+    <div class="sub-header">
+        <div class="back-btn" onclick="goBack()">‹</div>
+        <div>
+            <h2 id="subTitle">Taqdimot</h2>
+            <div class="sub-price" id="subPrice">3 000 so'mdan</div>
+        </div>
+    </div>
+    <div id="subItems"></div>
+</div>
 
-        // Parse balance from URL params
-        const params = new URLSearchParams(window.location.search);
-        const balance = parseInt(params.get('balance') || '0');
-        document.getElementById('balanceAmount').textContent = balance.toLocaleString() + " so'm";
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    tg.setBackgroundColor('#0f172a');
+    tg.setHeaderColor('#0f172a');
 
-        // Get bot username from initData or fallback
-        const botUsername = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
+    const params = new URLSearchParams(window.location.search);
+    const balance = parseInt(params.get('balance') || '0');
+    document.getElementById('balanceAmount').textContent = balance.toLocaleString() + " so'm";
 
-        function action(type) {
-            tg.HapticFeedback.impactOccurred('light');
-            tg.openTelegramLink('https://t.me/' + botUsername + '?start=menu_' + type);
-            tg.close();
-        }
+    const botUsername = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
+    const baseUrl = window.location.href.split('menu.html')[0];
 
-        tg.ready();
-    </script>
+    // ── Service sub-menus ──
+    const SERVICES = {
+        presentation: {
+            title: '📊 Taqdimot (Slayd)',
+            price: '3 000 so\'mdan',
+            items: [
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', page: 'settings.html?doc_type=presentation&balance=' + balance },
+                { icon: '🎨', name: 'Dizayn Tanlash', desc: 'Slayd dizaynini tanlang', page: 'catalog.html' },
+                { icon: '📝', name: 'Reja qo\'shish', desc: 'Avtomatik yoki qo\'lda reja', page: 'plan.html' },
+                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot va ton', page: 'content.html' },
+                { icon: '🚀', name: 'Yaratish', desc: 'Taqdimotni yaratishni boshlash', action: 'presentation', isCreate: true },
+            ]
+        },
+        referat: {
+            title: '📝 Referat',
+            price: '6 000 so\'mdan',
+            items: [
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', page: 'settings.html?doc_type=referat&balance=' + balance },
+                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', page: 'plan.html' },
+                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', page: 'content.html' },
+                { icon: '🚀', name: 'Yaratish', desc: 'Referatni yaratishni boshlash', action: 'referat', isCreate: true },
+            ]
+        },
+        mustaqil: {
+            title: '📄 Mustaqil Ish',
+            price: '5 000 so\'mdan',
+            items: [
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', page: 'settings.html?doc_type=mustaqil&balance=' + balance },
+                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', page: 'plan.html' },
+                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', page: 'content.html' },
+                { icon: '🚀', name: 'Yaratish', desc: 'Mustaqil ishni yaratish', action: 'mustaqil', isCreate: true },
+            ]
+        },
+        kurs: {
+            title: '📚 Kurs Ishi',
+            price: '15 000 so\'mdan',
+            items: [
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', page: 'settings.html?doc_type=kurs&balance=' + balance },
+                { icon: '🚀', name: 'Yaratish', desc: 'Kurs ishini yaratish', action: 'kurs', isCreate: true },
+            ]
+        },
+        tezis: {
+            title: '🎓 Tezis',
+            price: '4 000 so\'mdan',
+            items: [
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', page: 'tezis_settings.html' },
+                { icon: '🚀', name: 'Yaratish', desc: 'Tezisni yaratish', action: 'tezis', isCreate: true },
+            ]
+        },
+        maqola: {
+            title: '📰 Maqola',
+            price: '4 000 so\'mdan',
+            items: [
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', page: 'maqola_settings.html' },
+                { icon: '🚀', name: 'Yaratish', desc: 'Maqolani yaratish', action: 'maqola', isCreate: true },
+            ]
+        },
+        uslubiy: {
+            title: '📗 Uslubiy Ishlanma',
+            price: '15 000 so\'mdan',
+            items: [
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', page: 'settings.html?doc_type=uslubiy&balance=' + balance },
+                { icon: '🚀', name: 'Yaratish', desc: 'Uslubiy ishlanmani yaratish', action: 'uslubiy', isCreate: true },
+            ]
+        },
+    };
+
+    function openSub(key) {
+        tg.HapticFeedback.impactOccurred('light');
+        const svc = SERVICES[key];
+        if (!svc) return;
+
+        document.getElementById('subTitle').textContent = svc.title;
+        document.getElementById('subPrice').textContent = svc.price;
+
+        const container = document.getElementById('subItems');
+        container.innerHTML = '';
+
+        svc.items.forEach((item, i) => {
+            const div = document.createElement('div');
+            div.className = 'sub-item' + (item.isCreate ? ' create-btn' : '');
+            div.style.animationDelay = (i * 0.05) + 's';
+            div.innerHTML = `
+                <span class="si-icon">${item.icon}</span>
+                <div class="si-info">
+                    <div class="si-name">${item.name}</div>
+                    <div class="si-desc">${item.desc}</div>
+                </div>
+                <span class="si-arrow">›</span>
+            `;
+            div.onclick = () => {
+                tg.HapticFeedback.impactOccurred('light');
+                if (item.page) {
+                    window.location.href = baseUrl + item.page;
+                } else if (item.action) {
+                    goBot(item.action);
+                }
+            };
+            container.appendChild(div);
+        });
+
+        document.getElementById('mainView').classList.remove('active');
+        document.getElementById('subView').classList.add('active');
+
+        tg.BackButton.show();
+        tg.BackButton.onClick(goBack);
+    }
+
+    function goBack() {
+        tg.HapticFeedback.impactOccurred('light');
+        document.getElementById('subView').classList.remove('active');
+        document.getElementById('mainView').classList.add('active');
+        tg.BackButton.hide();
+    }
+
+    function goBot(type) {
+        tg.HapticFeedback.impactOccurred('medium');
+        tg.openTelegramLink('https://t.me/' + botUsername + '?start=menu_' + type);
+        tg.close();
+    }
+
+    tg.ready();
+</script>
 </body>
 </html>
