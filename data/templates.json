@@ -1,27 +1,19 @@
 [
     {
-        "id": "modern_green-minimalism",
-        "name": "Green-Minimalism",
+        "id": "modern_mrarmor",
+        "name": "Mrarmor",
         "category": "modern",
-        "preview": "static/previews/modern/green-minimalism.png",
-        "file_path": "templates/modern/green-minimalism.pptx",
-        "file_size": "72 KB"
+        "preview": "static/previews/modern/mrarmor.png",
+        "file_path": "templates/modern/mrarmor.pptx",
+        "file_size": "336 KB"
     },
     {
-        "id": "modern_interjer",
-        "name": "Interjer",
+        "id": "modern_goluboy-abstraktniy",
+        "name": "Goluboy-Abstraktniy",
         "category": "modern",
-        "preview": "static/previews/modern/interjer.png",
-        "file_path": "templates/modern/interjer.pptx",
-        "file_size": "477 KB"
-    },
-    {
-        "id": "power_point_education_bright",
-        "name": "Education Bright",
-        "category": "power point",
-        "preview": "static/previews/power point/Education_Bright.png",
-        "file_path": "templates/power point/Education_Bright.pptx",
-        "file_size": "53 KB"
+        "preview": "static/previews/modern/goluboy-abstraktniy.png",
+        "file_path": "templates/modern/goluboy-abstraktniy.pptx",
+        "file_size": "946 KB"
     },
     {
         "id": "power_point_6",
@@ -38,14 +30,6 @@
         "preview": "static/previews/power point/classic.png",
         "file_path": "templates/power point/classic.pptx",
         "file_size": "35 KB"
-    },
-    {
-        "id": "power_point_test_backup",
-        "name": "Test Backup",
-        "category": "power point",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
-        "file_path": "templates/power point/test_backup.pptx",
-        "file_size": "85 KB"
     },
     {
         "id": "power_point_1",
@@ -91,17 +75,9 @@
         "id": "power_point_dark_premium",
         "name": "Dark Premium",
         "category": "power point",
-        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "preview": "static/previews/power point/dark_premium.png",
         "file_path": "templates/power point/dark_premium.pptx",
-        "file_size": "31 KB"
-    },
-    {
-        "id": "power_point_minimalist_light",
-        "name": "Minimalist Light",
-        "category": "power point",
-        "preview": "static/previews/power point/Minimalist_Light.png",
-        "file_path": "templates/power point/Minimalist_Light.pptx",
-        "file_size": "29 KB"
+        "file_size": "34 KB"
     },
     {
         "id": "power_point_4",
