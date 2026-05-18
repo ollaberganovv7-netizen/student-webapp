@@ -214,15 +214,16 @@
     const baseUrl = window.location.href.split('menu.html')[0];
 
     // ── Service sub-menus ──
+    // All items use action → goBot() to close Mini App and trigger bot flow
     const SERVICES = {
         presentation: {
             title: '📊 Taqdimot (Slayd)',
             price: '3 000 so\'mdan',
             items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', page: 'settings.html?doc_type=presentation&balance=' + balance },
-                { icon: '🎨', name: 'Dizayn Tanlash', desc: 'Slayd dizaynini tanlang', page: 'catalog.html' },
-                { icon: '📝', name: 'Reja qo\'shish', desc: 'Avtomatik yoki qo\'lda reja', page: 'plan.html' },
-                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot va ton', page: 'content.html' },
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', action: 'presentation' },
+                { icon: '🎨', name: 'Dizayn Tanlash', desc: 'Slayd dizaynini tanlang', action: 'presentation' },
+                { icon: '📝', name: 'Reja qo\'shish', desc: 'Avtomatik yoki qo\'lda reja', action: 'presentation' },
+                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot va ton', action: 'presentation' },
                 { icon: '🚀', name: 'Yaratish', desc: 'Taqdimotni yaratishni boshlash', action: 'presentation', isCreate: true },
             ]
         },
@@ -230,9 +231,9 @@
             title: '📝 Referat',
             price: '6 000 so\'mdan',
             items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', page: 'settings.html?doc_type=referat&balance=' + balance },
-                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', page: 'plan.html' },
-                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', page: 'content.html' },
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', action: 'referat' },
+                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', action: 'referat' },
+                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', action: 'referat' },
                 { icon: '🚀', name: 'Yaratish', desc: 'Referatni yaratishni boshlash', action: 'referat', isCreate: true },
             ]
         },
@@ -240,9 +241,9 @@
             title: '📄 Mustaqil Ish',
             price: '5 000 so\'mdan',
             items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', page: 'settings.html?doc_type=mustaqil&balance=' + balance },
-                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', page: 'plan.html' },
-                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', page: 'content.html' },
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, sifat, sahifalar soni', action: 'mustaqil' },
+                { icon: '📝', name: 'Reja qo\'shish', desc: 'Reja bandlarini kiriting', action: 'mustaqil' },
+                { icon: '🧩', name: 'Kontent', desc: 'Qo\'shimcha ma\'lumot', action: 'mustaqil' },
                 { icon: '🚀', name: 'Yaratish', desc: 'Mustaqil ishni yaratish', action: 'mustaqil', isCreate: true },
             ]
         },
@@ -250,7 +251,7 @@
             title: '📚 Kurs Ishi',
             price: '15 000 so\'mdan',
             items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', page: 'settings.html?doc_type=kurs&balance=' + balance },
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', action: 'kurs' },
                 { icon: '🚀', name: 'Yaratish', desc: 'Kurs ishini yaratish', action: 'kurs', isCreate: true },
             ]
         },
@@ -258,7 +259,7 @@
             title: '🎓 Tezis',
             price: '4 000 so\'mdan',
             items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', page: 'tezis_settings.html' },
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', action: 'tezis' },
                 { icon: '🚀', name: 'Yaratish', desc: 'Tezisni yaratish', action: 'tezis', isCreate: true },
             ]
         },
@@ -266,7 +267,7 @@
             title: '📰 Maqola',
             price: '4 000 so\'mdan',
             items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', page: 'maqola_settings.html' },
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, muallif, hajm', action: 'maqola' },
                 { icon: '🚀', name: 'Yaratish', desc: 'Maqolani yaratish', action: 'maqola', isCreate: true },
             ]
         },
@@ -274,7 +275,7 @@
             title: '📗 Uslubiy Ishlanma',
             price: '15 000 so\'mdan',
             items: [
-                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', page: 'settings.html?doc_type=uslubiy&balance=' + balance },
+                { icon: '⚙️', name: 'Sozlamalar', desc: 'Mavzu, hajm sozlamalari', action: 'uslubiy' },
                 { icon: '🚀', name: 'Yaratish', desc: 'Uslubiy ishlanmani yaratish', action: 'uslubiy', isCreate: true },
             ]
         },
@@ -305,11 +306,7 @@
             `;
             div.onclick = () => {
                 tg.HapticFeedback.impactOccurred('light');
-                if (item.page) {
-                    window.location.href = baseUrl + item.page;
-                } else if (item.action) {
-                    goBot(item.action);
-                }
+                goBot(item.action);
             };
             container.appendChild(div);
         });
