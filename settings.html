@@ -427,7 +427,7 @@
             }
 
             const pages = parseInt(slidesInput.value);
-            const extraImages = parseInt(aiExtraSlider ? aiExtraSlider.value : 0);
+            const extraImages = config.showAiImages ? parseInt(aiExtraSlider ? aiExtraSlider.value : 0) : 0;
             const basePrice = calcPrice(pages);
             const price = basePrice + (extraImages * IMAGE_PRICE);
 
@@ -439,8 +439,8 @@
                 language: document.getElementById('language').value,
                 quality: selectedQuality,
                 num_pages: pages,
-                ai_images: FREE_IMAGES + extraImages,
-                ai_images_extra: extraImages,
+                ai_images: config.showAiImages ? (FREE_IMAGES + extraImages) : 0,
+                ai_images_extra: config.showAiImages ? extraImages : 0,
                 price: price,
                 doc_type: docType
             };
