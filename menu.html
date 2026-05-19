@@ -178,6 +178,10 @@ tg.setBackgroundColor('#0f172a');
 tg.setHeaderColor('#0f172a');
 const botUser = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
 const baseUrl = window.location.href.split('menu.html')[0];
+const params = new URLSearchParams(window.location.search);
+const balance = parseInt(params.get('balance') || '0');
+const freeUsed = params.get('free_used') === '1';
+document.getElementById('balAm').textContent = freeUsed ? balance.toLocaleString() + " so'm" : "🎁 1 ta BEPUL!";
 
 // ── State ──
 let S = { service: '', topic: '', language: 'uz', quality: 'standard', slides: 10, template_id: 'plain', pages: 10, subject: '' };
@@ -213,6 +217,7 @@ function calcDocPrice() {
 }
 
 function fmt(n) { return n.toLocaleString('uz') + " so'm"; }
+function priceLabel(n) { return !freeUsed ? '🎁 BEPUL!' : '💰 Narx: ' + fmt(n); }
 
 // ── Navigation ──
 function show(id) {
@@ -248,14 +253,14 @@ function updateState() {
         S.quality = getOpt('pQuality');
         S.slides = parseInt(document.getElementById('pSlides').value);
         document.getElementById('pSlidesVal').textContent = S.slides;
-        document.getElementById('pPrice').textContent = '💰 Narx: ' + fmt(calcPresPrice());
+        document.getElementById('pPrice').textContent = priceLabel(calcPresPrice());
     }
     if (document.getElementById('v-doc-settings').classList.contains('active')) {
         S.language = getOpt('dLang');
         S.quality = getOpt('dQuality');
         S.pages = parseInt(document.getElementById('dPages').value);
         document.getElementById('dPagesVal').textContent = S.pages;
-        document.getElementById('dPrice').textContent = '💰 Narx: ' + fmt(calcDocPrice());
+        document.getElementById('dPrice').textContent = priceLabel(calcDocPrice());
     }
 }
 
@@ -353,7 +358,7 @@ function goDocSummary() {
 function renderSummary(rows, price) {
     const c = document.getElementById('sumRows');
     c.innerHTML = rows.map(([k,v]) => '<div class="sum-row"><span class="sk">' + k + '</span><span class="sv">' + v + '</span></div>').join('');
-    document.getElementById('sumPrice').textContent = '💰 Narx: ' + fmt(price);
+    document.getElementById('sumPrice').textContent = priceLabel(price);
     show('v-summary');
 }
 
