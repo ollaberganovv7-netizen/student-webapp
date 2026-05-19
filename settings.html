@@ -265,6 +265,7 @@
             },
             uslubiy: {
                 title: '📗 Uslubiy Ishlanma Sozlamalari',
+                showTopic: false,
                 showUniversity: true,
                 showMashgulot: true,
                 showQuality: false,
@@ -304,6 +305,7 @@
         document.getElementById('saveBtn').innerText = T.save;
 
         // Show/hide fields based on doc_type
+        if (config.showTopic === false) document.getElementById('topicInput').parentElement.classList.add('hidden');
         if (config.showSubject === false) document.getElementById('subjectGroup').classList.add('hidden');
         if (!config.showUniversity) document.getElementById('universityGroup').classList.add('hidden');
         if (config.showMashgulot) document.getElementById('mashgulotSection').classList.remove('hidden');
@@ -415,7 +417,10 @@
 
         function saveSettings() {
             tg.HapticFeedback.impactOccurred("medium");
-            const topicVal = document.getElementById('topicInput').value.trim();
+            let topicVal = document.getElementById('topicInput').value.trim();
+            if (!topicVal && docType === 'uslubiy') {
+                topicVal = document.getElementById('subject').value.trim();
+            }
             if (!topicVal) {
                 tg.showAlert(T.errTopic);
                 return;
