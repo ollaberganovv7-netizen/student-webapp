@@ -100,7 +100,7 @@
             </div>
             <input type="range" id="aiExtraSlider" min="0" max="10" value="0">
             <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-top:6px;">
-                <span id="aiTotalLabel">Jami rasmlar: <b style="color:var(--text-primary);">3</b></span>
+                <span id="aiTotalLabel">Jami rasmlar: <b style="color:var(--text-primary);">0</b></span>
                 <span id="aiExtraCost"></span>
             </div>
         </div>
@@ -153,7 +153,9 @@
                 slides: '🎞 Slaydlar soni',
                 aiImageLabel: '🖼 AI Rasmlar',
                 aiFreeNote: '✅ 3 ta bepul rasm avtomatik qo\'shiladi',
+                aiPaidNote: '🖼 Har bir rasm 1 000 so\'m',
                 aiExtraLabel: 'Qo\'shimcha rasmlar',
+                aiPaidLabel: 'Rasmlar soni',
                 aiTotalLabel: 'Jami rasmlar',
                 aiExtraCostLabel: "{cost} so'm",
                 balanceLabel: 'Balans:', priceLabel: 'Joriy narx:',
@@ -179,7 +181,9 @@
                 slides: '🎞 Кол-во слайдов',
                 aiImageLabel: '🖼 AI Изображения',
                 aiFreeNote: '✅ 3 бесплатных изображения добавляются автоматически',
+                aiPaidNote: '🖼 Каждое изображение 1 000 сум',
                 aiExtraLabel: 'Доп. изображения',
+                aiPaidLabel: 'Кол-во изображений',
                 aiTotalLabel: 'Всего изображений',
                 aiExtraCostLabel: '{cost} сум',
                 balanceLabel: 'Баланс:', priceLabel: 'Текущая цена:',
@@ -205,7 +209,9 @@
                 slides: '🎞 Number of slides',
                 aiImageLabel: '🖼 AI Images',
                 aiFreeNote: '✅ 3 free images are added automatically',
+                aiPaidNote: '🖼 Each image costs 1 000 so\'m',
                 aiExtraLabel: 'Extra images',
+                aiPaidLabel: 'Number of images',
                 aiTotalLabel: 'Total images',
                 aiExtraCostLabel: "{cost} so'm",
                 balanceLabel: 'Balance:', priceLabel: 'Current price:',
@@ -229,6 +235,7 @@
                 showMashgulot: false,
                 showQuality: true,
                 showAiImages: true,
+                freeImages: 3,
                 sliderLabel: '🎞 Slaydlar soni',
                 pageMin: 10, pageMax: 30, pageDefault: 10,
                 priceSteps: {
@@ -242,7 +249,8 @@
                 showUniversity: false,
                 showMashgulot: false,
                 showQuality: true,
-                showAiImages: false,
+                showAiImages: true,
+                freeImages: 0,
                 pageMin: 10, pageMax: 30, pageDefault: 15,
                 prices: {
                     standard: { low: 5000, mid: 7000, high: 9000 },
@@ -311,8 +319,16 @@
         if (config.showAiImages === true) {
             document.getElementById('aiImageSection').classList.remove('hidden');
             document.getElementById('aiImageLabel').innerText = T.aiImageLabel;
-            document.getElementById('aiImageFreeNote').innerText = T.aiFreeNote;
-            document.getElementById('aiExtraLabel').innerText = T.aiExtraLabel;
+            const freeNote = document.getElementById('aiImageFreeNote');
+            if (config.freeImages > 0) {
+                freeNote.innerText = T.aiFreeNote;
+                freeNote.style.display = '';
+                document.getElementById('aiExtraLabel').innerText = T.aiExtraLabel;
+            } else {
+                freeNote.innerText = T.aiPaidNote || '🖼 Har bir rasm 1 000 so\'m';
+                freeNote.style.color = 'var(--accent-light)';
+                document.getElementById('aiExtraLabel').innerText = T.aiPaidLabel || 'Rasmlar soni';
+            }
         }
         if (!config.showQuality) {
             document.getElementById('qualitySection').classList.add('hidden');
@@ -376,7 +392,8 @@
             slideCountDisp.innerText = count;
             const basePrice = calcPrice(count);
             const extraImages = parseInt(aiExtraSlider ? aiExtraSlider.value : 0);
-            const price = basePrice + (extraImages * IMAGE_PRICE);
+            const paidImages = (FREE_IMAGES > 0) ? extraImages : (FREE_IMAGES + extraImages);
+            const price = basePrice + (paidImages * IMAGE_PRICE);
             document.getElementById('price').innerText = price.toLocaleString();
 
             const statusEl = document.getElementById('status');
@@ -394,7 +411,7 @@
         const aiExtraCount = document.getElementById('ai-extra-count');
         const aiTotalLabel = document.getElementById('aiTotalLabel');
         const aiExtraCost = document.getElementById('aiExtraCost');
-        const FREE_IMAGES = 3;
+        const FREE_IMAGES = config.freeImages || 0;
         const IMAGE_PRICE = 1000;
 
         function updateAiImages() {
@@ -402,8 +419,9 @@
             aiExtraCount.innerText = extra;
             const total = FREE_IMAGES + extra;
             aiTotalLabel.innerHTML = T.aiTotalLabel + ': <b style="color:var(--text-main);">' + total + '</b>';
-            if (extra > 0) {
-                aiExtraCost.innerText = T.aiExtraCostLabel.replace('{cost}', (extra * IMAGE_PRICE).toLocaleString());
+            const paidCount = (FREE_IMAGES > 0) ? extra : total;
+            if (paidCount > 0) {
+                aiExtraCost.innerText = T.aiExtraCostLabel.replace('{cost}', (paidCount * IMAGE_PRICE).toLocaleString());
             } else {
                 aiExtraCost.innerText = '';
             }
@@ -432,8 +450,9 @@
 
             const pages = parseInt(slidesInput.value);
             const extraImages = config.showAiImages ? parseInt(aiExtraSlider ? aiExtraSlider.value : 0) : 0;
+            const paidImages = (FREE_IMAGES > 0) ? extraImages : (FREE_IMAGES + extraImages);
             const basePrice = calcPrice(pages);
-            const price = basePrice + (extraImages * IMAGE_PRICE);
+            const price = basePrice + (paidImages * IMAGE_PRICE);
 
             const data = {
                 action: 'full_settings',
