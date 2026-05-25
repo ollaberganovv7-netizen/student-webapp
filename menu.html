@@ -1,486 +1,868 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Student(AI) Bot</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link rel="stylesheet" href="static/styles.css">
-<style>
-/* Additional component styling */
-.header-area {
-    text-align: center;
-    padding: 12px 0 24px;
-}
-.header-area h1 {
-    font-size: 24px;
-    margin-bottom: 4px;
-}
-.header-area p {
-    color: var(--text-secondary);
-    font-size: 13px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Student(AI) Bot</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 30px;
+        }
 
-/* Glass balance card */
-.balance-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-    margin-bottom: 24px;
-}
-.balance-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-}
-.balance-amount {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--accent-light);
-}
-.topup-btn {
-    background: var(--accent);
-    color: var(--tg-theme-button-text-color, #fff);
-    border: none;
-    padding: 10px 16px;
-    border-radius: var(--radius-md);
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    transition: transform 0.2s;
-}
-.topup-btn:active { transform: scale(0.95); }
+        .v {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-/* Section Title */
-.section-title {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--text-muted);
-    font-weight: 700;
-    margin: 0 0 12px 4px;
-}
+        .v.active {
+            display: flex;
+        }
 
-/* Service Grid */
-.services-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 24px;
-}
-.service-card {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-    overflow: hidden;
-}
-.service-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: var(--card-color, var(--accent));
-    opacity: 0.8;
-}
-.service-icon {
-    font-size: 32px;
-    margin-bottom: 4px;
-}
-.service-name {
-    font-size: 14px;
-    font-weight: 700;
-}
-.service-price {
-    font-size: 11px;
-    color: var(--text-secondary);
-}
+        /* ── Menu ── */
+        .logo {
+            text-align: center;
+            padding: 8px 0 4px;
+        }
 
-/* Featured Service */
-.service-featured {
-    grid-column: 1 / -1;
-    flex-direction: row;
-    align-items: center;
-    padding: 20px;
-}
-.service-featured .service-icon { margin-bottom: 0; font-size: 36px; }
-.service-featured-content { flex: 1; padding-left: 16px; }
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(135deg, var(--accent), var(--accent-pro));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-/* Colors */
-.c-blue { --card-color: #3b82f6; }
-.c-green { --card-color: #10b981; }
-.c-orange { --card-color: #f59e0b; }
-.c-purple { --card-color: #8b5cf6; }
-.c-pink { --card-color: #ec4899; }
-.c-cyan { --card-color: #06b6d4; }
-.c-indigo { --card-color: #4f46e5; }
-.c-rose { --card-color: #f43f5e; }
+        .logo p {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin: 4px 0 0;
+        }
 
-/* Small Menu Buttons */
-.tools-grid {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 24px;
-}
-.tool-btn {
-    flex: 1;
-    padding: 12px;
-    text-align: center;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-}
-.tool-icon { font-size: 24px; margin-bottom: 6px; display: block; }
-.tool-name { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+        .bal {
+            background: linear-gradient(135deg, rgba(59, 130, 246, .12), rgba(139, 92, 246, .08));
+            border: 1px solid rgba(59, 130, 246, .2);
+            border-radius: var(--radius-lg);
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-/* Forms */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
-}
-.form-group label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-secondary);
-}
-.form-input {
-    background: var(--bg-secondary);
-    border: 1px solid var(--glass-border);
-    color: var(--text-primary);
-    padding: 14px 16px;
-    border-radius: var(--radius-md);
-    font-size: 15px;
-    outline: none;
-    transition: all 0.2s;
-}
-.form-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-}
+        .bal .lb {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
 
-/* Options */
-.options-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-.option-btn {
-    flex: 1;
-    min-width: 90px;
-    padding: 12px 8px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-md);
-    text-align: center;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.option-btn.selected {
-    background: rgba(59, 130, 246, 0.15);
-    border-color: var(--accent);
-    color: var(--accent-light);
-}
-.option-sub {
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-top: 4px;
-    font-weight: 400;
-}
+        .bal .am {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent-light);
+        }
 
-/* Slider Area */
-.slider-container {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: var(--bg-secondary);
-    padding: 14px 16px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--glass-border);
-}
-.slider-container input[type=range] {
-    flex: 1;
-    -webkit-appearance: none;
-    background: var(--glass-border);
-    height: 6px;
-    border-radius: 4px;
-    outline: none;
-}
-.slider-container input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 24px; height: 24px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-.slider-value {
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--accent-light);
-    min-width: 40px;
-    text-align: center;
-}
+        .bal .tb {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-/* Templates Grid */
-.templates-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-.template-item {
-    border: 2px solid var(--glass-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.template-item.selected {
-    border-color: var(--accent);
-    box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
-}
-.template-item img {
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    display: block;
-}
-.template-name {
-    padding: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-    background: var(--bg-secondary);
-}
+        .st {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 6px 0 2px;
+            padding-left: 2px;
+        }
 
-/* Topup Cards */
-.payment-card {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
-}
-.payment-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    object-fit: contain;
-}
-</style>
+        .sg {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .sc {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px 14px;
+            cursor: pointer;
+            transition: all .25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--card-accent, var(--accent));
+            opacity: .7;
+        }
+
+        .sc:active {
+            transform: scale(.96);
+        }
+
+        .sc .ic {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .sc .nm {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .sc .pr {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .sc.fw {
+            grid-column: 1/-1;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+        }
+
+        .sc.fw .ic {
+            font-size: 32px;
+            margin-bottom: 0;
+        }
+
+        .sc.fw .inf {
+            flex: 1;
+        }
+
+        .cp {
+            --card-accent: #3b82f6;
+        }
+
+        .cr {
+            --card-accent: #10b981;
+        }
+
+        .cm {
+            --card-accent: #f59e0b;
+        }
+
+        .ck {
+            --card-accent: #8b5cf6;
+        }
+
+        .ct {
+            --card-accent: #ec4899;
+        }
+
+        .cq {
+            --card-accent: #06b6d4;
+        }
+
+        .cu {
+            --card-accent: #f97316;
+        }
+
+        .bl {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .bln {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .bln:active {
+            transform: scale(.96);
+        }
+
+        .bln .bi {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .bln .bt {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* ── Forms ── */
+        .page-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .page-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 2px 0 0;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .field input,
+        .field textarea,
+        .field select {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            font-family: inherit;
+            resize: none;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .opts {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .opt {
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all .2s;
+            text-align: center;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .opt.sel {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, .15);
+            color: var(--accent-light);
+        }
+
+        .opt:active {
+            transform: scale(.96);
+        }
+
+        .opt .op {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-row input[type=range] {
+            flex: 1;
+            accent-color: var(--accent);
+        }
+
+        .slider-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent-light);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, var(--accent), var(--accent-pro));
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* ── Templates ── */
+        .tpl-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .tpl-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .tpl-card.sel {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(59, 130, 246, .3);
+        }
+
+        .tpl-card:active {
+            transform: scale(.97);
+        }
+
+        .tpl-card img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+        }
+
+        .tpl-card .tn {
+            padding: 8px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ── Summary ── */
+        .sum-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sum-row .sk {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .sum-row .sv {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+            max-width: 60%;
+        }
+
+        /* ── Buttons ── */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--accent), var(--accent-pro));
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(.97);
+            opacity: .9;
+        }
+
+        .btn-primary:disabled {
+            opacity: .4;
+            pointer-events: none;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- ═══ VIEW 1: MAIN DASHBOARD ═══ -->
-<div class="v active animate-in" id="v-menu">
-    <div class="header-area">
-        <h1 class="title-gradient">STUDENT(AI)</h1>
-        <p>Akademik ishlar bo'yicha aqlli yordamchi</p>
-    </div>
-
-    <div class="glass-panel balance-card animate-in delay-1">
-        <div>
-            <div class="balance-label">Joriy balans</div>
-            <div class="balance-amount" id="mainBal">0 so'm</div>
+    <!-- ═══ VIEW: Main Menu ═══ -->
+    <div class="v active" id="v-menu">
+        <div class="logo">
+            <h1>🎓 STUDENT(AI) BOT</h1>
+            <p>Akademik ishlar uchun AI yordamchi</p>
         </div>
-        <button class="topup-btn" onclick="openService('topup')">To'ldirish</button>
-    </div>
-
-    <div class="section-title animate-in delay-2">Xizmatlar</div>
-    
-    <div class="services-grid animate-in delay-3">
-        <!-- Presentation -->
-        <div class="glass-card service-card service-featured c-blue" onclick="openService('presentation')">
-            <div class="service-icon">📊</div>
-            <div class="service-featured-content">
-                <div class="service-name">Taqdimot (Slayd)</div>
-                <div class="service-price">3 000 so'mdan boshlab</div>
+        <div class="bal">
+            <div>
+                <div class="lb">💰 Balansingiz</div>
+                <div class="am" id="balAm">0 so'm</div>
+            </div><button class="tb" onclick="goBot('topup')">+ To'ldirish</button>
+        </div>
+        <div class="st">Xizmatlar</div>
+        <div class="sc fw cp" onclick="openService('presentation')"><span class="ic">📊</span>
+            <div class="inf">
+                <div class="nm">Taqdimot (Slayd)</div>
+                <div class="pr">3 000 so'mdan</div>
+            </div><span style="color:var(--text-muted)">›</span>
+        </div>
+        <div class="sg">
+            <div class="sc cr" onclick="openService('referat')"><span class="ic">📝</span>
+                <div class="nm">Referat</div>
+                <div class="pr">6 000 so'mdan</div>
             </div>
-            <div style="color:var(--text-muted)">›</div>
+            <div class="sc cm" onclick="openService('mustaqil')"><span class="ic">📄</span>
+                <div class="nm">Mustaqil ish</div>
+                <div class="pr">5 000 so'mdan</div>
+            </div>
+            <div class="sc ck" onclick="openService('kurs')"><span class="ic">📚</span>
+                <div class="nm">Kurs ishi</div>
+                <div class="pr">15 000 so'mdan</div>
+            </div>
+            <div class="sc ct" onclick="openService('tezis')"><span class="ic">🎓</span>
+                <div class="nm">Tezis</div>
+                <div class="pr">4 000 so'mdan</div>
+            </div>
+            <div class="sc cq" onclick="openService('maqola')"><span class="ic">📰</span>
+                <div class="nm">Maqola</div>
+                <div class="pr">4 000 so'mdan</div>
+            </div>
+            <div class="sc cu" onclick="openService('uslubiy')"><span class="ic">📗</span>
+                <div class="nm">Uslubiy ishlanma</div>
+                <div class="pr">15 000 so'mdan</div>
+            </div>
         </div>
-
-        <div class="glass-card service-card c-green" onclick="openService('referat')">
-            <div class="service-icon">📝</div>
-            <div class="service-name">Referat</div>
-            <div class="service-price">6 000 so'm</div>
-        </div>
-        <div class="glass-card service-card c-orange" onclick="openService('mustaqil')">
-            <div class="service-icon">📄</div>
-            <div class="service-name">Mustaqil ish</div>
-            <div class="service-price">5 000 so'm</div>
-        </div>
-        <div class="glass-card service-card c-purple" onclick="openService('kurs')">
-            <div class="service-icon">📚</div>
-            <div class="service-name">Kurs ishi</div>
-            <div class="service-price">15 000 so'm</div>
-        </div>
-        <div class="glass-card service-card c-pink" onclick="openService('tezis')">
-            <div class="service-icon">🎓</div>
-            <div class="service-name">Tezis yaratish</div>
-            <div class="service-price">4 000 so'm</div>
-        </div>
-        <div class="glass-card service-card c-cyan" onclick="openService('maqola')">
-            <div class="service-icon">📰</div>
-            <div class="service-name">Maqola yaratish</div>
-            <div class="service-price">4 000 so'm</div>
-        </div>
-        <div class="glass-card service-card c-rose" onclick="openService('uslubiy')">
-            <div class="service-icon">📗</div>
-            <div class="service-name">Uslubiy ishlanma</div>
-            <div class="service-price">15 000 so'm</div>
+        <div class="st">Boshqa</div>
+        <div class="bl">
+            <div class="bln" onclick="goBot('account')"><span class="bi">👤</span><span class="bt">Hisobim</span></div>
+            <div class="bln" onclick="goBot('referral')"><span class="bi">🎁</span><span class="bt">Taklif</span></div>
+            <div class="bln" onclick="goBot('help')"><span class="bi">❓</span><span class="bt">Yordam</span></div>
         </div>
     </div>
 
-    <div class="section-title animate-in delay-4">Qo'shimcha uskunalar</div>
-    <div class="tools-grid animate-in delay-5">
-        <div class="glass-card tool-btn" onclick="openService('quiz')">
-            <span class="tool-icon">📋</span>
-            <span class="tool-name">Test (Quiz)</span>
+    <!-- ═══ VIEW: Presentation Settings ═══ -->
+    <div class="v" id="v-pres-settings">
+        <div>
+            <div class="page-title">📊 Taqdimot yaratish</div>
+            <div class="page-sub">Mavzu va sozlamalarni kiriting</div>
         </div>
-        <div class="glass-card tool-btn" onclick="openService('referral')">
-            <span class="tool-icon">🎁</span>
-            <span class="tool-name">Taklif qilish</span>
+        <div class="field"><label>Mavzu</label><input id="pTopic" placeholder="Masalan: Sun'iy intellekt"
+                maxlength="200"></div>
+        <div class="field"><label>Til</label>
+            <div class="opts" id="pLang">
+                <div class="opt sel" data-v="uz">🇺🇿 O'zbek</div>
+                <div class="opt" data-v="ru">🇷🇺 Rus</div>
+                <div class="opt" data-v="en">🇬🇧 English</div>
+            </div>
         </div>
-        <div class="glass-card tool-btn" onclick="openService('account')">
-            <span class="tool-icon">👤</span>
-            <span class="tool-name">Hisobim</span>
+        <div class="field"><label>Sifat</label>
+            <div class="opts" id="pQuality">
+                <div class="opt sel" data-v="standard">⭐ Standard<div class="op">3 000+</div>
+                </div>
+                <div class="opt" data-v="premium">💎 Premium<div class="op">8 000+</div>
+                </div>
+            </div>
         </div>
+        <div class="field"><label>Slaydlar soni</label>
+            <div class="slider-row"><input type="range" id="pSlides" min="8" max="30" value="10">
+                <div class="slider-val" id="pSlidesVal">10</div>
+            </div>
+        </div>
+        <div class="price-tag" id="pPrice">💰 Narx: 3 000 so'm</div>
+        <button class="btn-primary" onclick="goPresDesign()">Dizayn tanlash →</button>
+    </div>
+
+    <!-- ═══ VIEW: Presentation Design ═══ -->
+    <div class="v" id="v-pres-design">
+        <div>
+            <div class="page-title">🎨 Dizayn tanlang</div>
+            <div class="page-sub">Taqdimot uchun shablon</div>
+        </div>
+        <div class="opts" id="pDesignType">
+            <div class="opt sel" data-v="template">📦 Shablon</div>
+            <div class="opt" data-v="plain">📄 Oddiy (oq)</div>
+        </div>
+        <div class="tpl-grid" id="tplGrid"></div>
+        <button class="btn-primary" onclick="goPresSummary()">Davom etish →</button>
+    </div>
+
+    <!-- ═══ VIEW: Summary ═══ -->
+    <div class="v" id="v-summary">
+        <div>
+            <div class="page-title">📋 Tekshirish</div>
+            <div class="page-sub">Ma'lumotlarni tekshiring va yarating</div>
+        </div>
+        <div id="sumRows"></div>
+        <div class="price-tag" id="sumPrice">💰 Narx: 3 000 so'm</div>
+        <button class="btn-primary" id="btnCreate" onclick="submitJob()">🚀 Yaratish</button>
+        <button class="btn-secondary" onclick="show('v-menu')">← Bosh menyu</button>
+    </div>
+
+    <!-- ═══ VIEW: Document Settings (referat, mustaqil, kurs, tezis, maqola, uslubiy) ═══ -->
+    <div class="v" id="v-doc-settings">
+        <div>
+            <div class="page-title" id="dTitle">📝 Referat yaratish</div>
+            <div class="page-sub">Mavzu va sozlamalarni kiriting</div>
+        </div>
+        <div class="field"><label>Mavzu</label><input id="dTopic" placeholder="Masalan: Ekologiya muammolari"
+                maxlength="200"></div>
+        <div class="field" id="dSubjectField"><label>Fan nomi</label><input id="dSubject"
+                placeholder="Masalan: Biologiya"></div>
+        <div class="field"><label>Til</label>
+            <div class="opts" id="dLang">
+                <div class="opt sel" data-v="uz">🇺🇿 O'zbek</div>
+                <div class="opt" data-v="ru">🇷🇺 Rus</div>
+                <div class="opt" data-v="en">🇬🇧 English</div>
+            </div>
+        </div>
+        <div class="field" id="dQualityField"><label>Sifat</label>
+            <div class="opts" id="dQuality">
+                <div class="opt sel" data-v="standard">⭐ Standard</div>
+                <div class="opt" data-v="pro">💎 Pro</div>
+            </div>
+        </div>
+        <div class="field"><label id="dPagesLabel">Sahifalar soni</label>
+            <div class="slider-row"><input type="range" id="dPages" min="5" max="50" value="10">
+                <div class="slider-val" id="dPagesVal">10</div>
+            </div>
+        </div>
+        <div class="price-tag" id="dPrice">💰 Narx: 6 000 so'm</div>
+        <button class="btn-primary" onclick="goDocSummary()">📋 Tekshirish →</button>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.setBackgroundColor('#0f172a');
+        tg.setHeaderColor('#0f172a');
+        const botUser = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
+        const baseUrl = window.location.href.split('menu.html')[0];
+        const params = new URLSearchParams(window.location.search);
+        const balance = parseInt(params.get('balance') || '0');
+        const freeUsed = params.get('free_used') === '1';
+        document.getElementById('balAm').textContent = freeUsed ? balance.toLocaleString() + " so'm" : "🎁 1 ta BEPUL!";
+
+        // ── State ──
+        let S = { service: '', topic: '', language: 'uz', quality: 'standard', slides: 10, template_id: 'plain', pages: 10, subject: '' };
+        let templates = [];
+        let viewStack = ['v-menu'];
+
+        // ── PRICING ──
+        const PRICING = {
+            presentation_std_low: 3000, presentation_std_mid: 7000, presentation_std_high: 9000,
+            presentation_pre_low: 8000, presentation_pre_mid: 12000, presentation_pre_high: 16000,
+            essay_std: 6000, essay_pre: 9000, mustaqil_std: 5000, mustaqil_pre: 8000,
+            coursework_low: 15000, coursework_high: 25000,
+            tezis_5: 4000, tezis_10: 6000, tezis_15: 8000, tezis_20: 10000,
+            maqola_5: 4000, maqola_10: 6000, maqola_15: 8000, maqola_20: 10000,
+            uslubiy_low: 15000, uslubiy_high: 25000,
+        };
+
+        function calcPresPrice() {
+            const n = S.slides, q = S.quality;
+            if (q === 'premium') return n <= 14 ? PRICING.presentation_pre_low : n <= 22 ? PRICING.presentation_pre_mid : PRICING.presentation_pre_high;
+            return n <= 14 ? PRICING.presentation_std_low : n <= 22 ? PRICING.presentation_std_mid : PRICING.presentation_std_high;
+        }
+
+        function calcDocPrice() {
+            const t = S.service, p = S.pages, q = S.quality;
+            if (t === 'referat') return q === 'pro' ? PRICING.essay_pre : PRICING.essay_std;
+            if (t === 'mustaqil') return q === 'pro' ? PRICING.mustaqil_pre : PRICING.mustaqil_std;
+            if (t === 'kurs') return p <= 30 ? PRICING.coursework_low : PRICING.coursework_high;
+            if (t === 'uslubiy') return p <= 30 ? PRICING.uslubiy_low : PRICING.uslubiy_high;
+            if (t === 'tezis') return p <= 7 ? PRICING.tezis_5 : p <= 12 ? PRICING.tezis_10 : p <= 17 ? PRICING.tezis_15 : PRICING.tezis_20;
+            if (t === 'maqola') return p <= 7 ? PRICING.maqola_5 : p <= 12 ? PRICING.maqola_10 : p <= 17 ? PRICING.maqola_15 : PRICING.maqola_20;
+            return 5000;
+        }
+
+        function fmt(n) { return n.toLocaleString('uz') + " so'm"; }
+        function priceLabel(n) { return !freeUsed ? '🎁 BEPUL!' : '💰 Narx: ' + fmt(n); }
+
+        // ── Navigation ──
+        function show(id) {
+            document.querySelectorAll('.v').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if (id === 'v-menu') { viewStack = ['v-menu']; tg.BackButton.hide(); }
+            else { if (viewStack[viewStack.length - 1] !== id) viewStack.push(id); tg.BackButton.show(); }
+            window.scrollTo(0, 0);
+        }
+        tg.BackButton.onClick(() => {
+            tg.HapticFeedback.impactOccurred('light');
+            viewStack.pop();
+            show(viewStack[viewStack.length - 1] || 'v-menu');
+        });
+
+        // ── Option selectors ──
+        document.querySelectorAll('.opts').forEach(group => {
+            group.querySelectorAll('.opt').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    tg.HapticFeedback.impactOccurred('light');
+                    group.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+                    opt.classList.add('sel');
+                    updateState();
+                });
+            });
+        });
+
+        function getOpt(id) { return document.querySelector('#' + id + ' .opt.sel')?.dataset.v || ''; }
+
+        function updateState() {
+            if (document.getElementById('v-pres-settings').classList.contains('active')) {
+                S.language = getOpt('pLang');
+                S.quality = getOpt('pQuality');
+                S.slides = parseInt(document.getElementById('pSlides').value);
+                document.getElementById('pSlidesVal').textContent = S.slides;
+                document.getElementById('pPrice').textContent = priceLabel(calcPresPrice());
+            }
+            if (document.getElementById('v-doc-settings').classList.contains('active')) {
+                S.language = getOpt('dLang');
+                S.quality = getOpt('dQuality');
+                S.pages = parseInt(document.getElementById('dPages').value);
+                document.getElementById('dPagesVal').textContent = S.pages;
+                document.getElementById('dPrice').textContent = priceLabel(calcDocPrice());
+            }
+        }
+
+        document.getElementById('pSlides').addEventListener('input', updateState);
+        document.getElementById('dPages').addEventListener('input', updateState);
+
+        // ── Service entry ──
+        const DOC_CFG = {
+            referat: { title: '📝 Referat yaratish', hasSubject: true, hasQuality: true, minP: 8, maxP: 25, defP: 12 },
+            mustaqil: { title: '📄 Mustaqil ish yaratish', hasSubject: true, hasQuality: true, minP: 8, maxP: 25, defP: 12 },
+            kurs: { title: '📚 Kurs ishi yaratish', hasSubject: false, hasQuality: false, minP: 20, maxP: 50, defP: 25 },
+            tezis: { title: '🎓 Tezis yaratish', hasSubject: false, hasQuality: false, minP: 5, maxP: 20, defP: 10 },
+            maqola: { title: '📰 Maqola yaratish', hasSubject: false, hasQuality: false, minP: 5, maxP: 20, defP: 10 },
+            uslubiy: { title: '📗 Uslubiy ishlanma', hasSubject: false, hasQuality: false, minP: 20, maxP: 50, defP: 25 },
+        };
+
+        function openService(type) {
+            tg.HapticFeedback.impactOccurred('light');
+            S.service = type;
+            if (type === 'presentation') {
+                show('v-pres-settings');
+                updateState();
+            } else {
+                const cfg = DOC_CFG[type];
+                document.getElementById('dTitle').textContent = cfg.title;
+                document.getElementById('dSubjectField').style.display = cfg.hasSubject ? '' : 'none';
+                document.getElementById('dQualityField').style.display = cfg.hasQuality ? '' : 'none';
+                const sl = document.getElementById('dPages');
+                sl.min = cfg.minP; sl.max = cfg.maxP; sl.value = cfg.defP;
+                S.pages = cfg.defP;
+                show('v-doc-settings');
+                updateState();
+            }
+        }
+
+        // ── Presentation: Design step ──
+        async function goPresDesign() {
+            S.topic = document.getElementById('pTopic').value.trim();
+            if (!S.topic) { tg.showAlert('Mavzuni kiriting!'); return; }
+            show('v-pres-design');
+            if (!templates.length) {
+                try {
+                    const r = await fetch(baseUrl + 'data/templates.json');
+                    templates = await r.json();
+                } catch (e) { templates = []; }
+            }
+            renderTemplates();
+        }
+
+        function renderTemplates() {
+            const grid = document.getElementById('tplGrid');
+            const isPlain = getOpt('pDesignType') === 'plain';
+            grid.style.display = isPlain ? 'none' : 'grid';
+            if (isPlain) { S.template_id = 'plain'; return; }
+            grid.innerHTML = '';
+            templates.forEach(t => {
+                const d = document.createElement('div');
+                d.className = 'tpl-card' + (S.template_id === t.id ? ' sel' : '');
+                d.innerHTML = '<img src="' + baseUrl + t.preview + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="tn">' + t.name + '</div>';
+                d.onclick = () => { tg.HapticFeedback.impactOccurred('light'); S.template_id = t.id; renderTemplates(); };
+                grid.appendChild(d);
+            });
+        }
+        document.getElementById('pDesignType').addEventListener('click', () => setTimeout(renderTemplates, 50));
+
+        // ── Summary ──
+        function goPresSummary() {
+            const rows = [
+                ['Xizmat', '📊 Taqdimot'],
+                ['Mavzu', S.topic],
+                ['Til', { uz: "🇺🇿 O'zbek", ru: '🇷🇺 Rus', en: '🇬🇧 English' }[S.language]],
+                ['Sifat', S.quality === 'premium' ? '💎 Premium' : '⭐ Standard'],
+                ['Slaydlar', S.slides + ' ta'],
+                ['Dizayn', S.template_id === 'plain' ? 'Oddiy oq' : S.template_id],
+            ];
+            renderSummary(rows, calcPresPrice());
+        }
+
+        function goDocSummary() {
+            S.topic = document.getElementById('dTopic').value.trim();
+            S.subject = document.getElementById('dSubject')?.value.trim() || '';
+            if (!S.topic) { tg.showAlert('Mavzuni kiriting!'); return; }
+            const labels = { referat: '📝 Referat', mustaqil: '📄 Mustaqil ish', kurs: '📚 Kurs ishi', tezis: '🎓 Tezis', maqola: '📰 Maqola', uslubiy: '📗 Uslubiy' };
+            const rows = [
+                ['Xizmat', labels[S.service] || S.service],
+                ['Mavzu', S.topic],
+            ];
+            if (S.subject) rows.push(['Fan', S.subject]);
+            rows.push(['Til', { uz: "🇺🇿 O'zbek", ru: '🇷🇺 Rus', en: '🇬🇧 English' }[S.language]]);
+            if (DOC_CFG[S.service]?.hasQuality) rows.push(['Sifat', S.quality === 'pro' ? '💎 Pro' : '⭐ Standard']);
+            rows.push(['Sahifalar', S.pages + ' ta']);
+            renderSummary(rows, calcDocPrice());
+        }
+
+        function renderSummary(rows, price) {
+            const c = document.getElementById('sumRows');
+            c.innerHTML = rows.map(([k, v]) => '<div class="sum-row"><span class="sk">' + k + '</span><span class="sv">' + v + '</span></div>').join('');
+            document.getElementById('sumPrice').textContent = priceLabel(price);
+            show('v-summary');
+        }
+
+        // ── Submit ──
+        function submitJob() {
+            tg.HapticFeedback.notificationOccurred('success');
+            const job = {
+                action: 'generate',
+                service: S.service,
+                topic: S.topic,
+                language: S.language,
+                quality: S.quality,
+            };
+            if (S.service === 'presentation') {
+                job.num_slides = S.slides;
+                job.template_id = S.template_id;
+            } else {
+                job.pages = S.pages;
+                job.subject = S.subject;
+            }
+            localStorage.setItem('pending_job', JSON.stringify(job));
+            tg.openTelegramLink('https://t.me/' + botUser + '?start=gen_' + S.service);
+            tg.close();
+        }
+
+        function goBot(type) {
+            tg.HapticFeedback.impactOccurred('medium');
+            tg.openTelegramLink('https://t.me/' + botUser + '?start=menu_' + type);
+            tg.close();
+        }
+
+        tg.ready();
+    </script>
+</body>
+
+</html>
+
+<div class="form-group">
+    <label>Mavzu</label>
+    <input type="text" id="dTopic" class="form-input" placeholder="Mavzuni to'liq yozing">
+</div>
+<div class="form-group" id="dSubjectField">
+    <label>Fan nomi (Ixtiyoriy)</label>
+    <input type="text" id="dSubject" class="form-input" placeholder="Masalan: Falsafa">
+</div>
+<div class="form-group" id="dUnivField">
+    <label>Universitet / Tashkilot (Ixtiyoriy)</label>
+    <input type="text" id="dUniv" class="form-input" placeholder="Masalan: TDPU">
+</div>
+<div class="form-group">
+    <label>Til</label>
+    <div class="options-row" id="dLang">
+        <div class="option-btn selected" data-v="uz">🇺🇿 O'zbek</div>
+        <div class="option-btn" data-v="ru">🇷🇺 Rus</div>
+        <div class="option-btn" data-v="en">🇬🇧 English</div>
     </div>
 </div>
-
-<!-- ═══ VIEW 2: PRESENTATION ═══ -->
-<div class="v" id="v-pres-settings">
-    <div class="header-area"><h1 class="title-gradient">Taqdimot</h1><p>Mavzu va parametrlarni sozlang</p></div>
-    
-    <div class="form-group">
-        <label>Mavzu nomi</label>
-        <input type="text" id="pTopic" class="form-input" placeholder="Masalan: O'zbekiston tarixi">
-    </div>
-    
-    <div class="form-group">
-        <label>Fan nomi (Ixtiyoriy)</label>
-        <input type="text" id="pSubject" class="form-input" placeholder="Masalan: Tarix">
-    </div>
-
-    <div class="form-group">
-        <label>Universitet (Ixtiyoriy)</label>
-        <input type="text" id="pUniv" class="form-input" placeholder="Masalan: O'zMU">
-    </div>
-
-    <div class="form-group">
-        <label>Til</label>
-        <div class="options-row" id="pLang">
-            <div class="option-btn selected" data-v="uz">🇺🇿 O'zbek</div>
-            <div class="option-btn" data-v="ru">🇷🇺 Rus</div>
-            <div class="option-btn" data-v="en">🇬🇧 English</div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Sifat va Tahlil</label>
-        <div class="options-row" id="pQuality">
-            <div class="option-btn selected" data-v="standard">⭐ Standard<div class="option-sub">3 000+ so'm</div></div>
-            <div class="option-btn" data-v="premium">💎 Premium<div class="option-sub">8 000+ so'm</div></div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Slaydlar soni</label>
-        <div class="slider-container">
-            <input type="range" id="pSlides" min="8" max="30" value="10">
-            <div class="slider-value" id="pSlidesVal">10</div>
-        </div>
-    </div>
-
-    <div class="form-group glass-panel" style="padding:16px;">
-        <label>🖼 AI Rasmlar</label>
-        <div style="font-size:12px; color:var(--success); margin:4px 0 12px;">✅ 3 ta yuqori sifatli rasm bepul</div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <span style="font-size:12px; color:var(--text-secondary);">Qo'shimcha rasmlar (1000 so'm/dona)</span>
-            <span class="slider-value" style="font-size:16px;" id="pAiExtraVal">0</span>
-        </div>
-        <input type="range" id="pAiExtra" min="0" max="10" value="0">
+<div class="form-group" id="dQualityField">
+    <label>Sifat</label>
+    <div class="options-row" id="dQuality">
+        <div class="option-btn selected" data-v="standard">⭐ Standard</div>
+        <div class="option-btn" data-v="pro">💎 Pro (AI chuqur tahlil)</div>
     </div>
 </div>
-
-<div class="v" id="v-pres-design">
-    <div class="header-area"><h1 class="title-gradient">Dizayn</h1><p>O'zingizga yoqqan shablonni tanlang</p></div>
-    <div class="options-row" id="pDesignType" style="margin-bottom: 20px;">
-        <div class="option-btn selected" data-v="template">📦 Chiroyli Shablonlar</div>
-        <div class="option-btn" data-v="plain">📄 Oddiy (oq fon)</div>
+<div class="form-group">
+    <label>Sahifalar soni</label>
+    <div class="slider-container">
+        <input type="range" id="dPages" min="5" max="50" value="10">
+        <div class="slider-value" id="dPagesVal">10</div>
     </div>
-    <div class="templates-grid" id="tplGrid"></div>
 </div>
-
-<!-- ═══ VIEW 3: DOCUMENTS ═══ -->
-<div class="v" id="v-doc-settings">
-    <div class="header-area"><h1 class="title-gradient" id="dTitle">Hujjat</h1><p>Ma'lumotlarni kiriting</p></div>
-    
-    <div class="form-group">
-        <label>Mavzu</label>
-        <input type="text" id="dTopic" class="form-input" placeholder="Mavzuni to'liq yozing">
-    </div>
-    <div class="form-group" id="dSubjectField">
-        <label>Fan nomi (Ixtiyoriy)</label>
-        <input type="text" id="dSubject" class="form-input" placeholder="Masalan: Falsafa">
-    </div>
-    <div class="form-group" id="dUnivField">
-        <label>Universitet / Tashkilot (Ixtiyoriy)</label>
-        <input type="text" id="dUniv" class="form-input" placeholder="Masalan: TDPU">
-    </div>
-    <div class="form-group">
-        <label>Til</label>
-        <div class="options-row" id="dLang">
-            <div class="option-btn selected" data-v="uz">🇺🇿 O'zbek</div>
-            <div class="option-btn" data-v="ru">🇷🇺 Rus</div>
-            <div class="option-btn" data-v="en">🇬🇧 English</div>
-        </div>
-    </div>
-    <div class="form-group" id="dQualityField">
-        <label>Sifat</label>
-        <div class="options-row" id="dQuality">
-            <div class="option-btn selected" data-v="standard">⭐ Standard</div>
-            <div class="option-btn" data-v="pro">💎 Pro (AI chuqur tahlil)</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Sahifalar soni</label>
-        <div class="slider-container">
-            <input type="range" id="dPages" min="5" max="50" value="10">
-            <div class="slider-value" id="dPagesVal">10</div>
-        </div>
-    </div>
 </div>
 
 <!-- ═══ VIEW 4: QUIZ ═══ -->
 <div class="v" id="v-quiz">
-    <div class="header-area"><h1 class="title-gradient">Test (Quiz)</h1><p>Telegram uchun avtomatik testlar</p></div>
+    <div class="header-area">
+        <h1 class="title-gradient">Test (Quiz)</h1>
+        <p>Telegram uchun avtomatik testlar</p>
+    </div>
     <div class="glass-panel" style="padding:20px; text-align:center;">
         <div style="font-size:48px; margin-bottom:12px;">📋</div>
         <h3 style="margin-bottom:8px;">Qanday ishlaydi?</h3>
         <p style="color:var(--text-secondary); font-size:13px; margin-bottom:16px;">
-            Siz <b>DOCX, TXT</b> yoki <b>PDF</b> formatidagi savollarni yuborasiz, sun'iy intellekt uni analiz qilib, tayyor Telegram Quiz qilib beradi!
+            Siz <b>DOCX, TXT</b> yoki <b>PDF</b> formatidagi savollarni yuborasiz, sun'iy intellekt uni analiz qilib,
+            tayyor Telegram Quiz qilib beradi!
         </p>
-        <button class="topup-btn" style="width:100%; padding:14px;" onclick="submitAction('quiz_start')">Fayl yuborishni boshlash</button>
+        <button class="topup-btn" style="width:100%; padding:14px;" onclick="submitAction('quiz_start')">Fayl yuborishni
+            boshlash</button>
     </div>
 </div>
 
 <!-- ═══ VIEW 5: ACCOUNT ═══ -->
 <div class="v" id="v-account">
-    <div class="header-area"><h1 class="title-gradient">Mening Hisobim</h1><p>Shaxsiy ma'lumotlar</p></div>
+    <div class="header-area">
+        <h1 class="title-gradient">Mening Hisobim</h1>
+        <p>Shaxsiy ma'lumotlar</p>
+    </div>
     <div class="glass-panel" style="padding:20px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--glass-border);">
+        <div
+            style="display:flex; justify-content:space-between; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--glass-border);">
             <span style="color:var(--text-secondary)">Sizning ID raqamingiz:</span>
             <span style="font-weight:700; font-family:monospace;" id="accId">...</span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--glass-border);">
+        <div
+            style="display:flex; justify-content:space-between; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--glass-border);">
             <span style="color:var(--text-secondary)">Asosiy balans:</span>
             <span style="font-weight:800; color:var(--success); font-size:18px;" id="accBal">0 so'm</span>
         </div>
@@ -493,16 +875,20 @@
 
 <!-- ═══ VIEW 6: TOPUP ═══ -->
 <div class="v" id="v-topup">
-    <div class="header-area"><h1 class="title-gradient">Balansni to'ldirish</h1><p>Qulay to'lov usulini tanlang</p></div>
-    
+    <div class="header-area">
+        <h1 class="title-gradient">Balansni to'ldirish</h1>
+        <p>Qulay to'lov usulini tanlang</p>
+    </div>
+
     <div class="payment-card">
-        <img src="https://click.uz/click/images/click-logo.png" class="payment-icon" style="background:#fff; padding:4px;">
+        <img src="https://click.uz/click/images/click-logo.png" class="payment-icon"
+            style="background:#fff; padding:4px;">
         <div>
             <div style="font-weight:700;">Click orqali to'lov</div>
             <div style="font-size:12px; color:var(--text-secondary);">Karta raqami: <b>8600 0000 0000 0000</b></div>
         </div>
     </div>
-    
+
     <div class="payment-card">
         <img src="https://cdn.payme.uz/logo/payme_color.svg" class="payment-icon" style="background:#fff; padding:8px;">
         <div>
@@ -515,287 +901,297 @@
         <p style="color:var(--text-secondary); font-size:13px; margin-bottom:16px;">
             To'lovni amalga oshirgach, skrinshot (chekni) botga yuborishingiz kerak.
         </p>
-        <button class="topup-btn" style="width:100%; padding:14px;" onclick="submitAction('menu_receipt')">📸 Chekni yuborish</button>
+        <button class="topup-btn" style="width:100%; padding:14px;" onclick="submitAction('menu_receipt')">📸 Chekni
+            yuborish</button>
     </div>
 </div>
 
 <!-- ═══ VIEW 7: REFERRAL ═══ -->
 <div class="v" id="v-referral">
-    <div class="header-area"><h1 class="title-gradient">Taklif qiling</h1><p>Do'stlaringizni taklif qilib bonus oling</p></div>
+    <div class="header-area">
+        <h1 class="title-gradient">Taklif qiling</h1>
+        <p>Do'stlaringizni taklif qilib bonus oling</p>
+    </div>
     <div class="glass-panel" style="padding:24px; text-align:center;">
         <div style="font-size:48px; margin-bottom:12px;">🎁</div>
         <p style="font-weight:600; margin-bottom:8px;">Har bir do'stingiz uchun bonus!</p>
         <p style="color:var(--text-secondary); font-size:13px; margin-bottom:24px;">
-            Quyidagi havolani do'stlaringizga yuboring. Ular botdan foydalanishni boshlaganda sizning hisobingizga pul o'tkaziladi.
+            Quyidagi havolani do'stlaringizga yuboring. Ular botdan foydalanishni boshlaganda sizning hisobingizga pul
+            o'tkaziladi.
         </p>
-        
-        <div style="background:var(--bg-primary); border:1px dashed var(--accent); padding:12px; border-radius:var(--radius-md); font-family:monospace; font-size:12px; word-break:break-all; margin-bottom:16px;" id="refLinkText">
+
+        <div style="background:var(--bg-primary); border:1px dashed var(--accent); padding:12px; border-radius:var(--radius-md); font-family:monospace; font-size:12px; word-break:break-all; margin-bottom:16px;"
+            id="refLinkText">
             Yuklanmoqda...
         </div>
-        
-        <button class="topup-btn" style="width:100%; padding:14px;" onclick="copyRefLink()">🔗 Havolani nusxalash</button>
+
+        <button class="topup-btn" style="width:100%; padding:14px;" onclick="copyRefLink()">🔗 Havolani
+            nusxalash</button>
     </div>
 </div>
 
 <!-- ═══ VIEW 8: SUMMARY ═══ -->
 <div class="v" id="v-summary">
-    <div class="header-area"><h1 class="title-gradient">Tekshirish</h1><p>Buyurtmani tasdiqlang</p></div>
+    <div class="header-area">
+        <h1 class="title-gradient">Tekshirish</h1>
+        <p>Buyurtmani tasdiqlang</p>
+    </div>
     <div class="glass-panel" style="padding:16px;" id="sumRows"></div>
 </div>
 
 <script>
-const tg = window.Telegram.WebApp;
-tg.expand();
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-// Map TG theme
-const bgColor = tg.themeParams.bg_color || '#0f172a';
-tg.setBackgroundColor(bgColor);
-tg.setHeaderColor(bgColor);
+    // Map TG theme
+    const bgColor = tg.themeParams.bg_color || '#0f172a';
+    tg.setBackgroundColor(bgColor);
+    tg.setHeaderColor(bgColor);
 
-const botUser = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
-const userId = tg.initDataUnsafe?.user?.id || 123456789;
-const baseUrl = window.location.href.split('menu.html')[0];
-const params = new URLSearchParams(window.location.search);
-const balance = parseInt(params.get('balance') || '0');
-const freeUsed = params.get('free_used') === '1';
+    const botUser = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
+    const userId = tg.initDataUnsafe?.user?.id || 123456789;
+    const baseUrl = window.location.href.split('menu.html')[0];
+    const params = new URLSearchParams(window.location.search);
+    const balance = parseInt(params.get('balance') || '0');
+    const freeUsed = params.get('free_used') === '1';
 
-document.getElementById('mainBal').textContent = freeUsed ? balance.toLocaleString() + " so'm" : "🎁 1 ta BEPUL!";
-document.getElementById('accId').textContent = userId;
-document.getElementById('accBal').textContent = balance.toLocaleString() + " so'm";
-document.getElementById('refLinkText').textContent = `https://t.me/${botUser}?start=ref_${userId}`;
+    document.getElementById('mainBal').textContent = freeUsed ? balance.toLocaleString() + " so'm" : "🎁 1 ta BEPUL!";
+    document.getElementById('accId').textContent = userId;
+    document.getElementById('accBal').textContent = balance.toLocaleString() + " so'm";
+    document.getElementById('refLinkText').textContent = `https://t.me/${botUser}?start=ref_${userId}`;
 
-let S = { service:'', topic:'', subject:'', university:'', language:'uz', quality:'standard', slides:10, template_id:'plain', pages:10, ai_images_extra:0 };
-let templates = [];
-let viewStack = ['v-menu'];
+    let S = { service: '', topic: '', subject: '', university: '', language: 'uz', quality: 'standard', slides: 10, template_id: 'plain', pages: 10, ai_images_extra: 0 };
+    let templates = [];
+    let viewStack = ['v-menu'];
 
-// Pricing logic
-const PRICING = {
-    presentation_std_low:3000, presentation_std_mid:7000, presentation_std_high:9000,
-    presentation_pre_low:8000, presentation_pre_mid:12000, presentation_pre_high:16000,
-    essay_std:6000, essay_pre:9000, mustaqil_std:5000, mustaqil_pre:8000,
-    coursework_low:15000, coursework_high:25000,
-    tezis_5:4000, tezis_10:6000, tezis_15:8000, tezis_20:10000,
-    maqola_5:4000, maqola_10:6000, maqola_15:8000, maqola_20:10000,
-    uslubiy_low:15000, uslubiy_high:25000,
-};
+    // Pricing logic
+    const PRICING = {
+        presentation_std_low: 3000, presentation_std_mid: 7000, presentation_std_high: 9000,
+        presentation_pre_low: 8000, presentation_pre_mid: 12000, presentation_pre_high: 16000,
+        essay_std: 6000, essay_pre: 9000, mustaqil_std: 5000, mustaqil_pre: 8000,
+        coursework_low: 15000, coursework_high: 25000,
+        tezis_5: 4000, tezis_10: 6000, tezis_15: 8000, tezis_20: 10000,
+        maqola_5: 4000, maqola_10: 6000, maqola_15: 8000, maqola_20: 10000,
+        uslubiy_low: 15000, uslubiy_high: 25000,
+    };
 
-function calcPresPrice() {
-    const n = S.slides, q = S.quality;
-    let base = 3000;
-    if (q === 'premium') base = n <= 14 ? PRICING.presentation_pre_low : n <= 22 ? PRICING.presentation_pre_mid : PRICING.presentation_pre_high;
-    else base = n <= 14 ? PRICING.presentation_std_low : n <= 22 ? PRICING.presentation_std_mid : PRICING.presentation_std_high;
-    return base + (S.ai_images_extra * 1000);
-}
-
-function calcDocPrice() {
-    const t = S.service, p = S.pages, q = S.quality;
-    if (t === 'referat') return q === 'pro' ? PRICING.essay_pre : PRICING.essay_std;
-    if (t === 'mustaqil') return q === 'pro' ? PRICING.mustaqil_pre : PRICING.mustaqil_std;
-    if (t === 'kurs') return p <= 30 ? PRICING.coursework_low : PRICING.coursework_high;
-    if (t === 'uslubiy') return p <= 30 ? PRICING.uslubiy_low : PRICING.uslubiy_high;
-    if (t === 'tezis') return p <= 7 ? PRICING.tezis_5 : p <= 12 ? PRICING.tezis_10 : p <= 17 ? PRICING.tezis_15 : PRICING.tezis_20;
-    if (t === 'maqola') return p <= 7 ? PRICING.maqola_5 : p <= 12 ? PRICING.maqola_10 : p <= 17 ? PRICING.maqola_15 : PRICING.maqola_20;
-    return 5000;
-}
-
-function priceLabel(n) { return !freeUsed ? '🎁 BEPUL!' : '💰 Narxi: ' + n.toLocaleString('uz') + " so'm"; }
-
-// Navigation
-let _mbHandler = null;
-function setMainBtn(text, handler) {
-    if (_mbHandler) tg.MainButton.offClick(_mbHandler);
-    _mbHandler = null;
-    if (text && handler) {
-        _mbHandler = handler;
-        tg.MainButton.setText(text);
-        tg.MainButton.show();
-        tg.MainButton.onClick(handler);
-    } else {
-        tg.MainButton.hide();
+    function calcPresPrice() {
+        const n = S.slides, q = S.quality;
+        let base = 3000;
+        if (q === 'premium') base = n <= 14 ? PRICING.presentation_pre_low : n <= 22 ? PRICING.presentation_pre_mid : PRICING.presentation_pre_high;
+        else base = n <= 14 ? PRICING.presentation_std_low : n <= 22 ? PRICING.presentation_std_mid : PRICING.presentation_std_high;
+        return base + (S.ai_images_extra * 1000);
     }
-}
 
-function show(id) {
-    document.querySelectorAll('.v').forEach(v => {
-        v.classList.remove('active');
-        v.classList.remove('animate-in');
+    function calcDocPrice() {
+        const t = S.service, p = S.pages, q = S.quality;
+        if (t === 'referat') return q === 'pro' ? PRICING.essay_pre : PRICING.essay_std;
+        if (t === 'mustaqil') return q === 'pro' ? PRICING.mustaqil_pre : PRICING.mustaqil_std;
+        if (t === 'kurs') return p <= 30 ? PRICING.coursework_low : PRICING.coursework_high;
+        if (t === 'uslubiy') return p <= 30 ? PRICING.uslubiy_low : PRICING.uslubiy_high;
+        if (t === 'tezis') return p <= 7 ? PRICING.tezis_5 : p <= 12 ? PRICING.tezis_10 : p <= 17 ? PRICING.tezis_15 : PRICING.tezis_20;
+        if (t === 'maqola') return p <= 7 ? PRICING.maqola_5 : p <= 12 ? PRICING.maqola_10 : p <= 17 ? PRICING.maqola_15 : PRICING.maqola_20;
+        return 5000;
+    }
+
+    function priceLabel(n) { return !freeUsed ? '🎁 BEPUL!' : '💰 Narxi: ' + n.toLocaleString('uz') + " so'm"; }
+
+    // Navigation
+    let _mbHandler = null;
+    function setMainBtn(text, handler) {
+        if (_mbHandler) tg.MainButton.offClick(_mbHandler);
+        _mbHandler = null;
+        if (text && handler) {
+            _mbHandler = handler;
+            tg.MainButton.setText(text);
+            tg.MainButton.show();
+            tg.MainButton.onClick(handler);
+        } else {
+            tg.MainButton.hide();
+        }
+    }
+
+    function show(id) {
+        document.querySelectorAll('.v').forEach(v => {
+            v.classList.remove('active');
+            v.classList.remove('animate-in');
+        });
+
+        const target = document.getElementById(id);
+        target.classList.add('active');
+        // Re-trigger animation
+        void target.offsetWidth;
+        target.classList.add('animate-in');
+
+        if (id === 'v-menu') {
+            viewStack = ['v-menu'];
+            tg.BackButton.hide();
+            setMainBtn(null);
+        } else {
+            if (viewStack[viewStack.length - 1] !== id) viewStack.push(id);
+            tg.BackButton.show();
+        }
+
+        if (id === 'v-pres-settings') setMainBtn('Dizayn tanlash →', goPresDesign);
+        if (id === 'v-pres-design') setMainBtn('Davom etish →', goPresSummary);
+        if (id === 'v-summary') setMainBtn('🚀 Yaratish', submitJob);
+        if (id === 'v-doc-settings') setMainBtn('📋 Tekshirish →', goDocSummary);
+
+        // For info pages, no main button, just back button
+        if (['v-quiz', 'v-account', 'v-topup', 'v-referral'].includes(id)) {
+            setMainBtn(null);
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    tg.BackButton.onClick(() => {
+        tg.HapticFeedback.impactOccurred('light');
+        viewStack.pop();
+        show(viewStack[viewStack.length - 1] || 'v-menu');
     });
-    
-    const target = document.getElementById(id);
-    target.classList.add('active');
-    // Re-trigger animation
-    void target.offsetWidth;
-    target.classList.add('animate-in');
 
-    if (id === 'v-menu') {
-        viewStack = ['v-menu'];
-        tg.BackButton.hide();
-        setMainBtn(null);
-    } else {
-        if (viewStack[viewStack.length-1] !== id) viewStack.push(id);
-        tg.BackButton.show();
-    }
-    
-    if (id === 'v-pres-settings') setMainBtn('Dizayn tanlash →', goPresDesign);
-    if (id === 'v-pres-design') setMainBtn('Davom etish →', goPresSummary);
-    if (id === 'v-summary') setMainBtn('🚀 Yaratish', submitJob);
-    if (id === 'v-doc-settings') setMainBtn('📋 Tekshirish →', goDocSummary);
-    
-    // For info pages, no main button, just back button
-    if (['v-quiz', 'v-account', 'v-topup', 'v-referral'].includes(id)) {
-        setMainBtn(null);
-    }
-    
-    window.scrollTo(0, 0);
-}
-
-tg.BackButton.onClick(() => {
-    tg.HapticFeedback.impactOccurred('light');
-    viewStack.pop();
-    show(viewStack[viewStack.length - 1] || 'v-menu');
-});
-
-// UI Logic
-document.querySelectorAll('.options-row').forEach(group => {
-    group.querySelectorAll('.option-btn').forEach(opt => {
-        opt.addEventListener('click', () => {
-            tg.HapticFeedback.impactOccurred('light');
-            group.querySelectorAll('.option-btn').forEach(o => o.classList.remove('selected'));
-            opt.classList.add('selected');
-            updateState();
+    // UI Logic
+    document.querySelectorAll('.options-row').forEach(group => {
+        group.querySelectorAll('.option-btn').forEach(opt => {
+            opt.addEventListener('click', () => {
+                tg.HapticFeedback.impactOccurred('light');
+                group.querySelectorAll('.option-btn').forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                updateState();
+            });
         });
     });
-});
 
-function getOpt(id) { return document.querySelector('#' + id + ' .option-btn.selected')?.dataset.v || ''; }
+    function getOpt(id) { return document.querySelector('#' + id + ' .option-btn.selected')?.dataset.v || ''; }
 
-function updateState() {
-    if (document.getElementById('v-pres-settings').classList.contains('active')) {
-        S.language = getOpt('pLang');
-        S.quality = getOpt('pQuality');
-        S.slides = parseInt(document.getElementById('pSlides').value);
-        S.ai_images_extra = parseInt(document.getElementById('pAiExtra').value);
-        
-        document.getElementById('pSlidesVal').textContent = S.slides;
-        document.getElementById('pAiExtraVal').textContent = S.ai_images_extra + ' ta';
-        tg.MainButton.setText(`Dizayn tanlash (${priceLabel(calcPresPrice())})`);
+    function updateState() {
+        if (document.getElementById('v-pres-settings').classList.contains('active')) {
+            S.language = getOpt('pLang');
+            S.quality = getOpt('pQuality');
+            S.slides = parseInt(document.getElementById('pSlides').value);
+            S.ai_images_extra = parseInt(document.getElementById('pAiExtra').value);
+
+            document.getElementById('pSlidesVal').textContent = S.slides;
+            document.getElementById('pAiExtraVal').textContent = S.ai_images_extra + ' ta';
+            tg.MainButton.setText(`Dizayn tanlash (${priceLabel(calcPresPrice())})`);
+        }
+        if (document.getElementById('v-doc-settings').classList.contains('active')) {
+            S.language = getOpt('dLang');
+            S.quality = getOpt('dQuality');
+            S.pages = parseInt(document.getElementById('dPages').value);
+            document.getElementById('dPagesVal').textContent = S.pages;
+            tg.MainButton.setText(`Tekshirish (${priceLabel(calcDocPrice())})`);
+        }
     }
-    if (document.getElementById('v-doc-settings').classList.contains('active')) {
-        S.language = getOpt('dLang');
-        S.quality = getOpt('dQuality');
-        S.pages = parseInt(document.getElementById('dPages').value);
-        document.getElementById('dPagesVal').textContent = S.pages;
-        tg.MainButton.setText(`Tekshirish (${priceLabel(calcDocPrice())})`);
+
+    document.getElementById('pSlides').addEventListener('input', updateState);
+    document.getElementById('pAiExtra').addEventListener('input', updateState);
+    document.getElementById('dPages').addEventListener('input', updateState);
+
+    const DOC_CFG = {
+        referat: { title: 'Referat', hasSubject: true, hasUniv: true, hasQuality: true, minP: 8, maxP: 30, defP: 15 },
+        mustaqil: { title: 'Mustaqil ish', hasSubject: true, hasUniv: true, hasQuality: true, minP: 8, maxP: 30, defP: 15 },
+        kurs: { title: 'Kurs ishi', hasSubject: false, hasUniv: true, hasQuality: false, minP: 20, maxP: 50, defP: 25 },
+        tezis: { title: 'Tezis', hasSubject: false, hasUniv: true, hasQuality: false, minP: 5, maxP: 20, defP: 10 },
+        maqola: { title: 'Maqola', hasSubject: false, hasUniv: true, hasQuality: false, minP: 5, maxP: 20, defP: 10 },
+        uslubiy: { title: 'Uslubiy ishlanma', hasSubject: true, hasUniv: true, hasQuality: false, minP: 20, maxP: 50, defP: 25 },
+    };
+
+    function openService(type) {
+        tg.HapticFeedback.impactOccurred('light');
+        if (['quiz', 'account', 'topup', 'referral'].includes(type)) {
+            show('v-' + type);
+            return;
+        }
+
+        S.service = type;
+        if (type === 'presentation') {
+            show('v-pres-settings');
+            updateState();
+        } else {
+            const cfg = DOC_CFG[type];
+            document.getElementById('dTitle').textContent = cfg.title;
+            document.getElementById('dSubjectField').style.display = cfg.hasSubject ? 'flex' : 'none';
+            document.getElementById('dUnivField').style.display = cfg.hasUniv ? 'flex' : 'none';
+            document.getElementById('dQualityField').style.display = cfg.hasQuality ? 'flex' : 'none';
+            const sl = document.getElementById('dPages');
+            sl.min = cfg.minP; sl.max = cfg.maxP; sl.value = cfg.defP;
+            S.pages = cfg.defP;
+            show('v-doc-settings');
+            updateState();
+        }
     }
-}
 
-document.getElementById('pSlides').addEventListener('input', updateState);
-document.getElementById('pAiExtra').addEventListener('input', updateState);
-document.getElementById('dPages').addEventListener('input', updateState);
-
-const DOC_CFG = {
-    referat:  { title:'Referat', hasSubject:true, hasUniv:true, hasQuality:true, minP:8, maxP:30, defP:15 },
-    mustaqil: { title:'Mustaqil ish', hasSubject:true, hasUniv:true, hasQuality:true, minP:8, maxP:30, defP:15 },
-    kurs:     { title:'Kurs ishi', hasSubject:false, hasUniv:true, hasQuality:false, minP:20, maxP:50, defP:25 },
-    tezis:    { title:'Tezis', hasSubject:false, hasUniv:true, hasQuality:false, minP:5, maxP:20, defP:10 },
-    maqola:   { title:'Maqola', hasSubject:false, hasUniv:true, hasQuality:false, minP:5, maxP:20, defP:10 },
-    uslubiy:  { title:'Uslubiy ishlanma', hasSubject:true, hasUniv:true, hasQuality:false, minP:20, maxP:50, defP:25 },
-};
-
-function openService(type) {
-    tg.HapticFeedback.impactOccurred('light');
-    if (['quiz', 'account', 'topup', 'referral'].includes(type)) {
-        show('v-' + type);
-        return;
+    async function goPresDesign() {
+        S.topic = document.getElementById('pTopic').value.trim();
+        S.subject = document.getElementById('pSubject').value.trim();
+        S.university = document.getElementById('pUniv').value.trim();
+        if (!S.topic) { tg.showAlert('Iltimos, mavzuni kiriting!'); return; }
+        show('v-pres-design');
+        if (!templates.length) {
+            try {
+                const url = window.location.href.includes('github.io') || window.location.href.includes('vercel.app')
+                    ? '/data/templates.json' : baseUrl + 'data/templates.json';
+                const r = await fetch(url);
+                templates = await r.json();
+            } catch (e) { templates = []; }
+        }
+        renderTemplates();
     }
-    
-    S.service = type;
-    if (type === 'presentation') {
-        show('v-pres-settings');
-        updateState();
-    } else {
-        const cfg = DOC_CFG[type];
-        document.getElementById('dTitle').textContent = cfg.title;
-        document.getElementById('dSubjectField').style.display = cfg.hasSubject ? 'flex' : 'none';
-        document.getElementById('dUnivField').style.display = cfg.hasUniv ? 'flex' : 'none';
-        document.getElementById('dQualityField').style.display = cfg.hasQuality ? 'flex' : 'none';
-        const sl = document.getElementById('dPages');
-        sl.min = cfg.minP; sl.max = cfg.maxP; sl.value = cfg.defP;
-        S.pages = cfg.defP;
-        show('v-doc-settings');
-        updateState();
+
+    function renderTemplates() {
+        const grid = document.getElementById('tplGrid');
+        const isPlain = getOpt('pDesignType') === 'plain';
+        grid.style.display = isPlain ? 'none' : 'grid';
+        if (isPlain) { S.template_id = 'plain'; return; }
+        grid.innerHTML = '';
+        templates.forEach(t => {
+            const d = document.createElement('div');
+            d.className = 'template-item' + (S.template_id === t.id ? ' selected' : '');
+            const imgSrc = t.preview.startsWith('/') ? t.preview : '/' + t.preview;
+            d.innerHTML = '<img src="' + imgSrc + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="template-name">' + t.name + '</div>';
+            d.onclick = () => { tg.HapticFeedback.impactOccurred('light'); S.template_id = t.id; renderTemplates(); };
+            grid.appendChild(d);
+        });
     }
-}
+    document.getElementById('pDesignType').addEventListener('click', () => setTimeout(renderTemplates, 50));
 
-async function goPresDesign() {
-    S.topic = document.getElementById('pTopic').value.trim();
-    S.subject = document.getElementById('pSubject').value.trim();
-    S.university = document.getElementById('pUniv').value.trim();
-    if (!S.topic) { tg.showAlert('Iltimos, mavzuni kiriting!'); return; }
-    show('v-pres-design');
-    if (!templates.length) {
-        try {
-            const url = window.location.href.includes('github.io') || window.location.href.includes('vercel.app') 
-                        ? '/data/templates.json' : baseUrl + 'data/templates.json';
-            const r = await fetch(url);
-            templates = await r.json();
-        } catch(e) { templates = []; }
+    function goPresSummary() {
+        const rows = [
+            ['Xizmat', '📊 Taqdimot'],
+            ['Mavzu', S.topic],
+        ];
+        if (S.subject) rows.push(['Fan nomi', S.subject]);
+        if (S.university) rows.push(['Universitet', S.university]);
+        rows.push(['Til', { uz: "🇺🇿 O'zbek", ru: '🇷🇺 Rus', en: '🇬🇧 English' }[S.language]]);
+        rows.push(['Sifat', S.quality === 'premium' ? '💎 Premium' : '⭐ Standard']);
+        rows.push(['Slaydlar', S.slides + ' ta']);
+        rows.push(['AI Rasmlar', (3 + S.ai_images_extra) + ' ta']);
+        rows.push(['Dizayn', S.template_id === 'plain' ? 'Oddiy oq' : S.template_id]);
+        renderSummary(rows, calcPresPrice());
     }
-    renderTemplates();
-}
 
-function renderTemplates() {
-    const grid = document.getElementById('tplGrid');
-    const isPlain = getOpt('pDesignType') === 'plain';
-    grid.style.display = isPlain ? 'none' : 'grid';
-    if (isPlain) { S.template_id = 'plain'; return; }
-    grid.innerHTML = '';
-    templates.forEach(t => {
-        const d = document.createElement('div');
-        d.className = 'template-item' + (S.template_id === t.id ? ' selected' : '');
-        const imgSrc = t.preview.startsWith('/') ? t.preview : '/' + t.preview;
-        d.innerHTML = '<img src="' + imgSrc + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="template-name">' + t.name + '</div>';
-        d.onclick = () => { tg.HapticFeedback.impactOccurred('light'); S.template_id = t.id; renderTemplates(); };
-        grid.appendChild(d);
-    });
-}
-document.getElementById('pDesignType').addEventListener('click', () => setTimeout(renderTemplates, 50));
+    function goDocSummary() {
+        S.topic = document.getElementById('dTopic').value.trim();
+        S.subject = document.getElementById('dSubject')?.value.trim() || '';
+        S.university = document.getElementById('dUniv')?.value.trim() || '';
+        if (!S.topic) { tg.showAlert('Iltimos, mavzuni kiriting!'); return; }
+        const rows = [
+            ['Xizmat', DOC_CFG[S.service]?.title || S.service],
+            ['Mavzu', S.topic],
+        ];
+        if (S.subject) rows.push(['Fan nomi', S.subject]);
+        if (S.university) rows.push(['Universitet', S.university]);
+        rows.push(['Til', { uz: "🇺🇿 O'zbek", ru: '🇷🇺 Rus', en: '🇬🇧 English' }[S.language]]);
+        if (DOC_CFG[S.service]?.hasQuality) rows.push(['Sifat', S.quality === 'pro' ? '💎 Pro' : '⭐ Standard']);
+        rows.push(['Sahifalar', S.pages + ' ta']);
+        renderSummary(rows, calcDocPrice());
+    }
 
-function goPresSummary() {
-    const rows = [
-        ['Xizmat', '📊 Taqdimot'],
-        ['Mavzu', S.topic],
-    ];
-    if (S.subject) rows.push(['Fan nomi', S.subject]);
-    if (S.university) rows.push(['Universitet', S.university]);
-    rows.push(['Til', {uz:"🇺🇿 O'zbek", ru:'🇷🇺 Rus', en:'🇬🇧 English'}[S.language]]);
-    rows.push(['Sifat', S.quality === 'premium' ? '💎 Premium' : '⭐ Standard']);
-    rows.push(['Slaydlar', S.slides + ' ta']);
-    rows.push(['AI Rasmlar', (3 + S.ai_images_extra) + ' ta']);
-    rows.push(['Dizayn', S.template_id === 'plain' ? 'Oddiy oq' : S.template_id]);
-    renderSummary(rows, calcPresPrice());
-}
-
-function goDocSummary() {
-    S.topic = document.getElementById('dTopic').value.trim();
-    S.subject = document.getElementById('dSubject')?.value.trim() || '';
-    S.university = document.getElementById('dUniv')?.value.trim() || '';
-    if (!S.topic) { tg.showAlert('Iltimos, mavzuni kiriting!'); return; }
-    const rows = [
-        ['Xizmat', DOC_CFG[S.service]?.title || S.service],
-        ['Mavzu', S.topic],
-    ];
-    if (S.subject) rows.push(['Fan nomi', S.subject]);
-    if (S.university) rows.push(['Universitet', S.university]);
-    rows.push(['Til', {uz:"🇺🇿 O'zbek", ru:'🇷🇺 Rus', en:'🇬🇧 English'}[S.language]]);
-    if (DOC_CFG[S.service]?.hasQuality) rows.push(['Sifat', S.quality === 'pro' ? '💎 Pro' : '⭐ Standard']);
-    rows.push(['Sahifalar', S.pages + ' ta']);
-    renderSummary(rows, calcDocPrice());
-}
-
-function renderSummary(rows, price) {
-    const c = document.getElementById('sumRows');
-    const html = rows.map(([k,v]) => `
+    function renderSummary(rows, price) {
+        const c = document.getElementById('sumRows');
+        const html = rows.map(([k, v]) => `
         <div style="display:flex; justify-content:space-between; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--glass-border);">
             <span style="color:var(--text-secondary); font-size:13px;">${k}:</span>
             <span style="font-weight:600; text-align:right; max-width:65%; font-size:14px;">${v}</span>
@@ -806,58 +1202,59 @@ function renderSummary(rows, price) {
             <span style="font-weight:800; color:var(--accent-light); font-size:18px;">${priceLabel(price).replace('💰 Narxi: ', '')}</span>
         </div>
     `;
-    c.innerHTML = html;
-    show('v-summary');
-}
-
-function submitJob() {
-    tg.HapticFeedback.notificationOccurred('success');
-    const job = {
-        action: 'generate',
-        service: S.service,
-        topic: S.topic,
-        subject: S.subject,
-        university: S.university,
-        language: S.language,
-        quality: S.quality,
-    };
-    if (S.service === 'presentation') {
-        job.num_slides = S.slides;
-        job.template_id = S.template_id;
-        job.ai_images_extra = S.ai_images_extra;
-    } else {
-        job.pages = S.pages;
+        c.innerHTML = html;
+        show('v-summary');
     }
-    tg.sendData(JSON.stringify(job));
-}
 
-function submitAction(act) {
-    tg.HapticFeedback.impactOccurred('medium');
-    tg.sendData(JSON.stringify({ action: act }));
-}
-
-function copyRefLink() {
-    tg.HapticFeedback.notificationOccurred('success');
-    const link = document.getElementById('refLinkText').textContent;
-    navigator.clipboard.writeText(link).then(() => {
-        tg.showAlert("Havola nusxalandi! Endi do'stlaringizga yuborishingiz mumkin.");
-    }).catch(err => {
-        // Fallback for older Telegram clients
-        const textArea = document.createElement("textarea");
-        textArea.value = link;
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            tg.showAlert("Havola nusxalandi! Endi do'stlaringizga yuborishingiz mumkin.");
-        } catch (e) {
-            tg.showAlert("Xatolik. Iltimos, havolani qo'lda nusxalang.");
+    function submitJob() {
+        tg.HapticFeedback.notificationOccurred('success');
+        const job = {
+            action: 'generate',
+            service: S.service,
+            topic: S.topic,
+            subject: S.subject,
+            university: S.university,
+            language: S.language,
+            quality: S.quality,
+        };
+        if (S.service === 'presentation') {
+            job.num_slides = S.slides;
+            job.template_id = S.template_id;
+            job.ai_images_extra = S.ai_images_extra;
+        } else {
+            job.pages = S.pages;
         }
-        document.body.removeChild(textArea);
-    });
-}
+        tg.sendData(JSON.stringify(job));
+    }
 
-tg.ready();
+    function submitAction(act) {
+        tg.HapticFeedback.impactOccurred('medium');
+        tg.sendData(JSON.stringify({ action: act }));
+    }
+
+    function copyRefLink() {
+        tg.HapticFeedback.notificationOccurred('success');
+        const link = document.getElementById('refLinkText').textContent;
+        navigator.clipboard.writeText(link).then(() => {
+            tg.showAlert("Havola nusxalandi! Endi do'stlaringizga yuborishingiz mumkin.");
+        }).catch(err => {
+            // Fallback for older Telegram clients
+            const textArea = document.createElement("textarea");
+            textArea.value = link;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                tg.showAlert("Havola nusxalandi! Endi do'stlaringizga yuborishingiz mumkin.");
+            } catch (e) {
+                tg.showAlert("Xatolik. Iltimos, havolani qo'lda nusxalang.");
+            }
+            document.body.removeChild(textArea);
+        });
+    }
+
+    tg.ready();
 </script>
 </body>
+
 </html>
