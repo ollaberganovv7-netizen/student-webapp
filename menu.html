@@ -10,15 +10,13 @@
 body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
 .v { display:none; flex-direction:column; gap:10px; }
 .v.active { display:flex; }
-
-/* ── Menu ── */
 .logo { text-align:center; padding:8px 0 4px; }
 .logo h1 { font-size:22px; font-weight:800; margin:0; background:linear-gradient(135deg,var(--accent),var(--accent-pro)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .logo p { color:var(--text-secondary); font-size:12px; margin:4px 0 0; }
-.bal { background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(139,92,246,.08)); border:1px solid rgba(59,130,246,.2); border-radius:var(--radius-lg); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
+.bal { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
 .bal .lb { font-size:12px; color:var(--text-secondary); }
 .bal .am { font-size:20px; font-weight:800; color:var(--accent-light); }
-.bal .tb { background:var(--accent); color:#fff; border:none; border-radius:var(--radius-sm); padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; }
+.bal .tb { background:var(--accent); color:var(--tg-theme-button-text-color, #fff); border:none; border-radius:var(--radius-sm); padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; }
 .st { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin:6px 0 2px; padding-left:2px; }
 .sg { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .sc { background:var(--bg-card); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 14px; cursor:pointer; transition:all .25s; position:relative; overflow:hidden; }
@@ -38,7 +36,6 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
 .bln .bi { font-size:20px; display:block; margin-bottom:4px; }
 .bln .bt { font-size:11px; color:var(--text-secondary); }
 
-/* ── Forms ── */
 .page-title { font-size:18px; font-weight:700; color:var(--text-primary); margin:0; }
 .page-sub { font-size:12px; color:var(--text-secondary); margin:2px 0 0; }
 .field { display:flex; flex-direction:column; gap:6px; }
@@ -58,7 +55,6 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
 .slider-val { font-size:18px; font-weight:800; color:var(--accent-light); min-width:30px; text-align:center; }
 .price-tag { background:linear-gradient(135deg,var(--accent),var(--accent-pro)); border-radius:var(--radius-md); padding:10px 14px; text-align:center; font-size:14px; font-weight:700; color:#fff; }
 
-/* ── Templates ── */
 .tpl-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .tpl-card { background:var(--bg-card); border:2px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer; transition:all .2s; }
 .tpl-card.sel { border-color:var(--accent); box-shadow:0 0 12px rgba(59,130,246,.3); }
@@ -66,16 +62,9 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
 .tpl-card img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
 .tpl-card .tn { padding:8px 10px; font-size:11px; font-weight:600; color:var(--text-primary); }
 
-/* ── Summary ── */
 .sum-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); }
 .sum-row .sk { font-size:12px; color:var(--text-muted); }
 .sum-row .sv { font-size:13px; font-weight:600; color:var(--text-primary); text-align:right; max-width:60%; }
-
-/* ── Buttons ── */
-.btn-primary { width:100%; padding:14px; border:none; border-radius:var(--radius-md); background:linear-gradient(135deg,var(--accent),var(--accent-pro)); color:#fff; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; }
-.btn-primary:active { transform:scale(.97); opacity:.9; }
-.btn-primary:disabled { opacity:.4; pointer-events:none; }
-.btn-secondary { width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:var(--bg-card); color:var(--text-primary); font-size:13px; font-weight:600; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -106,6 +95,9 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
 <div class="v" id="v-pres-settings">
     <div><div class="page-title">📊 Taqdimot yaratish</div><div class="page-sub">Mavzu va sozlamalarni kiriting</div></div>
     <div class="field"><label>Mavzu</label><input id="pTopic" placeholder="Masalan: Sun'iy intellekt" maxlength="200"></div>
+    <div class="field"><label>Fan nomi (Ixtiyoriy)</label><input id="pSubject" placeholder="Masalan: Informatika" maxlength="100"></div>
+    <div class="field"><label>Universitet (Ixtiyoriy)</label><input id="pUniv" placeholder="Masalan: O'zMU" maxlength="100"></div>
+    
     <div class="field"><label>Til</label>
         <div class="opts" id="pLang">
             <div class="opt sel" data-v="uz">🇺🇿 O'zbek</div>
@@ -122,8 +114,19 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
     <div class="field"><label>Slaydlar soni</label>
         <div class="slider-row"><input type="range" id="pSlides" min="8" max="30" value="10"><div class="slider-val" id="pSlidesVal">10</div></div>
     </div>
+    
+    <!-- AI Images config -->
+    <div class="field" style="background:var(--bg-card); padding:12px; border-radius:var(--radius-md); border:1px solid var(--border);">
+        <label>🖼 AI Rasmlar</label>
+        <div style="font-size:11px; color:var(--success); margin-bottom:8px;">✅ 3 ta bepul rasm avtomatik qo'shiladi</div>
+        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+            <span style="color:var(--text-secondary);">Qo'shimcha rasmlar (1000 so'm / dona)</span>
+            <span id="pAiExtraVal" style="font-weight:700; color:var(--accent-light);">0 ta</span>
+        </div>
+        <div class="slider-row"><input type="range" id="pAiExtra" min="0" max="10" value="0"></div>
+    </div>
+
     <div class="price-tag" id="pPrice">💰 Narx: 3 000 so'm</div>
-    <button class="btn-primary" onclick="goPresDesign()">Dizayn tanlash →</button>
 </div>
 
 <!-- ═══ VIEW: Presentation Design ═══ -->
@@ -134,7 +137,6 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
         <div class="opt" data-v="plain">📄 Oddiy (oq)</div>
     </div>
     <div class="tpl-grid" id="tplGrid"></div>
-    <button class="btn-primary" onclick="goPresSummary()">Davom etish →</button>
 </div>
 
 <!-- ═══ VIEW: Summary ═══ -->
@@ -142,15 +144,14 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
     <div><div class="page-title">📋 Tekshirish</div><div class="page-sub">Ma'lumotlarni tekshiring va yarating</div></div>
     <div id="sumRows"></div>
     <div class="price-tag" id="sumPrice">💰 Narx: 3 000 so'm</div>
-    <button class="btn-primary" id="btnCreate" onclick="submitJob()">🚀 Yaratish</button>
-    <button class="btn-secondary" onclick="show('v-menu')">← Bosh menyu</button>
 </div>
 
 <!-- ═══ VIEW: Document Settings (referat, mustaqil, kurs, tezis, maqola, uslubiy) ═══ -->
 <div class="v" id="v-doc-settings">
     <div><div class="page-title" id="dTitle">📝 Referat yaratish</div><div class="page-sub">Mavzu va sozlamalarni kiriting</div></div>
     <div class="field"><label>Mavzu</label><input id="dTopic" placeholder="Masalan: Ekologiya muammolari" maxlength="200"></div>
-    <div class="field" id="dSubjectField"><label>Fan nomi</label><input id="dSubject" placeholder="Masalan: Biologiya"></div>
+    <div class="field" id="dSubjectField"><label>Fan nomi (Ixtiyoriy)</label><input id="dSubject" placeholder="Masalan: Biologiya"></div>
+    <div class="field" id="dUnivField"><label>Universitet / Tashkilot nomi (Ixtiyoriy)</label><input id="dUniv" placeholder="Masalan: O'zbekiston Milliy Universiteti"></div>
     <div class="field"><label>Til</label>
         <div class="opts" id="dLang">
             <div class="opt sel" data-v="uz">🇺🇿 O'zbek</div>
@@ -168,14 +169,16 @@ body { display:flex; flex-direction:column; gap:10px; padding-bottom:30px; }
         <div class="slider-row"><input type="range" id="dPages" min="5" max="50" value="10"><div class="slider-val" id="dPagesVal">10</div></div>
     </div>
     <div class="price-tag" id="dPrice">💰 Narx: 6 000 so'm</div>
-    <button class="btn-primary" onclick="goDocSummary()">📋 Tekshirish →</button>
 </div>
 
 <script>
 const tg = window.Telegram.WebApp;
 tg.expand();
-tg.setBackgroundColor('#0f172a');
-tg.setHeaderColor('#0f172a');
+
+const bgColor = tg.themeParams.bg_color || '#0f172a';
+tg.setBackgroundColor(bgColor);
+tg.setHeaderColor(bgColor);
+
 const botUser = tg.initDataUnsafe?.bot?.username || 'SLIDEMASTERAI1_BOT';
 const baseUrl = window.location.href.split('menu.html')[0];
 const params = new URLSearchParams(window.location.search);
@@ -183,12 +186,10 @@ const balance = parseInt(params.get('balance') || '0');
 const freeUsed = params.get('free_used') === '1';
 document.getElementById('balAm').textContent = freeUsed ? balance.toLocaleString() + " so'm" : "🎁 1 ta BEPUL!";
 
-// ── State ──
-let S = { service: '', topic: '', language: 'uz', quality: 'standard', slides: 10, template_id: 'plain', pages: 10, subject: '' };
+let S = { service:'', topic:'', subject:'', university:'', language:'uz', quality:'standard', slides:10, template_id:'plain', pages:10, ai_images_extra:0 };
 let templates = [];
 let viewStack = ['v-menu'];
 
-// ── PRICING ──
 const PRICING = {
     presentation_std_low:3000, presentation_std_mid:7000, presentation_std_high:9000,
     presentation_pre_low:8000, presentation_pre_mid:12000, presentation_pre_high:16000,
@@ -201,8 +202,10 @@ const PRICING = {
 
 function calcPresPrice() {
     const n = S.slides, q = S.quality;
-    if (q === 'premium') return n <= 14 ? PRICING.presentation_pre_low : n <= 22 ? PRICING.presentation_pre_mid : PRICING.presentation_pre_high;
-    return n <= 14 ? PRICING.presentation_std_low : n <= 22 ? PRICING.presentation_std_mid : PRICING.presentation_std_high;
+    let base = 3000;
+    if (q === 'premium') base = n <= 14 ? PRICING.presentation_pre_low : n <= 22 ? PRICING.presentation_pre_mid : PRICING.presentation_pre_high;
+    else base = n <= 14 ? PRICING.presentation_std_low : n <= 22 ? PRICING.presentation_std_mid : PRICING.presentation_std_high;
+    return base + (S.ai_images_extra * 1000);
 }
 
 function calcDocPrice() {
@@ -219,21 +222,44 @@ function calcDocPrice() {
 function fmt(n) { return n.toLocaleString('uz') + " so'm"; }
 function priceLabel(n) { return !freeUsed ? '🎁 BEPUL!' : '💰 Narx: ' + fmt(n); }
 
-// ── Navigation ──
+let _mbHandler = null;
+function setMainBtn(text, handler) {
+    if (_mbHandler) tg.MainButton.offClick(_mbHandler);
+    _mbHandler = null;
+    if (text && handler) {
+        _mbHandler = handler;
+        tg.MainButton.setText(text);
+        tg.MainButton.show();
+        tg.MainButton.onClick(handler);
+    } else {
+        tg.MainButton.hide();
+    }
+}
+
 function show(id) {
     document.querySelectorAll('.v').forEach(v => v.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    if (id === 'v-menu') { viewStack = ['v-menu']; tg.BackButton.hide(); }
-    else { if (viewStack[viewStack.length-1] !== id) viewStack.push(id); tg.BackButton.show(); }
+    if (id === 'v-menu') {
+        viewStack = ['v-menu'];
+        tg.BackButton.hide();
+        setMainBtn(null);
+    } else {
+        if (viewStack[viewStack.length-1] !== id) viewStack.push(id);
+        tg.BackButton.show();
+    }
+    if (id === 'v-pres-settings') setMainBtn('Dizayn tanlash →', goPresDesign);
+    if (id === 'v-pres-design') setMainBtn('Davom etish →', goPresSummary);
+    if (id === 'v-summary') setMainBtn('🚀 Yaratish', submitJob);
+    if (id === 'v-doc-settings') setMainBtn('📋 Tekshirish →', goDocSummary);
     window.scrollTo(0, 0);
 }
+
 tg.BackButton.onClick(() => {
     tg.HapticFeedback.impactOccurred('light');
     viewStack.pop();
     show(viewStack[viewStack.length - 1] || 'v-menu');
 });
 
-// ── Option selectors ──
 document.querySelectorAll('.opts').forEach(group => {
     group.querySelectorAll('.opt').forEach(opt => {
         opt.addEventListener('click', () => {
@@ -252,7 +278,10 @@ function updateState() {
         S.language = getOpt('pLang');
         S.quality = getOpt('pQuality');
         S.slides = parseInt(document.getElementById('pSlides').value);
+        S.ai_images_extra = parseInt(document.getElementById('pAiExtra').value);
+        
         document.getElementById('pSlidesVal').textContent = S.slides;
+        document.getElementById('pAiExtraVal').textContent = S.ai_images_extra + ' ta';
         document.getElementById('pPrice').textContent = priceLabel(calcPresPrice());
     }
     if (document.getElementById('v-doc-settings').classList.contains('active')) {
@@ -265,16 +294,16 @@ function updateState() {
 }
 
 document.getElementById('pSlides').addEventListener('input', updateState);
+document.getElementById('pAiExtra').addEventListener('input', updateState);
 document.getElementById('dPages').addEventListener('input', updateState);
 
-// ── Service entry ──
 const DOC_CFG = {
-    referat:  { title:'📝 Referat yaratish', hasSubject:true, hasQuality:true, minP:8, maxP:25, defP:12 },
-    mustaqil: { title:'📄 Mustaqil ish yaratish', hasSubject:true, hasQuality:true, minP:8, maxP:25, defP:12 },
-    kurs:     { title:'📚 Kurs ishi yaratish', hasSubject:false, hasQuality:false, minP:20, maxP:50, defP:25 },
-    tezis:    { title:'🎓 Tezis yaratish', hasSubject:false, hasQuality:false, minP:5, maxP:20, defP:10 },
-    maqola:   { title:'📰 Maqola yaratish', hasSubject:false, hasQuality:false, minP:5, maxP:20, defP:10 },
-    uslubiy:  { title:'📗 Uslubiy ishlanma', hasSubject:false, hasQuality:false, minP:20, maxP:50, defP:25 },
+    referat:  { title:'📝 Referat yaratish', hasSubject:true, hasUniv:true, hasQuality:true, minP:8, maxP:30, defP:15 },
+    mustaqil: { title:'📄 Mustaqil ish yaratish', hasSubject:true, hasUniv:true, hasQuality:true, minP:8, maxP:30, defP:15 },
+    kurs:     { title:'📚 Kurs ishi yaratish', hasSubject:false, hasUniv:true, hasQuality:false, minP:20, maxP:50, defP:25 },
+    tezis:    { title:'🎓 Tezis yaratish', hasSubject:false, hasUniv:true, hasQuality:false, minP:5, maxP:20, defP:10 },
+    maqola:   { title:'📰 Maqola yaratish', hasSubject:false, hasUniv:true, hasQuality:false, minP:5, maxP:20, defP:10 },
+    uslubiy:  { title:'📗 Uslubiy ishlanma', hasSubject:true, hasUniv:true, hasQuality:false, minP:20, maxP:50, defP:25 },
 };
 
 function openService(type) {
@@ -287,6 +316,7 @@ function openService(type) {
         const cfg = DOC_CFG[type];
         document.getElementById('dTitle').textContent = cfg.title;
         document.getElementById('dSubjectField').style.display = cfg.hasSubject ? '' : 'none';
+        document.getElementById('dUnivField').style.display = cfg.hasUniv ? '' : 'none';
         document.getElementById('dQualityField').style.display = cfg.hasQuality ? '' : 'none';
         const sl = document.getElementById('dPages');
         sl.min = cfg.minP; sl.max = cfg.maxP; sl.value = cfg.defP;
@@ -296,16 +326,23 @@ function openService(type) {
     }
 }
 
-// ── Presentation: Design step ──
 async function goPresDesign() {
     S.topic = document.getElementById('pTopic').value.trim();
+    S.subject = document.getElementById('pSubject').value.trim();
+    S.university = document.getElementById('pUniv').value.trim();
     if (!S.topic) { tg.showAlert('Mavzuni kiriting!'); return; }
     show('v-pres-design');
     if (!templates.length) {
         try {
-            const r = await fetch(baseUrl + 'data/templates.json');
+            // Fix: Try fetching templates directly from /data/templates.json
+            const url = window.location.href.includes('github.io') || window.location.href.includes('vercel.app') 
+                        ? '/data/templates.json' : baseUrl + 'data/templates.json';
+            const r = await fetch(url);
             templates = await r.json();
-        } catch(e) { templates = []; }
+        } catch(e) { 
+            console.error(e);
+            templates = []; 
+        }
     }
     renderTemplates();
 }
@@ -319,29 +356,33 @@ function renderTemplates() {
     templates.forEach(t => {
         const d = document.createElement('div');
         d.className = 'tpl-card' + (S.template_id === t.id ? ' sel' : '');
-        d.innerHTML = '<img src="' + baseUrl + t.preview + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="tn">' + t.name + '</div>';
+        const imgSrc = t.preview.startsWith('/') ? t.preview : '/' + t.preview;
+        d.innerHTML = '<img src="' + imgSrc + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="tn">' + t.name + '</div>';
         d.onclick = () => { tg.HapticFeedback.impactOccurred('light'); S.template_id = t.id; renderTemplates(); };
         grid.appendChild(d);
     });
 }
 document.getElementById('pDesignType').addEventListener('click', () => setTimeout(renderTemplates, 50));
 
-// ── Summary ──
 function goPresSummary() {
     const rows = [
         ['Xizmat', '📊 Taqdimot'],
         ['Mavzu', S.topic],
-        ['Til', {uz:"🇺🇿 O'zbek", ru:'🇷🇺 Rus', en:'🇬🇧 English'}[S.language]],
-        ['Sifat', S.quality === 'premium' ? '💎 Premium' : '⭐ Standard'],
-        ['Slaydlar', S.slides + ' ta'],
-        ['Dizayn', S.template_id === 'plain' ? 'Oddiy oq' : S.template_id],
     ];
+    if (S.subject) rows.push(['Fan', S.subject]);
+    if (S.university) rows.push(['Universitet', S.university]);
+    rows.push(['Til', {uz:"🇺🇿 O'zbek", ru:'🇷🇺 Rus', en:'🇬🇧 English'}[S.language]]);
+    rows.push(['Sifat', S.quality === 'premium' ? '💎 Premium' : '⭐ Standard']);
+    rows.push(['Slaydlar', S.slides + ' ta']);
+    rows.push(['AI Rasmlar', (3 + S.ai_images_extra) + ' ta']);
+    rows.push(['Dizayn', S.template_id === 'plain' ? 'Oddiy oq' : S.template_id]);
     renderSummary(rows, calcPresPrice());
 }
 
 function goDocSummary() {
     S.topic = document.getElementById('dTopic').value.trim();
     S.subject = document.getElementById('dSubject')?.value.trim() || '';
+    S.university = document.getElementById('dUniv')?.value.trim() || '';
     if (!S.topic) { tg.showAlert('Mavzuni kiriting!'); return; }
     const labels = { referat:'📝 Referat', mustaqil:'📄 Mustaqil ish', kurs:'📚 Kurs ishi', tezis:'🎓 Tezis', maqola:'📰 Maqola', uslubiy:'📗 Uslubiy' };
     const rows = [
@@ -349,6 +390,7 @@ function goDocSummary() {
         ['Mavzu', S.topic],
     ];
     if (S.subject) rows.push(['Fan', S.subject]);
+    if (S.university) rows.push(['Universitet', S.university]);
     rows.push(['Til', {uz:"🇺🇿 O'zbek", ru:'🇷🇺 Rus', en:'🇬🇧 English'}[S.language]]);
     if (DOC_CFG[S.service]?.hasQuality) rows.push(['Sifat', S.quality === 'pro' ? '💎 Pro' : '⭐ Standard']);
     rows.push(['Sahifalar', S.pages + ' ta']);
@@ -362,26 +404,25 @@ function renderSummary(rows, price) {
     show('v-summary');
 }
 
-// ── Submit ──
 function submitJob() {
     tg.HapticFeedback.notificationOccurred('success');
     const job = {
         action: 'generate',
         service: S.service,
         topic: S.topic,
+        subject: S.subject,
+        university: S.university,
         language: S.language,
         quality: S.quality,
     };
     if (S.service === 'presentation') {
         job.num_slides = S.slides;
         job.template_id = S.template_id;
+        job.ai_images_extra = S.ai_images_extra;
     } else {
         job.pages = S.pages;
-        job.subject = S.subject;
     }
-    localStorage.setItem('pending_job', JSON.stringify(job));
-    tg.openTelegramLink('https://t.me/' + botUser + '?start=gen_' + S.service);
-    tg.close();
+    tg.sendData(JSON.stringify(job));
 }
 
 function goBot(type) {
