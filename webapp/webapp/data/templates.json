@@ -1,0 +1,114 @@
+[
+    {
+        "id": "modern_green-minimalism",
+        "name": "Green-Minimalism",
+        "category": "modern",
+        "preview": "static/previews/modern/green-minimalism.png",
+        "file_path": "templates/modern/green-minimalism.pptx",
+        "file_size": "72 KB"
+    },
+    {
+        "id": "modern_interjer",
+        "name": "Interjer",
+        "category": "modern",
+        "preview": "static/previews/modern/interjer.png",
+        "file_path": "templates/modern/interjer.pptx",
+        "file_size": "477 KB"
+    },
+    {
+        "id": "power_point_education_bright",
+        "name": "Education Bright",
+        "category": "power point",
+        "preview": "static/previews/power point/Education_Bright.png",
+        "file_path": "templates/power point/Education_Bright.pptx",
+        "file_size": "53 KB"
+    },
+    {
+        "id": "power_point_6",
+        "name": "6",
+        "category": "power point",
+        "preview": "static/previews/power point/6.png",
+        "file_path": "templates/power point/6.pptx",
+        "file_size": "608 KB"
+    },
+    {
+        "id": "power_point_classic",
+        "name": "Classic",
+        "category": "power point",
+        "preview": "static/previews/power point/classic.png",
+        "file_path": "templates/power point/classic.pptx",
+        "file_size": "35 KB"
+    },
+    {
+        "id": "power_point_test_backup",
+        "name": "Test Backup",
+        "category": "power point",
+        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "file_path": "templates/power point/test_backup.pptx",
+        "file_size": "85 KB"
+    },
+    {
+        "id": "power_point_1",
+        "name": "1",
+        "category": "power point",
+        "preview": "static/previews/power point/1.png",
+        "file_path": "templates/power point/1.pptx",
+        "file_size": "322 KB"
+    },
+    {
+        "id": "power_point_3",
+        "name": "3",
+        "category": "power point",
+        "preview": "static/previews/power point/3.png",
+        "file_path": "templates/power point/3.pptx",
+        "file_size": "175 KB"
+    },
+    {
+        "id": "power_point_priroda",
+        "name": "Priroda",
+        "category": "power point",
+        "preview": "static/previews/power point/priroda.png",
+        "file_path": "templates/power point/priroda.pptx",
+        "file_size": "1034 KB"
+    },
+    {
+        "id": "power_point_2",
+        "name": "2",
+        "category": "power point",
+        "preview": "static/previews/power point/2.png",
+        "file_path": "templates/power point/2.pptx",
+        "file_size": "58 KB"
+    },
+    {
+        "id": "power_point_5",
+        "name": "5",
+        "category": "power point",
+        "preview": "static/previews/power point/5.png",
+        "file_path": "templates/power point/5.pptx",
+        "file_size": "341 KB"
+    },
+    {
+        "id": "power_point_dark_premium",
+        "name": "Dark Premium",
+        "category": "power point",
+        "preview": "https://via.placeholder.com/280x180?text=No+Preview",
+        "file_path": "templates/power point/dark_premium.pptx",
+        "file_size": "31 KB"
+    },
+    {
+        "id": "power_point_minimalist_light",
+        "name": "Minimalist Light",
+        "category": "power point",
+        "preview": "static/previews/power point/Minimalist_Light.png",
+        "file_path": "templates/power point/Minimalist_Light.pptx",
+        "file_size": "29 KB"
+    },
+    {
+        "id": "power_point_4",
+        "name": "4",
+        "category": "power point",
+        "preview": "static/previews/power point/4.png",
+        "file_path": "templates/power point/4.pptx",
+        "file_size": "34 KB"
+    }
+]

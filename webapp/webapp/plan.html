@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taqdimot Rejasi</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-dark: #1e293b;
+            --input-bg: #0f172a;
+            --card-bg: #1a2744;
+            --accent: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        h2 { text-align: center; font-size: 20px; margin: 0; }
+
+        .tab-container {
+            display: flex;
+            background: var(--input-bg);
+            border-radius: 12px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--text-muted);
+        }
+
+        .tab.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+
+        .slider-container { margin: 8px 0 16px; }
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+        .slider-header span:last-child {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 18px;
+        }
+        input[type=range] {
+            width: 100%;
+            accent-color: var(--accent);
+            height: 6px;
+        }
+
+        /* Individual chapter inputs */
+        .chapter-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .chapter-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            transition: border-color 0.2s;
+        }
+
+        .chapter-field:focus-within {
+            border-color: var(--accent);
+        }
+
+        .chapter-num {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 16px;
+            min-width: 22px;
+        }
+
+        .chapter-field input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .chapter-field input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-save {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-save:active { opacity: 0.8; }
+
+        .hint { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <h2>Taqdimot Rejasi</h2>
+
+    <div class="tab-container">
+        <div class="tab active" onclick="switchTab('auto')">Avtomatik (AI)</div>
+        <div class="tab" onclick="switchTab('manual')">O'zim yozaman</div>
+    </div>
+
+    <!-- AI / Auto Section -->
+    <div id="auto-section" class="content-section active">
+        <div class="slider-container">
+            <div class="slider-header">
+                <span>Bo'limlar soni (Mundarija)</span>
+                <span id="auto-count">4</span>
+            </div>
+            <input type="range" id="auto-chapters" min="3" max="10" value="4" oninput="document.getElementById('auto-count').innerText=this.value">
+        </div>
+        <p class="hint">Sun'iy intellekt mavzudan kelib chiqib eng mos mundarijani avtomatik shakllantiradi.</p>
+    </div>
+
+    <!-- Manual Section -->
+    <div id="manual-section" class="content-section">
+        <div class="slider-container">
+            <div class="slider-header">
+                <span>Bo'limlar soni</span>
+                <span id="manual-count">4</span>
+            </div>
+            <input type="range" id="manual-chapters" min="2" max="10" value="4" oninput="updateManualFields(this.value)">
+        </div>
+        <div class="chapter-fields" id="chapter-fields"></div>
+        <p class="hint">Har bir bo'lim uchun nom kiriting.</p>
+    </div>
+
+    <button class="btn-save" onclick="savePlan()">Rejani Saqlash</button>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        let currentMode = 'auto';
+
+        function switchTab(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.tab').forEach((t, i) => {
+                t.classList.toggle('active', (mode === 'auto' && i === 0) || (mode === 'manual' && i === 1));
+            });
+            document.getElementById('auto-section').classList.toggle('active', mode === 'auto');
+            document.getElementById('manual-section').classList.toggle('active', mode === 'manual');
+            if (mode === 'manual') updateManualFields(document.getElementById('manual-chapters').value);
+            tg.HapticFeedback.selectionChanged();
+        }
+
+        function updateManualFields(count) {
+            count = parseInt(count);
+            document.getElementById('manual-count').innerText = count;
+
+            const container = document.getElementById('chapter-fields');
+            const existing = container.querySelectorAll('.chapter-field input');
+            const existingValues = Array.from(existing).map(i => i.value);
+
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const field = document.createElement('div');
+                field.className = 'chapter-field';
+                field.innerHTML = `
+                    <span class="chapter-num">${i + 1}.</span>
+                    <input type="text" placeholder="Bo'lim nomi..." value="${existingValues[i] || ''}">
+                `;
+                container.appendChild(field);
+            }
+        }
+
+        // Initialize manual fields on load
+        updateManualFields(4);
+
+        function savePlan() {
+            tg.HapticFeedback.impactOccurred("medium");
+            let data;
+
+            if (currentMode === 'auto') {
+                data = {
+                    action: 'plan_update',
+                    mode: 'auto',
+                    num_chapters: document.getElementById('auto-chapters').value
+                };
+            } else {
+                const inputs = document.querySelectorAll('#chapter-fields input');
+                const chapters = Array.from(inputs).map(i => i.value.trim()).filter(v => v);
+                const plan = chapters.map((c, i) => `${i + 1}. ${c}`).join('\n');
+                data = {
+                    action: 'plan_update',
+                    mode: 'manual',
+                    num_chapters: inputs.length,
+                    manual_plan: plan
+                };
+            }
+
+            tg.sendData(JSON.stringify(data));
+        }
+    </script>
+</body>
+</html>
