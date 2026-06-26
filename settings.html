@@ -1,1 +1,553 @@
+<!DOCTYPE html>
+<html lang="uz">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sozlamalar</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        body { display: flex; flex-direction: column; gap: 12px; }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-header animate-in">
+        <h1 id="pageTitle">Sozlamalar</h1>
+    </div>
+
+    <!-- Topic -->
+    <div class="input-group animate-in">
+        <label>📝 Mavzu</label>
+        <textarea id="topicInput" rows="2" placeholder="Mavzuni kiriting..."></textarea>
+    </div>
+
+    <!-- Subject (Fan) -->
+    <div class="input-group animate-in" id="subjectGroup">
+        <label id="subjectLabel">📚 Fan nomi</label>
+        <input type="text" id="subject" placeholder="Masalan: Iqtisodiyot nazariyasi">
+    </div>
+
+    <!-- University (uslubiy, referat) -->
+    <div class="input-group animate-in" id="universityGroup">
+        <label id="universityLabel">🏫 Universitet / Institut</label>
+        <input type="text" id="university" placeholder="Masalan: O'zMU">
+    </div>
+
+    <!-- Specialty (referat) -->
+    <div class="input-group animate-in" id="specialtyGroup">
+        <label id="specialtyLabel">🎓 Mutaxassislik / Fakultet</label>
+        <input type="text" id="specialty" placeholder="Masalan: Amaliy matematika">
+    </div>
+
+    <!-- Quality Selector (referat/mustaqil only) -->
+    <div id="qualitySection" class="animate-in">
+        <div id="qualityLabel" style="font-size:11px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">⚡ Sifat darajasi</div>
+        <div class="quality-selector">
+            <div class="quality-option std active" id="qStd" onclick="setQuality('standard')">
+                <div class="q-icon">✨</div>
+                <div class="q-label" id="qStdLabel">Standart</div>
+                <div class="q-sub" id="qStdSub">Sifatli akademik</div>
+            </div>
+            <div class="quality-option pro" id="qPro" onclick="setQuality('pro')">
+                <div class="q-icon">💎</div>
+                <div class="q-label" id="qProLabel">Pro</div>
+                <div class="q-sub" id="qProSub">Chuqur tahlil</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Author -->
+    <div class="input-group animate-in">
+        <label id="authorLabel">👤 Kim bajardi (F.I.Sh)</label>
+        <input type="text" id="author" placeholder="Ism Familiya">
+    </div>
+
+    <!-- Reviewer -->
+    <div class="input-group animate-in" id="reviewerGroup">
+        <label id="reviewerLabel">👨‍🏫 Kim qabul qildi</label>
+        <input type="text" id="reviewer" placeholder="O'qituvchi F.I.Sh">
+    </div>
+
+    <!-- Language -->
+    <div class="input-group animate-in">
+        <label id="langLabel">🌐 Til</label>
+        <select id="language">
+            <option value="uz">O'zbekcha 🇺🇿</option>
+            <option value="ru">Русский 🇷🇺</option>
+            <option value="en">English 🇺🇸</option>
+        </select>
+    </div>
+
+    <!-- Mashg'ulotlar (uslubiy only) -->
+    <div id="mashgulotSection" class="slider-group animate-in hidden">
+        <div class="slider-header">
+            <span id="mashgulotLabel">📊 Mashg'ulotlar soni</span>
+            <span class="slider-value" id="mash-count">2</span>
+        </div>
+        <input type="range" id="mashgulot" min="1" max="8" value="2">
+    </div>
+
+    <!-- Referat Structure (referat only) -->
+    <div id="referatStructureSection" class="animate-in hidden" style="background:var(--bg-secondary); padding:12px; border-radius:12px; margin-bottom:12px;">
+        <div class="slider-group" style="margin-bottom:12px; background:transparent; padding:0;">
+            <div class="slider-header">
+                <span>📑 Boblar soni</span>
+                <span class="slider-value" id="chapters-count">2</span>
+            </div>
+            <input type="range" id="chapters" min="2" max="4" value="2">
+        </div>
+        <div class="slider-group" style="background:transparent; padding:0;">
+            <div class="slider-header">
+                <span>📝 Har bir bobdagi rejalar</span>
+                <span class="slider-value" id="subchapters-count">2</span>
+            </div>
+            <input type="range" id="subchapters" min="2" max="4" value="2">
+        </div>
+    </div>
+
+    <!-- Pages/Slides slider -->
+    <div class="slider-group animate-in">
+        <div class="slider-header">
+            <span id="sliderLabel">📄 Sahifa miqdori</span>
+            <span class="slider-value" id="slide-count">15</span>
+        </div>
+        <input type="range" id="slides" min="10" max="30" value="15">
+    </div>
+
+    <!-- AI Images -->
+    <div id="aiImageSection" class="hidden animate-in">
+        <div class="card" style="padding:14px 16px;">
+            <div style="font-size:13px; font-weight:600; margin-bottom:8px;">
+                <span id="aiImageLabel">🖼 AI Rasmlar</span>
+            </div>
+            <div id="aiImageFreeNote" style="font-size:12px; color:var(--success); margin-bottom:10px;">✅ 3 ta bepul rasm avtomatik qo'shiladi</div>
+            <div class="slider-header">
+                <span id="aiExtraLabel" style="font-size:13px;">Qo'shimcha rasmlar</span>
+                <span><span id="ai-extra-count" style="font-weight:700; color:var(--accent-light);">0</span> <span style="font-size:11px; color:var(--text-muted);">× 1 000 so'm</span></span>
+            </div>
+            <input type="range" id="aiExtraSlider" min="0" max="10" value="0">
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-top:6px;">
+                <span id="aiTotalLabel">Jami rasmlar: <b style="color:var(--text-primary);">0</b></span>
+                <span id="aiExtraCost"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Price info -->
+    <div class="info-box animate-in">
+        <div class="info-item">
+            <span id="balanceLabel">Balans:</span>
+            <span id="balance">0</span>
+        </div>
+        <div class="info-item">
+            <span id="priceLabel">Joriy narx:</span>
+            <span id="price">3 000</span>
+        </div>
+        <div class="price-status ok" id="status">✅ Balans yetarli</div>
+    </div>
+
+    <button class="btn btn-primary animate-in" id="saveBtn" onclick="saveSettings()">Saqlash</button>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.setBackgroundColor('#0f172a');
+        tg.setHeaderColor('#0f172a');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const docType = urlParams.get('doc_type') || 'referat';
+        const balance = parseInt(urlParams.get('balance') || '0');
+        const topicParam = decodeURIComponent(urlParams.get('topic') || '');
+        const nameParam = urlParams.get('name') || '';
+        const qualityParam = urlParams.get('quality') || 'standard';
+        const lang = urlParams.get('lang') || 'uz';
+
+        let selectedQuality = qualityParam === 'pro' ? 'pro' : 'standard';
+
+        // ── Translations ──
+        const i18n = {
+            uz: {
+                topic: '📝 Mavzu', topicPh: 'Mavzuni kiriting...',
+                subject: '📚 Fan nomi', subjectPh: 'Masalan: Iqtisodiyot nazariyasi',
+                university: '🏫 Universitet', universityPh: "Masalan: O'zMU",
+                quality: '⚡ Sifat darajasi',
+                qStd: 'Standart', qStdSub: 'Sifatli akademik',
+                qPro: 'Pro', qProSub: 'Chuqur tahlil',
+                author: '👤 Muallif', authorPh: 'Ism Familiya',
+                langLabel: '🌐 Til',
+                mashgulot: '📊 Mashg\'ulotlar soni',
+                pages: '📄 Sahifa miqdori',
+                slides: '🎞 Slaydlar soni',
+                aiImageLabel: '🖼 AI Rasmlar',
+                aiFreeNote: '✅ 3 ta bepul rasm avtomatik qo\'shiladi',
+                aiPaidNote: '🖼 Har bir rasm 1 000 so\'m',
+                aiExtraLabel: 'Qo\'shimcha rasmlar',
+                aiPaidLabel: 'Rasmlar soni',
+                aiTotalLabel: 'Jami rasmlar',
+                aiExtraCostLabel: "{cost} so'm",
+                balanceLabel: 'Balans:', priceLabel: 'Joriy narx:',
+                balanceOk: '✅ Balans yetarli',
+                balanceLow: "⚠️ Yetishmaydi: {amount} so'm",
+                save: 'Saqlash',
+                errTopic: '❗ Mavzu bo\'sh bo\'lishi mumkin emas!',
+                errSubject: '❗ Fan nomini kiriting!',
+                freeImages: 3,
+                titles: { presentation: '📊 Taqdimot Sozlamalari', referat: '📝 Referat Sozlamalari', mustaqil: '📄 Mustaqil Ish Sozlamalari', uslubiy: '📗 Uslubiy Ishlanma Sozlamalari' }
+            },
+            ru: {
+                topic: '📝 Тема', topicPh: 'Введите тему...',
+                subject: '📚 Предмет', subjectPh: 'Например: Экономика',
+                university: '🏫 Университет', universityPh: 'Например: НУУз',
+                quality: '⚡ Качество',
+                qStd: 'Стандарт', qStdSub: 'Академическое',
+                qPro: 'Pro', qProSub: 'Глубокий анализ',
+                author: '👤 Автор', authorPh: 'Имя Фамилия',
+                langLabel: '🌐 Язык',
+                mashgulot: '📊 Кол-во занятий',
+                pages: '📄 Кол-во страниц',
+                slides: '🎞 Кол-во слайдов',
+                aiImageLabel: '🖼 AI Изображения',
+                aiFreeNote: '✅ 3 бесплатных изображения добавляются автоматически',
+                aiPaidNote: '🖼 Каждое изображение 1 000 сум',
+                aiExtraLabel: 'Доп. изображения',
+                aiPaidLabel: 'Кол-во изображений',
+                aiTotalLabel: 'Всего изображений',
+                aiExtraCostLabel: '{cost} сум',
+                balanceLabel: 'Баланс:', priceLabel: 'Текущая цена:',
+                balanceOk: '✅ Баланс достаточен',
+                balanceLow: '⚠️ Не хватает: {amount} сум',
+                save: 'Сохранить',
+                errTopic: '❗ Тема не может быть пустой!',
+                errSubject: '❗ Введите название предмета!',
+                freeImages: 3,
+                titles: { presentation: '📊 Настройки презентации', referat: '📝 Настройки реферата', mustaqil: '📄 Настройки сам. работы', uslubiy: '📗 Настройки метод. пособия' }
+            },
+            en: {
+                topic: '📝 Topic', topicPh: 'Enter topic...',
+                subject: '📚 Subject', subjectPh: 'e.g. Economics',
+                university: '🏫 University', universityPh: 'e.g. NUUz',
+                quality: '⚡ Quality level',
+                qStd: 'Standard', qStdSub: 'Academic quality',
+                qPro: 'Pro', qProSub: 'Deep analysis',
+                author: '👤 Author', authorPh: 'Full Name',
+                langLabel: '🌐 Language',
+                mashgulot: '📊 Number of lessons',
+                pages: '📄 Number of pages',
+                slides: '🎞 Number of slides',
+                aiImageLabel: '🖼 AI Images',
+                aiFreeNote: '✅ 3 free images are added automatically',
+                aiPaidNote: '🖼 Each image costs 1 000 so\'m',
+                aiExtraLabel: 'Extra images',
+                aiPaidLabel: 'Number of images',
+                aiTotalLabel: 'Total images',
+                aiExtraCostLabel: "{cost} so'm",
+                balanceLabel: 'Balance:', priceLabel: 'Current price:',
+                balanceOk: '✅ Balance sufficient',
+                balanceLow: "⚠️ Not enough: {amount} so'm",
+                save: 'Save',
+                errTopic: '❗ Topic cannot be empty!',
+                errSubject: '❗ Please enter subject name!',
+                freeImages: 3,
+                titles: { presentation: '📊 Presentation Settings', referat: '📝 Essay Settings', mustaqil: '📄 Independent Work Settings', uslubiy: '📗 Methodical Guide Settings' }
+            }
+        };
+        const T = i18n[lang] || i18n.uz;
+
+        // ── Document type configurations ──
+        const DOC_CONFIG = {
+            presentation: {
+                title: '📊 Taqdimot Sozlamalari',
+                showSubject: true,
+                showUniversity: true,
+                showMashgulot: false,
+                showQuality: true,
+                showAiImages: true,
+                freeImages: 3,
+                sliderLabel: '🎞 Slaydlar soni',
+                pageMin: 10, pageMax: 30, pageDefault: 10,
+                priceSteps: {
+                    standard: [[10, 3000], [15, 5000], [20, 7000], [25, 9000], [30, 11000]],
+                    pro:      [[10, 8000], [15, 10000], [20, 12000], [25, 14000], [30, 16000]]
+                },
+                qualityLabels: { std: 'Standart', pro: 'Premium', stdSub: 'Sifatli taqdimot', proSub: 'Premium dizayn + tahlil' }
+            },
+            referat: {
+                title: '📝 Referat Sozlamalari',
+                showUniversity: true,
+                showSpecialty: true,
+                showReviewer: true,
+                showReferatStructure: true,
+                showMashgulot: false,
+                showQuality: true,
+                showAiImages: true,
+                freeImages: 0,
+                pageMin: 10, pageMax: 30, pageDefault: 15,
+                prices: {
+                    standard: { low: 5000, mid: 7000, high: 9000 },
+                    pro:      { low: 12000, mid: 15000, high: 18000 }
+                },
+                priceTiers: [15, 20],
+            },
+            mustaqil: {
+                title: '📄 Mustaqil Ish Sozlamalari',
+                showUniversity: false,
+                showMashgulot: false,
+                showQuality: true,
+                showAiImages: false,
+                pageMin: 10, pageMax: 30, pageDefault: 15,
+                prices: {
+                    standard: { low: 5000, mid: 7000, high: 9000 },
+                    pro:      { low: 12000, mid: 15000, high: 18000 }
+                },
+                priceTiers: [15, 20],
+            },
+            uslubiy: {
+                title: '📗 Uslubiy Ishlanma Sozlamalari',
+                showUniversity: true,
+                showMashgulot: true,
+                showQuality: false,
+                showAiImages: false,
+                pageMin: 20, pageMax: 50, pageDefault: 25,
+                prices: {
+                    standard: { low: 15000, mid: 19000, high: 23000 },
+                    pro:      { low: 15000, mid: 19000, high: 23000 }
+                },
+                priceTiers: [30, 40],
+            }
+        };
+
+        const config = DOC_CONFIG[docType] || DOC_CONFIG.referat;
+
+        // ── Init UI with translations ──
+        document.getElementById('pageTitle').innerText = T.titles[docType] || config.title;
+        document.getElementById('topicInput').value = topicParam;
+        document.getElementById('topicInput').placeholder = T.topicPh;
+        document.getElementById('subjectLabel').innerText = T.subject;
+        document.getElementById('subject').placeholder = T.subjectPh;
+        document.getElementById('universityLabel').innerText = T.university;
+        document.getElementById('university').placeholder = T.universityPh;
+        document.getElementById('qualityLabel').innerText = T.quality;
+        document.getElementById('qStdLabel').innerText = T.qStd;
+        document.getElementById('qStdSub').innerText = T.qStdSub;
+        document.getElementById('qProLabel').innerText = T.qPro;
+        document.getElementById('qProSub').innerText = T.qProSub;
+        document.getElementById('authorLabel').innerText = T.author;
+        document.getElementById('author').placeholder = T.authorPh;
+        document.getElementById('author').value = nameParam;
+        document.getElementById('langLabel').innerText = T.langLabel;
+        document.getElementById('mashgulotLabel').innerText = T.mashgulot;
+        document.getElementById('balanceLabel').innerText = T.balanceLabel;
+        document.getElementById('priceLabel').innerText = T.priceLabel;
+        document.getElementById('balance').innerText = balance.toLocaleString();
+        document.getElementById('saveBtn').innerText = T.save;
+
+        // Show/hide fields based on doc_type
+        if (config.showTopic === false) document.getElementById('topicInput').parentElement.classList.add('hidden');
+        if (config.showSubject === false) document.getElementById('subjectGroup').classList.add('hidden');
+        if (!config.showUniversity) document.getElementById('universityGroup').classList.add('hidden');
+        if (!config.showSpecialty) {
+            const specGrp = document.getElementById('specialtyGroup');
+            if (specGrp) specGrp.classList.add('hidden');
+        }
+        if (!config.showReviewer) {
+            const revGrp = document.getElementById('reviewerGroup');
+            if (revGrp) revGrp.classList.add('hidden');
+        }
+        if (config.showMashgulot) document.getElementById('mashgulotSection').classList.remove('hidden');
+        if (config.showReferatStructure) {
+            const refStruct = document.getElementById('referatStructureSection');
+            if (refStruct) refStruct.classList.remove('hidden');
+        }
+        if (config.showAiImages === true) {
+            document.getElementById('aiImageSection').classList.remove('hidden');
+            document.getElementById('aiImageLabel').innerText = T.aiImageLabel;
+            const freeNote = document.getElementById('aiImageFreeNote');
+            if (config.freeImages > 0) {
+                freeNote.innerText = T.aiFreeNote;
+                freeNote.style.display = '';
+                document.getElementById('aiExtraLabel').innerText = T.aiExtraLabel;
+            } else {
+                freeNote.innerText = T.aiPaidNote || '🖼 Har bir rasm 1 000 so\'m';
+                freeNote.style.color = 'var(--accent-light)';
+                document.getElementById('aiExtraLabel').innerText = T.aiPaidLabel || 'Rasmlar soni';
+            }
+        }
+        if (!config.showQuality) {
+            document.getElementById('qualitySection').classList.add('hidden');
+            selectedQuality = 'pro';
+        }
+        // Set slider label based on doc type + language
+        if (docType === 'presentation') {
+            document.getElementById('sliderLabel').innerText = T.slides;
+        } else {
+            document.getElementById('sliderLabel').innerText = T.pages;
+        }
+
+        // Page slider
+        const slidesInput = document.getElementById('slides');
+        const slideCountDisp = document.getElementById('slide-count');
+        slidesInput.min = config.pageMin;
+        slidesInput.max = config.pageMax;
+        slidesInput.value = config.pageDefault;
+        slideCountDisp.innerText = config.pageDefault;
+
+        // Mashg'ulot slider
+        const mashInput = document.getElementById('mashgulot');
+        const mashDisp = document.getElementById('mash-count');
+        if (mashInput) {
+            mashInput.oninput = () => { mashDisp.innerText = mashInput.value; };
+        }
+
+        // Referat structure sliders
+        const chaptersInput = document.getElementById('chapters');
+        const chaptersDisp = document.getElementById('chapters-count');
+        if (chaptersInput && chaptersDisp) {
+            chaptersInput.oninput = () => { chaptersDisp.innerText = chaptersInput.value; };
+        }
+        const subchaptersInput = document.getElementById('subchapters');
+        const subchaptersDisp = document.getElementById('subchapters-count');
+        if (subchaptersInput && subchaptersDisp) {
+            subchaptersInput.oninput = () => { subchaptersDisp.innerText = subchaptersInput.value; };
+        }
+
+        // Quality toggle
+        function setQuality(q) {
+            selectedQuality = q;
+            document.getElementById('qStd').classList.toggle('active', q === 'standard');
+            document.getElementById('qPro').classList.toggle('active', q === 'pro');
+            const btn = document.getElementById('saveBtn');
+            btn.classList.toggle('btn-pro', q === 'pro');
+            btn.classList.toggle('btn-primary', q !== 'pro');
+            updateUI();
+        }
+
+        // Apply initial quality
+        if (selectedQuality === 'pro') setQuality('pro');
+
+        function calcPrice(count) {
+            // Step-based pricing (presentation)
+            if (config.priceSteps) {
+                const steps = config.priceSteps[selectedQuality] || config.priceSteps.standard;
+                for (let i = 0; i < steps.length; i++) {
+                    if (count <= steps[i][0]) return steps[i][1];
+                }
+                return steps[steps.length - 1][1];
+            }
+            // Tier-based pricing (referat, mustaqil, uslubiy)
+            const p = config.prices[selectedQuality] || config.prices.standard;
+            const t = config.priceTiers;
+            if (count <= t[0]) return p.low;
+            else if (count <= t[1]) return p.mid;
+            else return p.high;
+        }
+
+        function updateUI() {
+            const count = parseInt(slidesInput.value);
+            slideCountDisp.innerText = count;
+            const basePrice = calcPrice(count);
+            const extraImages = parseInt(aiExtraSlider ? aiExtraSlider.value : 0);
+            const paidImages = (FREE_IMAGES > 0) ? extraImages : (FREE_IMAGES + extraImages);
+            const price = basePrice + (paidImages * IMAGE_PRICE);
+            document.getElementById('price').innerText = price.toLocaleString();
+
+            const statusEl = document.getElementById('status');
+            if (balance >= price) {
+                statusEl.innerText = T.balanceOk;
+                statusEl.className = 'price-status ok';
+            } else {
+                statusEl.innerText = T.balanceLow.replace('{amount}', (price - balance).toLocaleString());
+                statusEl.className = 'price-status warn';
+            }
+        }
+
+        // AI images slider
+        const aiExtraSlider = document.getElementById('aiExtraSlider');
+        const aiExtraCount = document.getElementById('ai-extra-count');
+        const aiTotalLabel = document.getElementById('aiTotalLabel');
+        const aiExtraCost = document.getElementById('aiExtraCost');
+        const FREE_IMAGES = config.freeImages || 0;
+        const IMAGE_PRICE = 1000;
+
+        function updateAiImages() {
+            const extra = parseInt(aiExtraSlider.value);
+            aiExtraCount.innerText = extra;
+            const total = FREE_IMAGES + extra;
+            aiTotalLabel.innerHTML = T.aiTotalLabel + ': <b style="color:var(--text-main);">' + total + '</b>';
+            const paidCount = (FREE_IMAGES > 0) ? extra : total;
+            if (paidCount > 0) {
+                aiExtraCost.innerText = T.aiExtraCostLabel.replace('{cost}', (paidCount * IMAGE_PRICE).toLocaleString());
+            } else {
+                aiExtraCost.innerText = '';
+            }
+            updateUI();
+        }
+        if (aiExtraSlider) aiExtraSlider.oninput = updateAiImages;
+
+        slidesInput.oninput = updateUI;
+        updateUI();
+
+        function saveSettings() {
+            tg.HapticFeedback.impactOccurred("medium");
+            let topicVal = document.getElementById('topicInput').value.trim();
+            if (!topicVal && docType === 'uslubiy') {
+                topicVal = document.getElementById('subject').value.trim();
+            }
+            if (!topicVal) {
+                tg.showAlert(T.errTopic);
+                return;
+            }
+            const subjectVal = document.getElementById('subject').value.trim();
+            if (config.showSubject !== false && !subjectVal) {
+                tg.showAlert(T.errSubject);
+                return;
+            }
+
+            const pages = parseInt(slidesInput.value);
+            const extraImages = config.showAiImages ? parseInt(aiExtraSlider ? aiExtraSlider.value : 0) : 0;
+            const paidImages = (FREE_IMAGES > 0) ? extraImages : (FREE_IMAGES + extraImages);
+            const basePrice = calcPrice(pages);
+            const price = basePrice + (paidImages * IMAGE_PRICE);
+
+            const data = {
+                action: 'full_settings',
+                topic: topicVal,
+                subject: subjectVal,
+                author: document.getElementById('author').value.trim() || nameParam,
+                language: document.getElementById('language').value,
+                quality: selectedQuality,
+                num_pages: pages,
+                ai_images: config.showAiImages ? (FREE_IMAGES + extraImages) : 0,
+                ai_images_extra: config.showAiImages ? extraImages : 0,
+                price: price,
+                doc_type: docType
+            };
+
+            // Uslubiy & Referat specific
+            if (config.showUniversity) {
+                data.university = document.getElementById('university').value.trim();
+            }
+            if (config.showSpecialty) {
+                const spec = document.getElementById('specialty');
+                data.specialty = spec ? spec.value.trim() : '';
+            }
+            if (config.showReviewer) {
+                const rev = document.getElementById('reviewer');
+                data.reviewer = rev ? rev.value.trim() : '';
+            }
+            if (config.showMashgulot) {
+                data.num_mashgulot = parseInt(mashInput.value);
+            }
+            if (config.showReferatStructure) {
+                data.num_chapters = parseInt(chaptersInput.value);
+                data.num_subchapters = parseInt(subchaptersInput.value);
+            }
+
+            tg.sendData(JSON.stringify(data));
+        }
+    </script>
+</body>
+
+</html>
