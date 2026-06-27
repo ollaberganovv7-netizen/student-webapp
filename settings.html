@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 
 <head>
@@ -295,11 +295,10 @@
                 showAiImages: true,
                 freeImages: 0,
                 pageMin: 10, pageMax: 30, pageDefault: 15,
-                prices: {
-                    standard: { low: 5000, mid: 7000, high: 9000 },
-                    pro:      { low: 9000, mid: 12000, high: 15000 }
-                },
-                priceTiers: [15, 20],
+                priceSteps: {
+                    standard: [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]],
+                    pro:      [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]]
+                }
             },
             mustaqil: {
                 title: '📄 Mustaqil ish sozlamalari',
@@ -311,11 +310,10 @@
                 showQuality: true,
                 showAiImages: false,
                 pageMin: 10, pageMax: 30, pageDefault: 15,
-                prices: {
-                    standard: { low: 5000, mid: 7000, high: 9000 },
-                    pro:      { low: 9000, mid: 12000, high: 15000 }
-                },
-                priceTiers: [15, 20],
+                priceSteps: {
+                    standard: [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]],
+                    pro:      [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]]
+                }
             },
             uslubiy: {
                 title: '📗 Uslubiy ishlanma sozlamalari',

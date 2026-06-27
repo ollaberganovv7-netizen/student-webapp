@@ -343,8 +343,10 @@
                 qualityStd: { icon: '✨', label: 'Standart', sub: 'Sifatli akademik referat' },
                 qualityPro: { icon: '💎', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
                 pageMin: 10, pageMax: 30, pageDefault: 15,
-                prices: { std_low: 5000, std_mid: 7000, std_high: 9000, pro_low: 9000, pro_mid: 12000, pro_high: 15000 },
-                priceTiers: [15, 20],
+                priceSteps: {
+                    standard: [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]],
+                    pro:      [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]]
+                }
             },
             mustaqil: {
                 title: '📄 Mustaqil ish sozlamalari',
@@ -358,8 +360,10 @@
                 qualityStd: { icon: '✨', label: 'Standart', sub: 'Sifatli mustaqil ish' },
                 qualityPro: { icon: '💎', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
                 pageMin: 10, pageMax: 30, pageDefault: 15,
-                prices: { std_low: 5000, std_mid: 7000, std_high: 9000, pro_low: 9000, pro_mid: 12000, pro_high: 15000 },
-                priceTiers: [15, 20],
+                priceSteps: {
+                    standard: [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]],
+                    pro:      [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]]
+                }
             },
             uslubiy: {
                 title: '📗 Uslubiy ishlanma sozlamalari',
@@ -399,6 +403,13 @@
         slideCountDisp.innerText = config.pageDefault;
 
         function calcPrice(count) {
+            if (config.priceSteps) {
+                const steps = isPremium ? config.priceSteps.pro : config.priceSteps.standard;
+                for (let i = 0; i < steps.length; i++) {
+                    if (count <= steps[i][0]) return steps[i][1];
+                }
+                return steps[steps.length - 1][1];
+            }
             const p = config.prices;
             const t = config.priceTiers;
             if (isPremium) {
