@@ -44,8 +44,8 @@
 
     <!-- Specialty (referat) -->
     <div class="input-group animate-in" id="specialtyGroup">
-        <label id="specialtyLabel">🎓 Mutaxassislik</label>
-        <input type="text" id="specialty" placeholder="Masalan: Tarixshunoslik">
+        <label id="specialtyLabel">🎓 Mutaxassislik / Yo'nalish</label>
+        <input type="text" id="specialty" placeholder="Masalan: Tarix">
     </div>
 
     <!-- Quality Selector (referat/mustaqil only) -->
@@ -532,12 +532,15 @@
 
             // Uslubiy & Referat specific
             if (config.showUniversity) {
-                data.university = document.getElementById('university').value.trim();
+                const uni = document.getElementById('university');
+                data.university = uni ? uni.value.trim() : '';
             }
-            if (config.showSpecialty) {
-                const spec = document.getElementById('specialty');
-                data.specialty = spec ? spec.value.trim() : '';
-            }
+            
+            const spec = document.getElementById('specialty');
+            if (spec) data.specialty = spec.value.trim();
+            
+            const fak = document.getElementById('fakultet');
+            if (fak) data.fakultet = fak.value.trim();
             if (config.showReviewer) {
                 const rev = document.getElementById('reviewer');
                 data.reviewer = rev ? rev.value.trim() : '';
