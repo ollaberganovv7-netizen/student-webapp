@@ -455,7 +455,7 @@
                 slides: slidesInput.value,
                 premium: isPremium,
                 topic: topicVal,
-                doc_type: docType
+                doc_type: docType, price: calcPrice(parseInt(slidesInput.value))
             };
             tg.sendData(JSON.stringify(data));
         }

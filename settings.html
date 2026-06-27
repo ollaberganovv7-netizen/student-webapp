@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uz">
 
 <head>
@@ -523,7 +523,7 @@
 
             const data = {
                 action: 'full_settings',
-                doc_type: docType,
+                doc_type: docType, price: price,
                 topic: topicVal,
                 subject: subjectVal,
                 author: document.getElementById('author').value.trim(),
@@ -532,7 +532,7 @@
                 num_pages: pages,
                 ai_images: config.showAiImages ? (FREE_IMAGES + extraImages) : 0,
                 ai_images_extra: config.showAiImages ? extraImages : 0,
-                doc_type: docType
+                doc_type: docType, price: price
             };
 
             // Uslubiy & Referat specific
