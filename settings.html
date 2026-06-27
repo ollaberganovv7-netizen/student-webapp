@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sozlamalar</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -164,7 +167,8 @@
         tg.setHeaderColor('#0f172a');
 
         const urlParams = new URLSearchParams(window.location.search);
-        const docType = urlParams.get('doc_type') || 'referat';
+        let docType = urlParams.get('doc_type') || 'referat';
+        if (docType === 'report') docType = 'mustaqil';
         const balance = parseInt(urlParams.get('balance') || '0');
         const topicParam = decodeURIComponent(urlParams.get('topic') || '');
         const nameParam = urlParams.get('name') || '';
@@ -299,7 +303,10 @@
             },
             mustaqil: {
                 title: '📄 Mustaqil Ish Sozlamalari',
-                showUniversity: false,
+                showUniversity: true,
+                showSpecialty: true,
+                showReviewer: true,
+                showReferatStructure: true,
                 showMashgulot: false,
                 showQuality: true,
                 showAiImages: false,
