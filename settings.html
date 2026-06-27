@@ -469,7 +469,7 @@
                 statusEl.className = 'price-status ok'; document.getElementById('saveBtn').innerText = T.save;
             } else {
                 statusEl.innerText = T.balanceLow.replace('{amount}', (price - balance).toLocaleString());
-                statusEl.className = 'price-status warn'; document.getElementById('saveBtn').innerText = T.save + ' (Chek orqali)';
+                statusEl.className = 'price-status warn'; document.getElementById('saveBtn').innerText = T.save + " (Hisobni to'ldirish)";
             }
         }
 
@@ -564,3 +564,4 @@
 </body>
 
 </html>
+
