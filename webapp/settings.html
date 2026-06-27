@@ -537,6 +537,9 @@
             if (config.showSpecialty) {
                 const spec = document.getElementById('specialty');
                 data.specialty = spec ? spec.value.trim() : '';
+                
+                const fak = document.getElementById('fakultet');
+                data.fakultet = fak ? fak.value.trim() : '';
             }
             if (config.showReviewer) {
                 const rev = document.getElementById('reviewer');
