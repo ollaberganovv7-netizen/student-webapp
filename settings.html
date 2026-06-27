@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,35 +11,43 @@
         body { display: flex; flex-direction: column; gap: 12px; }
     </style>
 </head>
+
 <body>
+
     <div class="page-header animate-in">
         <h1 id="pageTitle">Sozlamalar</h1>
     </div>
+
     <!-- Topic -->
     <div class="input-group animate-in">
         <label>📝 Mavzu</label>
         <textarea id="topicInput" rows="2" placeholder="Mavzuni kiriting..."></textarea>
     </div>
+
     <!-- Subject (Fan) -->
     <div class="input-group animate-in" id="subjectGroup">
         <label id="subjectLabel">📚 Fan nomi</label>
         <input type="text" id="subject" placeholder="Masalan: Iqtisodiyot nazariyasi">
     </div>
+
     <!-- University (uslubiy, referat) -->
     <div class="input-group animate-in" id="universityGroup">
         <label id="universityLabel">🏫 Universitet / Institut</label>
         <input type="text" id="university" placeholder="Masalan: O'zMU">
     </div>
+
     <!-- Fakultet (referat) -->
     <div class="input-group animate-in" id="fakultetGroup">
         <label id="fakultetLabel">🏢 Fakultet</label>
         <input type="text" id="fakultet" placeholder="Masalan: Tarix">
     </div>
+
     <!-- Specialty (referat) -->
     <div class="input-group animate-in" id="specialtyGroup">
         <label id="specialtyLabel">🎓 Mutaxassislik</label>
         <input type="text" id="specialty" placeholder="Masalan: Tarixshunoslik">
     </div>
+
     <!-- Quality Selector (referat/mustaqil only) -->
     <div id="qualitySection" class="animate-in">
         <div id="qualityLabel" style="font-size:11px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;">⚡ Sifat darajasi</div>
@@ -55,16 +64,19 @@
             </div>
         </div>
     </div>
+
     <!-- Author -->
     <div class="input-group animate-in">
         <label id="authorLabel">👤 Kim bajardi (F.I.Sh)</label>
         <input type="text" id="author" placeholder="Ism Familiya">
     </div>
+
     <!-- Reviewer -->
     <div class="input-group animate-in" id="reviewerGroup">
         <label id="reviewerLabel">👨‍🏫 Kim qabul qildi</label>
         <input type="text" id="reviewer" placeholder="O'qituvchi F.I.Sh">
     </div>
+
     <!-- Language -->
     <div class="input-group animate-in">
         <label id="langLabel">🌐 Til</label>
@@ -74,6 +86,7 @@
             <option value="en">English 🇺🇸</option>
         </select>
     </div>
+
     <!-- Mashg'ulotlar (uslubiy only) -->
     <div id="mashgulotSection" class="slider-group animate-in hidden">
         <div class="slider-header">
@@ -82,6 +95,7 @@
         </div>
         <input type="range" id="mashgulot" min="1" max="8" value="2">
     </div>
+
     <!-- Referat Structure (referat only) -->
     <div id="referatStructureSection" class="animate-in hidden" style="background:var(--bg-secondary); padding:12px; border-radius:12px; margin-bottom:12px;">
         <div class="slider-group" style="margin-bottom:12px; background:transparent; padding:0;">
@@ -99,6 +113,7 @@
             <input type="range" id="subchapters" min="2" max="4" value="2">
         </div>
     </div>
+
     <!-- Pages/Slides slider -->
     <div class="slider-group animate-in">
         <div class="slider-header">
@@ -107,6 +122,7 @@
         </div>
         <input type="range" id="slides" min="10" max="30" value="15">
     </div>
+
     <!-- AI Images -->
     <div id="aiImageSection" class="hidden animate-in">
         <div class="card" style="padding:14px 16px;">
@@ -125,6 +141,7 @@
             </div>
         </div>
     </div>
+
     <!-- Price info -->
     <div class="info-box animate-in">
         <div class="info-item">
@@ -137,12 +154,15 @@
         </div>
         <div class="price-status ok" id="status">✅ Balans yetarli</div>
     </div>
+
     <button class="btn btn-primary animate-in" id="saveBtn" onclick="saveSettings()">Saqlash</button>
+
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
         tg.setBackgroundColor('#0f172a');
         tg.setHeaderColor('#0f172a');
+
         const urlParams = new URLSearchParams(window.location.search);
         const docType = urlParams.get('doc_type') || 'referat';
         const balance = parseInt(urlParams.get('balance') || '0');
@@ -150,7 +170,9 @@
         const nameParam = urlParams.get('name') || '';
         const qualityParam = urlParams.get('quality') || 'standard';
         const lang = urlParams.get('lang') || 'uz';
+
         let selectedQuality = qualityParam === 'pro' ? 'pro' : 'standard';
+
         // ── Translations ──
         const i18n = {
             uz: {
@@ -160,7 +182,7 @@
                 quality: '⚡ Sifat darajasi',
                 qStd: 'Standart', qStdSub: 'Sifatli akademik',
                 qPro: 'Pro', qProSub: 'Chuqur tahlil',
-                author: '👤 Muallif', authorPh: 'Ism Familiya',
+                author: '👤 Muallif', authorPh: 'Talaba F.I.Sh',
                 langLabel: '🌐 Til',
                 mashgulot: '📊 Mashg\'ulotlar soni',
                 pages: '📄 Sahifa miqdori',
@@ -239,6 +261,7 @@
             }
         };
         const T = i18n[lang] || i18n.uz;
+
         // ── Document type configurations ──
         const DOC_CONFIG = {
             presentation: {
@@ -301,7 +324,9 @@
                 priceTiers: [30, 40],
             }
         };
+
         const config = DOC_CONFIG[docType] || DOC_CONFIG.referat;
+
         // ── Init UI with translations ──
         document.getElementById('pageTitle').innerText = T.titles[docType] || config.title;
         document.getElementById('topicInput').value = topicParam;
@@ -317,13 +342,13 @@
         document.getElementById('qProSub').innerText = T.qProSub;
         document.getElementById('authorLabel').innerText = T.author;
         document.getElementById('author').placeholder = T.authorPh;
-        document.getElementById('author').value = nameParam;
         document.getElementById('langLabel').innerText = T.langLabel;
         document.getElementById('mashgulotLabel').innerText = T.mashgulot;
         document.getElementById('balanceLabel').innerText = T.balanceLabel;
         document.getElementById('priceLabel').innerText = T.priceLabel;
         document.getElementById('balance').innerText = balance.toLocaleString();
         document.getElementById('saveBtn').innerText = T.save;
+
         // Show/hide fields based on doc_type
         if (config.showTopic === false) document.getElementById('topicInput').parentElement.classList.add('hidden');
         if (config.showSubject === false) document.getElementById('subjectGroup').classList.add('hidden');
@@ -365,6 +390,7 @@
         } else {
             document.getElementById('sliderLabel').innerText = T.pages;
         }
+
         // Page slider
         const slidesInput = document.getElementById('slides');
         const slideCountDisp = document.getElementById('slide-count');
@@ -372,12 +398,14 @@
         slidesInput.max = config.pageMax;
         slidesInput.value = config.pageDefault;
         slideCountDisp.innerText = config.pageDefault;
+
         // Mashg'ulot slider
         const mashInput = document.getElementById('mashgulot');
         const mashDisp = document.getElementById('mash-count');
         if (mashInput) {
             mashInput.oninput = () => { mashDisp.innerText = mashInput.value; };
         }
+
         // Referat structure sliders
         const chaptersInput = document.getElementById('chapters');
         const chaptersDisp = document.getElementById('chapters-count');
@@ -389,6 +417,7 @@
         if (subchaptersInput && subchaptersDisp) {
             subchaptersInput.oninput = () => { subchaptersDisp.innerText = subchaptersInput.value; };
         }
+
         // Quality toggle
         function setQuality(q) {
             selectedQuality = q;
@@ -399,8 +428,10 @@
             btn.classList.toggle('btn-primary', q !== 'pro');
             updateUI();
         }
+
         // Apply initial quality
         if (selectedQuality === 'pro') setQuality('pro');
+
         function calcPrice(count) {
             // Step-based pricing (presentation)
             if (config.priceSteps) {
@@ -417,6 +448,7 @@
             else if (count <= t[1]) return p.mid;
             else return p.high;
         }
+
         function updateUI() {
             const count = parseInt(slidesInput.value);
             slideCountDisp.innerText = count;
@@ -425,6 +457,7 @@
             const paidImages = (FREE_IMAGES > 0) ? extraImages : (FREE_IMAGES + extraImages);
             const price = basePrice + (paidImages * IMAGE_PRICE);
             document.getElementById('price').innerText = price.toLocaleString();
+
             const statusEl = document.getElementById('status');
             if (balance >= price) {
                 statusEl.innerText = T.balanceOk;
@@ -434,6 +467,7 @@
                 statusEl.className = 'price-status warn';
             }
         }
+
         // AI images slider
         const aiExtraSlider = document.getElementById('aiExtraSlider');
         const aiExtraCount = document.getElementById('ai-extra-count');
@@ -441,6 +475,7 @@
         const aiExtraCost = document.getElementById('aiExtraCost');
         const FREE_IMAGES = config.freeImages || 0;
         const IMAGE_PRICE = 1000;
+
         function updateAiImages() {
             const extra = parseInt(aiExtraSlider.value);
             aiExtraCount.innerText = extra;
@@ -455,8 +490,10 @@
             updateUI();
         }
         if (aiExtraSlider) aiExtraSlider.oninput = updateAiImages;
+
         slidesInput.oninput = updateUI;
         updateUI();
+
         function saveSettings() {
             tg.HapticFeedback.impactOccurred("medium");
             let topicVal = document.getElementById('topicInput').value.trim();
@@ -472,24 +509,27 @@
                 tg.showAlert(T.errSubject);
                 return;
             }
+
             const pages = parseInt(slidesInput.value);
             const extraImages = config.showAiImages ? parseInt(aiExtraSlider ? aiExtraSlider.value : 0) : 0;
             const paidImages = (FREE_IMAGES > 0) ? extraImages : (FREE_IMAGES + extraImages);
             const basePrice = calcPrice(pages);
             const price = basePrice + (paidImages * IMAGE_PRICE);
+
             const data = {
                 action: 'full_settings',
+                doc_type: docType,
                 topic: topicVal,
                 subject: subjectVal,
-                author: document.getElementById('author').value.trim() || nameParam,
+                author: document.getElementById('author').value.trim(),
                 language: document.getElementById('language').value,
                 quality: selectedQuality,
                 num_pages: pages,
                 ai_images: config.showAiImages ? (FREE_IMAGES + extraImages) : 0,
                 ai_images_extra: config.showAiImages ? extraImages : 0,
-                price: price,
                 doc_type: docType
             };
+
             // Uslubiy & Referat specific
             if (config.showUniversity) {
                 data.university = document.getElementById('university').value.trim();
@@ -509,8 +549,10 @@
                 data.num_chapters = parseInt(chaptersInput.value);
                 data.num_subchapters = parseInt(subchaptersInput.value);
             }
+
             tg.sendData(JSON.stringify(data));
         }
     </script>
 </body>
+
 </html>
