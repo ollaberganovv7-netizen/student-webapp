@@ -1,98 +1,82 @@
 [
     {
-        "id": "modern_grey-minimalism",
-        "name": "Grey-Minimalism",
+        "id": "modern_beige-minimalism",
+        "name": "Beige-Minimalism",
         "category": "modern",
-        "preview": "static/previews/modern/grey-minimalism.png",
-        "file_path": "templates/modern/grey-minimalism.pptx",
-        "file_size": "58 KB"
-    },
-    {
-        "id": "modern_sinie-tochki",
-        "name": "Sinie-Tochki",
-        "category": "modern",
-        "preview": "static/previews/modern/sinie-tochki.png",
-        "file_path": "templates/modern/sinie-tochki.pptx",
-        "file_size": "333 KB"
+        "preview": "static/previews/modern/beige-minimalism.png",
+        "file_path": "templates\\modern\\beige-minimalism.pptx",
+        "file_size": "55 KB"
     },
     {
         "id": "modern_business-minimalism_",
         "name": "Business-Minimalism ",
         "category": "modern",
         "preview": "static/previews/modern/business-minimalism .png",
-        "file_path": "templates/modern/business-minimalism .pptx",
+        "file_path": "templates\\modern\\business-minimalism .pptx",
         "file_size": "56 KB"
-    },
-    {
-        "id": "modern_mrarmor",
-        "name": "Mrarmor",
-        "category": "modern",
-        "preview": "static/previews/modern/mrarmor.png",
-        "file_path": "templates/modern/mrarmor.pptx",
-        "file_size": "361 KB"
-    },
-    {
-        "id": "modern_siniy-kontur-wide",
-        "name": "Siniy-Kontur-Wide",
-        "category": "modern",
-        "preview": "static/previews/modern/siniy-kontur-wide.png",
-        "file_path": "templates/modern/siniy-kontur-wide.pptx",
-        "file_size": "206 KB"
-    },
-    {
-        "id": "modern_minimalism",
-        "name": "Minimalism",
-        "category": "modern",
-        "preview": "static/previews/modern/minimalism.png",
-        "file_path": "templates/modern/minimalism.pptx",
-        "file_size": "59 KB"
-    },
-    {
-        "id": "modern_staraya-bumaga",
-        "name": "Staraya-Bumaga",
-        "category": "modern",
-        "preview": "static/previews/modern/staraya-bumaga.png",
-        "file_path": "templates/modern/staraya-bumaga.pptx",
-        "file_size": "397 KB"
     },
     {
         "id": "modern_goluboy-abstraktniy",
         "name": "Goluboy-Abstraktniy",
         "category": "modern",
         "preview": "static/previews/modern/goluboy-abstraktniy.png",
-        "file_path": "templates/modern/goluboy-abstraktniy.pptx",
+        "file_path": "templates\\modern\\goluboy-abstraktniy.pptx",
         "file_size": "946 KB"
     },
     {
-        "id": "modern_beige-minimalism",
-        "name": "Beige-Minimalism",
+        "id": "modern_grey-minimalism",
+        "name": "Grey-Minimalism",
         "category": "modern",
-        "preview": "static/previews/modern/beige-minimalism.png",
-        "file_path": "templates/modern/beige-minimalism.pptx",
-        "file_size": "55 KB"
+        "preview": "static/previews/modern/grey-minimalism.png",
+        "file_path": "templates\\modern\\grey-minimalism.pptx",
+        "file_size": "58 KB"
     },
     {
-        "id": "power_point_6",
-        "name": "6",
-        "category": "power point",
-        "preview": "static/previews/power point/6.png",
-        "file_path": "templates/power point/6.pptx",
-        "file_size": "608 KB"
+        "id": "modern_minimalism",
+        "name": "Minimalism",
+        "category": "modern",
+        "preview": "static/previews/modern/minimalism.png",
+        "file_path": "templates\\modern\\minimalism.pptx",
+        "file_size": "59 KB"
     },
     {
-        "id": "power_point_classic",
-        "name": "Classic",
-        "category": "power point",
-        "preview": "static/previews/power point/classic.png",
-        "file_path": "templates/power point/classic.pptx",
-        "file_size": "35 KB"
+        "id": "modern_mrarmor",
+        "name": "Mrarmor",
+        "category": "modern",
+        "preview": "static/previews/modern/mrarmor.png",
+        "file_path": "templates\\modern\\mrarmor.pptx",
+        "file_size": "361 KB"
+    },
+    {
+        "id": "modern_sinie-tochki",
+        "name": "Sinie-Tochki",
+        "category": "modern",
+        "preview": "static/previews/modern/sinie-tochki.png",
+        "file_path": "templates\\modern\\sinie-tochki.pptx",
+        "file_size": "333 KB"
+    },
+    {
+        "id": "modern_siniy-kontur-wide",
+        "name": "Siniy-Kontur-Wide",
+        "category": "modern",
+        "preview": "static/previews/modern/siniy-kontur-wide.png",
+        "file_path": "templates\\modern\\siniy-kontur-wide.pptx",
+        "file_size": "206 KB"
+    },
+    {
+        "id": "modern_staraya-bumaga",
+        "name": "Staraya-Bumaga",
+        "category": "modern",
+        "preview": "static/previews/modern/staraya-bumaga.png",
+        "file_path": "templates\\modern\\staraya-bumaga.pptx",
+        "file_size": "397 KB"
     },
     {
         "id": "power_point_1",
         "name": "1",
         "category": "power point",
         "preview": "static/previews/power point/1.png",
-        "file_path": "templates/power point/1.pptx",
+        "file_path": "templates\\power point\\1.pptx",
         "file_size": "322 KB"
     },
     {
@@ -100,55 +84,71 @@
         "name": "10",
         "category": "power point",
         "preview": "static/previews/power point/10.png",
-        "file_path": "templates/power point/10.pptx",
+        "file_path": "templates\\power point\\10.pptx",
         "file_size": "45 KB"
-    },
-    {
-        "id": "power_point_3",
-        "name": "3",
-        "category": "power point",
-        "preview": "static/previews/power point/3.png",
-        "file_path": "templates/power point/3.pptx",
-        "file_size": "175 KB"
-    },
-    {
-        "id": "power_point_priroda",
-        "name": "Priroda",
-        "category": "power point",
-        "preview": "static/previews/power point/priroda.png",
-        "file_path": "templates/power point/priroda.pptx",
-        "file_size": "1034 KB"
     },
     {
         "id": "power_point_2",
         "name": "2",
         "category": "power point",
         "preview": "static/previews/power point/2.png",
-        "file_path": "templates/power point/2.pptx",
+        "file_path": "templates\\power point\\2.pptx",
         "file_size": "58 KB"
     },
     {
-        "id": "power_point_5",
-        "name": "5",
+        "id": "power_point_3",
+        "name": "3",
         "category": "power point",
-        "preview": "static/previews/power point/5.png",
-        "file_path": "templates/power point/5.pptx",
-        "file_size": "341 KB"
-    },
-    {
-        "id": "power_point_dark_premium",
-        "name": "Dark Premium",
-        "category": "power point",
-        "preview": "static/previews/power point/dark_premium.png",
-        "file_path": "templates/power point/dark_premium.pptx",
-        "file_size": "34 KB"
+        "preview": "static/previews/power point/3.png",
+        "file_path": "templates\\power point\\3.pptx",
+        "file_size": "175 KB"
     },
     {
         "id": "power_point_4",
         "name": "4",
         "category": "power point",
         "preview": "static/previews/power point/4.png",
-        "file_path": "templates/power point/4.pptx",
+        "file_path": "templates\\power point\\4.pptx",
         "file_size": "34 KB"
+    },
+    {
+        "id": "power_point_5",
+        "name": "5",
+        "category": "power point",
+        "preview": "static/previews/power point/5.png",
+        "file_path": "templates\\power point\\5.pptx",
+        "file_size": "341 KB"
+    },
+    {
+        "id": "power_point_6",
+        "name": "6",
+        "category": "power point",
+        "preview": "static/previews/power point/6.png",
+        "file_path": "templates\\power point\\6.pptx",
+        "file_size": "608 KB"
+    },
+    {
+        "id": "power_point_classic",
+        "name": "Classic",
+        "category": "power point",
+        "preview": "static/previews/power point/classic.png",
+        "file_path": "templates\\power point\\classic.pptx",
+        "file_size": "35 KB"
+    },
+    {
+        "id": "power_point_dark_premium",
+        "name": "Dark Premium",
+        "category": "power point",
+        "preview": "static/previews/power point/dark_premium.png",
+        "file_path": "templates\\power point\\dark_premium.pptx",
+        "file_size": "34 KB"
+    },
+    {
+        "id": "power_point_priroda",
+        "name": "Priroda",
+        "category": "power point",
+        "preview": "static/previews/power point/priroda.png",
+        "file_path": "templates\\power point\\priroda.pptx",
+        "file_size": "1034 KB"
     }
 ]
