@@ -3,139 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tilni tanlang | Выберите язык | Choose language</title>
+    <title>Ustoz AI | Til tanlash</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Premium Background Image */
         body {
             margin: 0;
-            padding: 20px;
-            background-color: var(--tg-theme-bg-color, #1a112c);
-            color: var(--tg-theme-text-color, #ffffff);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 0;
+            background-color: #0f0c29;
+            background-image: url('images/bg_brain.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            box-sizing: border-box;
-        }
-        .lang-card {
-            background-color: #12091e;
-            border-radius: 16px;
-            padding: 25px 20px;
-            width: 100%;
-            max-width: 400px;
+            overflow: hidden;
             position: relative;
-            box-sizing: border-box;
         }
-        .lang-row {
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Abstract Glow Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: 0;
+            animation: floatOrb 10s ease-in-out infinite alternate;
+        }
+        .orb-1 { width: 300px; height: 300px; background: #8b5cf6; top: -100px; left: -100px; }
+        .orb-2 { width: 250px; height: 250px; background: #3b82f6; bottom: -50px; right: -50px; animation-delay: -5s; }
+        
+        @keyframes floatOrb {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(50px) scale(1.1); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-container {
+            margin-bottom: 40px;
+            text-align: center;
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        .logo-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .logo-sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+        }
+
+        .lang-card-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .lang-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
         }
-        .lang-row:last-child {
-            margin-bottom: 0;
-        }
-        /* Vertical dotted line connecting the flags */
+
+        .lang-card:nth-child(1) { animation-delay: 0.1s; border-left: 4px solid #3b82f6; }
+        .lang-card:nth-child(2) { animation-delay: 0.2s; border-left: 4px solid #8b5cf6; }
+        .lang-card:nth-child(3) { animation-delay: 0.3s; border-left: 4px solid #ec4899; }
+
         .lang-card::before {
             content: '';
             position: absolute;
-            left: 31px;
-            top: 45px;
-            bottom: 45px;
-            width: 2px;
-            background: repeating-linear-gradient(
-                to bottom,
-                #6b48ff,
-                #6b48ff 4px,
-                transparent 4px,
-                transparent 8px
-            );
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .lang-card:hover, .lang-card:active {
+            transform: translateY(-4px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .lang-card:hover::before {
+            opacity: 1;
+        }
+
+        .flag {
+            font-size: 32px;
+            margin-right: 16px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
             z-index: 1;
         }
-        .icon-container {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #12091e;
-            z-index: 2;
-            margin-right: 15px;
-            font-size: 16px;
-        }
-        .text-content {
+
+        .lang-info {
             flex: 1;
-            padding-right: 10px;
+            z-index: 1;
         }
-        .text-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #a78bfa;
+
+        .lang-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
             margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
-        .text-subtitle {
-            font-size: 12px;
-            color: #9ca3af;
-            line-height: 1.4;
-        }
-        .lang-btn {
-            background-color: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 20px;
-            padding: 8px 14px;
+
+        .lang-desc {
             font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: opacity 0.2s, transform 0.1s;
-            white-space: nowrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: rgba(255,255,255,0.6);
         }
-        .lang-btn:active {
-            opacity: 0.8;
-            transform: scale(0.96);
+
+        .arrow {
+            color: rgba(255,255,255,0.3);
+            font-size: 20px;
+            transition: transform 0.3s, color 0.3s;
+            z-index: 1;
         }
+
+        .lang-card:hover .arrow {
+            transform: translateX(5px);
+            color: #fff;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8) translateY(-20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="lang-card">
-        <!-- UZ -->
-        <div class="lang-row">
-            <div class="icon-container">🇺🇿</div>
-            <div class="text-content">
-                <div class="text-title">🌐 Iltimos, tilni tanlang</div>
-                <div class="text-subtitle">Sizga qulay tilni tanlab, davom eting.</div>
-            </div>
-            <button class="lang-btn" onclick="selectLang('uz')">🇺🇿 O'zbekcha</button>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo-icon">🤖</div>
+            <h1 class="logo-text">Ustoz AI</h1>
+            <div class="logo-sub">Intellektual Yordamchingiz</div>
         </div>
 
-        <!-- RU -->
-        <div class="lang-row">
-            <div class="icon-container">🇷🇺</div>
-            <div class="text-content">
-                <div class="text-title" style="color: #c084fc;">Пожалуйста, выберите язык</div>
-                <div class="text-subtitle">Выберите удобный язык и продолжите.</div>
+        <div class="lang-card-wrapper">
+            <!-- UZ -->
+            <div class="lang-card" onclick="selectLang('uz')">
+                <div class="flag">🇺🇿</div>
+                <div class="lang-info">
+                    <div class="lang-title">O'zbekcha</div>
+                    <div class="lang-desc">Davom etish uchun tanlang</div>
+                </div>
+                <div class="arrow">→</div>
             </div>
-            <button class="lang-btn" onclick="selectLang('ru')">🇷🇺 Русский</button>
-        </div>
 
-        <!-- EN -->
-        <div class="lang-row">
-            <div class="icon-container">🇬🇧</div>
-            <div class="text-content">
-                <div class="text-title" style="color: #e879f9;">Please select a language</div>
-                <div class="text-subtitle">Choose your preferred language to continue.</div>
+            <!-- RU -->
+            <div class="lang-card" onclick="selectLang('ru')">
+                <div class="flag">🇷🇺</div>
+                <div class="lang-info">
+                    <div class="lang-title">Русский</div>
+                    <div class="lang-desc">Выберите для продолжения</div>
+                </div>
+                <div class="arrow">→</div>
             </div>
-            <button class="lang-btn" onclick="selectLang('en')">🇬🇧 English</button>
+
+            <!-- EN -->
+            <div class="lang-card" onclick="selectLang('en')">
+                <div class="flag">🇬🇧</div>
+                <div class="lang-info">
+                    <div class="lang-title">English</div>
+                    <div class="lang-desc">Choose to continue</div>
+                </div>
+                <div class="arrow">→</div>
+            </div>
         </div>
     </div>
 
@@ -146,14 +242,20 @@
         function selectLang(lang) {
             localStorage.setItem('bot_language', lang);
             
-            // Pass the selected language to catalog.html
+            // Add click effect
+            if(window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(50); // Haptic feedback
+            }
+
             const urlParams = new URLSearchParams(window.location.search);
             urlParams.set('lang', lang);
-            window.location.href = 'catalog.html?' + urlParams.toString();
+            
+            // Short delay for animation
+            setTimeout(() => {
+                window.location.href = 'catalog.html?' + urlParams.toString();
+            }, 150);
         }
 
-        // If the URL already contains a lang parameter (e.g. from the bot button), 
-        // we skip this page and go straight to the catalog
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('lang')) {
             localStorage.setItem('bot_language', urlParams.get('lang'));
