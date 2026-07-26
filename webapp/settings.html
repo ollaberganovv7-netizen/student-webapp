@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 
 <head>
@@ -276,13 +276,13 @@
 
     <!-- Topic editable input -->
     <div class="topic-card" id="topicCard">
-        <span class="topic-label">✏️ Mavzu (tahrirlash mumkin)</span>
+        <span class="topic-label">?? Mavzu (tahrirlash mumkin)</span>
         <textarea class="topic-input" id="topicInput" rows="2" placeholder="Mavzuni kiriting..."></textarea>
     </div>
 
     <!-- Quality Badge -->
     <div class="quality-badge" id="qualityBadge">
-        <span class="icon" id="qualityIcon">✨</span>
+        <span class="icon" id="qualityIcon">?</span>
         <div>
             <div id="qualityLabel">Standart</div>
             <div class="sub" id="qualitySub">Sifatli akademik taqdimot</div>
@@ -297,9 +297,9 @@
     <div class="input-group">
         <label>Til</label>
         <select id="language">
-            <option value="uz">O'zbekcha 🇺🇿</option>
-            <option value="ru">Русский 🇷🇺</option>
-            <option value="en">English 🇺🇸</option>
+            <option value="uz">O'zbekcha ????</option>
+            <option value="ru">������� ????</option>
+            <option value="en">English ????</option>
         </select>
     </div>
 
@@ -336,12 +336,12 @@
         const balance = parseInt(urlParams.get('balance') || '0');
         const topic = decodeURIComponent(urlParams.get('topic') || '');
 
-        // ── Document type configurations ──
+        // -- Document type configurations --
         const DOC_CONFIG = {
             referat: {
-                title: '📝 Referat sozlamalari',
-                qualityStd: { icon: '✨', label: 'Standart', sub: 'Sifatli akademik referat' },
-                qualityPro: { icon: '💎', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
+                title: '?? Referat sozlamalari',
+                qualityStd: { icon: '?', label: 'Standart', sub: 'Sifatli akademik referat' },
+                qualityPro: { icon: '??', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
                 pageMin: 10, pageMax: 30, pageDefault: 15,
                 priceSteps: {
                     standard: [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]],
@@ -349,7 +349,7 @@
                 }
             },
             mustaqil: {
-                title: '📄 Mustaqil ish sozlamalari',
+                title: '?? Mustaqil ish sozlamalari',
                 showUniversity: true,
                 showSpecialty: true,
                 showReviewer: true,
@@ -357,8 +357,8 @@
                 showMashgulot: false,
                 showQuality: true,
                 showAiImages: false,
-                qualityStd: { icon: '✨', label: 'Standart', sub: 'Sifatli mustaqil ish' },
-                qualityPro: { icon: '💎', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
+                qualityStd: { icon: '?', label: 'Standart', sub: 'Sifatli mustaqil ish' },
+                qualityPro: { icon: '??', label: 'Pro', sub: 'Chuqur ilmiy tahlil + manbalar' },
                 pageMin: 10, pageMax: 30, pageDefault: 15,
                 priceSteps: {
                     standard: [[15, 5000], [18, 8000], [21, 10000], [25, 13000], [30, 15000]],
@@ -366,9 +366,9 @@
                 }
             },
             uslubiy: {
-                title: '📗 Uslubiy ishlanma sozlamalari',
-                qualityStd: { icon: '💎', label: 'Pro', sub: "To'liq akademik uslubiy ishlanma" },
-                qualityPro: { icon: '💎', label: 'Pro', sub: "To'liq akademik uslubiy ishlanma" },
+                title: '?? Uslubiy ishlanma sozlamalari',
+                qualityStd: { icon: '??', label: 'Pro', sub: "To'liq akademik uslubiy ishlanma" },
+                qualityPro: { icon: '??', label: 'Pro', sub: "To'liq akademik uslubiy ishlanma" },
                 pageMin: 20, pageMax: 50, pageDefault: 25,
                 prices: { std_low: 13000, std_mid: 16000, std_high: 19000, pro_low: 13000, pro_mid: 16000, pro_high: 19000 },
                 priceTiers: [30, 40],
@@ -431,10 +431,10 @@
 
             const statusEl = document.getElementById('status');
             if (balance >= price) {
-                statusEl.innerText = '✅ Balans yetarli';
+                statusEl.innerText = '? Balans yetarli';
                 statusEl.className = 'price-status ok'; document.getElementById('saveBtn').innerText = T.save;
             } else {
-                statusEl.innerText = `⚠️ Yetishmaydi: ${(price - balance).toLocaleString()} so'm`;
+                statusEl.innerText = `?? Yetishmaydi: ${(price - balance).toLocaleString()} so'm`;
                 statusEl.className = 'price-status warn'; document.getElementById('saveBtn').innerText = T.save + ' (Chek orqali)';
             }
         }
@@ -446,7 +446,7 @@
             tg.HapticFeedback.impactOccurred("medium");
             const topicVal = document.getElementById('topicInput').value.trim();
             if (!topicVal) {
-                tg.showAlert("❗ Mavzu bo'sh bo'lishi mumkin emas!");
+                tg.showAlert("? Mavzu bo'sh bo'lishi mumkin emas!");
                 return;
             }
             const data = {
