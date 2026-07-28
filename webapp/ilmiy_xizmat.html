@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ilmiy Xizmat Sozlamalari</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding-bottom: 20px;
+        }
+
+        .service-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 14px;
+            padding: 14px 16px;
+        }
+
+        .service-badge .icon {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .service-badge .info {
+            flex: 1;
+        }
+
+        .service-badge .info h2 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+
+        .service-badge .info p {
+            margin: 3px 0 0;
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        .price-display {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--success, #10b981);
+            padding: 10px 0;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), transparent);
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .words-box {
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #93c5fd;
+            text-align: center;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        input[type="text"],
+        input[type="text"]:focus,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .textarea-field {
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 70px;
+            resize: vertical;
+            background: var(--input-bg, #1e293b);
+            border: 1px solid var(--border, #334155);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #e2e8f0;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .textarea-field:focus {
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Xizmat badge -->
+    <div class="service-badge animate-in" id="service-badge">
+        <div class="icon" id="svc-icon">📝</div>
+        <div class="info">
+            <h2 id="svc-name">Ilmiy xizmat</h2>
+            <p id="svc-desc">Sozlamalarni to'ldiring va yaratishni boshlang</p>
+        </div>
+    </div>
+
+    <!-- Mavzu -->
+    <div class="input-group animate-in">
+        <label>📌 Mavzu <span style="color:#ef4444">*</span></label>
+        <input type="text" id="topic" placeholder="Masalan: Sun'iy intellektning ta'limdagi o'rni">
+    </div>
+
+    <!-- Muallif -->
+    <div class="input-group animate-in">
+        <label>👤 Muallif ism-sharifi <span style="color:#ef4444">*</span></label>
+        <input type="text" id="author" placeholder="Masalan: Karimov Bobur Rashidovich">
+    </div>
+
+    <!-- Tashkilot va Ish joyi -->
+    <div class="input-group animate-in">
+        <label>🏛️ Tashkilot / Ish joyi va lavozimi <span style="color:#94a3b8; font-weight:400">(ixtiyoriy)</span></label>
+        <input type="text" id="workplace" placeholder="Masalan: Toshkent davlat texnika universiteti, dotsent">
+    </div>
+
+
+
+    <!-- Til -->
+    <div class="input-group animate-in">
+        <label>🌐 Til</label>
+        <select id="language">
+            <option value="uz">O'zbekcha 🇺🇿</option>
+            <option value="ru">Русский 🇷🇺</option>
+            <option value="en">English 🇬🇧</option>
+        </select>
+    </div>
+
+    <!-- Qo'shimcha ilmiy ma'lumotlar -->
+    <div class="input-group animate-in">
+        <label>🔑 Kalit so'zlar <span style="color:#94a3b8; font-weight:400">(ixtiyoriy)</span></label>
+        <input type="text" id="keywords" placeholder="Kiritilmasa, AI mustaqil tanlaydi">
+    </div>
+
+    <div class="input-group animate-in">
+        <label>🧠 Tadqiqot maqsadi va natijalari <span style="color:#94a3b8; font-weight:400">(ixtiyoriy)</span></label>
+        <textarea id="research_details" class="textarea-field" placeholder="Kiritilmasa, AI mavzudan kelib chiqib o'zi tahlil qiladi va natija yaratadi..."></textarea>
+    </div>
+
+    <!-- Sahifalar (faqat maqola uchun) -->
+    <div class="card animate-in" id="pages-card" style="padding:14px 16px;">
+        <div class="slider-header">
+            <span>📄 Hajmi (Sahifalar):</span>
+            <span class="slider-value" id="page-count">5</span>
+        </div>
+        <input type="range" id="pages" min="3" max="15" step="1" value="5">
+        <div class="range-labels" id="range-labels">
+            <span>3</span><span>6</span><span>9</span><span>12</span><span>15</span>
+        </div>
+    </div>
+
+    <!-- So'z soni va narx -->
+    <div class="words-box animate-in" id="words-info">
+        Hajmi: ~1 250 ta so'z
+    </div>
+
+    <div class="price-display animate-in" id="price-display">
+        Bepul ✨
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.setBackgroundColor('#0f172a');
+        tg.setHeaderColor('#0f172a');
+        tg.MainButton.text = "✅ Yaratishni boshlash";
+        tg.MainButton.show();
+
+        // Xizmat turlari
+        const SERVICES = {
+            // Maqolalar
+            "a_sci":     { icon: "🔬", name: "Ilmiy maqola",              desc: "OAK talablariga mos IMRAD strukturasi", type: "maqola", minP: 5, maxP: 15, basePrice: 4000 },
+            "a_pop_sci": { icon: "🔭", name: "Ilmiy-ommabop maqola",      desc: "Storytelling uslubida, keng kitobxon uchun", type: "maqola", minP: 3, maxP: 10, basePrice: 3000 },
+            "a_pop":     { icon: "📰", name: "Ommabop maqola",            desc: "Jurnalistik uslub — fakt, tahlil, ta'sir", type: "maqola", minP: 3, maxP: 10, basePrice: 3000 },
+            "a_art":     { icon: "🎭", name: "Badiiy-publitsistik maqola", desc: "Obrazlar, metaforalar, emotsional ta'sir", type: "maqola", minP: 3, maxP: 10, basePrice: 3000 },
+            // Tezislar
+            "t_conf":    { icon: "📝", name: "Konferensiya tezisi",        desc: "OAK/Konferensiya talablari, 200-500 so'z", type: "tezis", minP: 1, maxP: 3, basePrice: 2000 },
+            "t_art":     { icon: "📝", name: "Maqola tezisi (Abstract)",   desc: "3 tilda annotatsiya, kalit so'zlar", type: "tezis", minP: 1, maxP: 2, basePrice: 1500 },
+            "t_diss":    { icon: "🎓", name: "Dissertatsiya tezisi",       desc: "Avtoreferat uslubi — pasport, natijalar, tavsiya", type: "tezis", minP: 2, maxP: 5, basePrice: 3500 },
+            "t_pop":     { icon: "📊", name: "Ommabop / Tahliliy tezis",   desc: "Executive Summary — bullet points, faktlar", type: "tezis", minP: 1, maxP: 3, basePrice: 2000 },
+        };
+
+        // URL parametridan xizmat turini aniqlash
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceKey = urlParams.get('service') || 'a_sci';
+        const svc = SERVICES[serviceKey] || SERVICES['a_sci'];
+
+        // Xizmat badge'ini yangilash
+        document.getElementById('svc-icon').textContent = svc.icon;
+        document.getElementById('svc-name').textContent = svc.name;
+        document.getElementById('svc-desc').textContent = svc.desc;
+
+        // Tezislar uchun sahifa diapazonini moslash
+        const pagesInput = document.getElementById('pages');
+        const rangeLabels = document.getElementById('range-labels');
+        pagesInput.min = svc.minP;
+        pagesInput.max = svc.maxP;
+        pagesInput.value = svc.minP;
+
+        // Range labels yangilash
+        const labelCount = Math.min(5, svc.maxP - svc.minP + 1);
+        const step = (svc.maxP - svc.minP) / (labelCount - 1);
+        rangeLabels.innerHTML = '';
+        for (let i = 0; i < labelCount; i++) {
+            const val = Math.round(svc.minP + step * i);
+            const span = document.createElement('span');
+            span.textContent = val;
+            rangeLabels.appendChild(span);
+        }
+
+        const pageCountDisp = document.getElementById('page-count');
+        const priceDisp = document.getElementById('price-display');
+        const wordsInfo = document.getElementById('words-info');
+
+        function updateUI() {
+            const pages = parseInt(pagesInput.value);
+            pageCountDisp.textContent = pages;
+
+            const words = pages * 250;
+            wordsInfo.textContent = `Hajmi: ~${words.toLocaleString()} ta so'z`;
+
+            const price = svc.basePrice + (pages - svc.minP) * 500;
+            if (price <= 0) {
+                priceDisp.textContent = "Bepul ✨";
+            } else {
+                priceDisp.textContent = price.toLocaleString() + " so'm";
+            }
+        }
+
+        pagesInput.addEventListener('input', updateUI);
+        updateUI();
+
+        // Yuborish
+        tg.MainButton.onClick(() => {
+            const topic = document.getElementById('topic').value.trim();
+            const author = document.getElementById('author').value.trim();
+
+            if (topic.length < 5) {
+                tg.showAlert("❌ Iltimos, mavzuni to'liqroq kiriting (kamida 5 ta belgi).");
+                return;
+            }
+            if (author.length < 3) {
+                tg.showAlert("❌ Iltimos, muallif ismini kiriting.");
+                return;
+            }
+
+            const data = {
+                type: "ilmiy_xizmat",
+                service_key: serviceKey,
+                topic: topic,
+                author: author,
+                workplace: document.getElementById('workplace').value.trim(),
+                language: document.getElementById('language').value,
+                pages: parseInt(pagesInput.value),
+                keywords: document.getElementById('keywords').value.trim(),
+                research_details: document.getElementById('research_details').value.trim()
+            };
+
+            tg.sendData(JSON.stringify(data));
+        });
+    </script>
+</body>
+
+</html>
